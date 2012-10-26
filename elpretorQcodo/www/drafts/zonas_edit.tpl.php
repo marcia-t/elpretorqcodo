@@ -16,7 +16,7 @@
 	</div>
 
 	<div id="formControls">
-		<?php $this->lblIdZona->RenderWithName(); ?>
+		
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 

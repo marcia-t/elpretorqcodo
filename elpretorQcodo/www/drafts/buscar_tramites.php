@@ -21,6 +21,8 @@ class BuscarTramitesForm extends QForm {
 	protected $btnDeRegreso;
 	protected $tramitesSeleccionados = array();
 	protected $lblResponse;
+	protected $pnlList;
+	protected $pnlEdit;
 
 	protected function Form_Run() {
 		// Security check for ALLOW_REMOTE_ADMIN
@@ -29,6 +31,14 @@ class BuscarTramitesForm extends QForm {
 	}
 
 	protected function Form_Create() {
+		
+		
+		$this->pnlList = new QPanel($this, 'pnlList');
+		$this->pnlList->AutoRenderChildren = true;
+		
+		$this->pnlEdit = new QPanel($this, 'pnlEdit');
+		$this->pnlEdit->AutoRenderChildren = true;
+		$this->pnlEdit->Visible = false;
 		
 		$this->mctTramitesAsignados = TramitesAsignadosMetaControl::CreateFromPathInfo($this);
 		$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
