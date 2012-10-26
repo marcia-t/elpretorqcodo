@@ -13,6 +13,8 @@
 
 		<?php $_CONTROL->txtTelefono->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtNroAbogado->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

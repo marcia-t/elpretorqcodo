@@ -59,6 +59,7 @@
 			$this->dtgAbogadoses->MetaAddColumn('Nombre');
 			$this->dtgAbogadoses->MetaAddColumn('Apellido');
 			$this->dtgAbogadoses->MetaAddColumn('Telefono');
+			$this->dtgAbogadoses->MetaAddColumn('NroAbogado');
 		}
 	}
 
