@@ -45,6 +45,8 @@
          <li><a href='http://qcodo/drafts/modalidades_edit.php'><span>Agregar una nueva modalidad</span></a></li>
           <li><a href='http://qcodo/drafts/carpeta_tramites.php'><span>Carpeta de trámites</span></a></li>
       </ul>
+       <li class='has-sub'><a href='#'><span>Caja</span></a> </li>
+       <li class='has-sub'><a href='#'><span>Declaratoria</span></a> </li>
   
 </ul>
 </div>
