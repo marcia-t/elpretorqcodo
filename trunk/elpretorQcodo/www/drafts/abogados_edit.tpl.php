@@ -24,6 +24,8 @@
 
 		<?php $this->txtTelefono->RenderWithName(); ?>
 
+		<?php $this->txtNroAbogado->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

@@ -19,6 +19,7 @@
 	 * @property string $Nombre the value for strNombre (Not Null)
 	 * @property string $Apellido the value for strApellido (Not Null)
 	 * @property integer $Telefono the value for intTelefono 
+	 * @property integer $NroAbogado the value for intNroAbogado (Not Null)
 	 * @property TramitesAsignados $_TramitesAsignadosAsNroAbogado the value for the private _objTramitesAsignadosAsNroAbogado (Read-Only) if set due to an expansion on the tramites_asignados.nro_abogado reverse relationship
 	 * @property TramitesAsignados[] $_TramitesAsignadosAsNroAbogadoArray the value for the private _objTramitesAsignadosAsNroAbogadoArray (Read-Only) if set due to an ExpandAsArray on the tramites_asignados.nro_abogado reverse relationship
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
@@ -61,6 +62,14 @@
 		 */
 		protected $intTelefono;
 		const TelefonoDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column abogados.nro_abogado
+		 * @var integer intNroAbogado
+		 */
+		protected $intNroAbogado;
+		const NroAbogadoDefault = null;
 
 
 		/**
@@ -415,6 +424,7 @@
 			$objBuilder->AddSelectItem($strTableName, 'nombre', $strAliasPrefix . 'nombre');
 			$objBuilder->AddSelectItem($strTableName, 'apellido', $strAliasPrefix . 'apellido');
 			$objBuilder->AddSelectItem($strTableName, 'telefono', $strAliasPrefix . 'telefono');
+			$objBuilder->AddSelectItem($strTableName, 'nro_abogado', $strAliasPrefix . 'nro_abogado');
 		}
 
 
@@ -486,6 +496,8 @@
 			$objToReturn->strApellido = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'telefono', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'telefono'] : $strAliasPrefix . 'telefono';
 			$objToReturn->intTelefono = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$strAliasName = array_key_exists($strAliasPrefix . 'nro_abogado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nro_abogado'] : $strAliasPrefix . 'nro_abogado';
+			$objToReturn->intNroAbogado = $objDbRow->GetColumn($strAliasName, 'Integer');
 
 			// Instantiate Virtual Attributes
 			foreach ($objDbRow->GetColumnNameArray() as $strColumnName => $mixValue) {
@@ -628,11 +640,13 @@
 						INSERT INTO `abogados` (
 							`nombre`,
 							`apellido`,
-							`telefono`
+							`telefono`,
+							`nro_abogado`
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->strNombre) . ',
 							' . $objDatabase->SqlVariable($this->strApellido) . ',
-							' . $objDatabase->SqlVariable($this->intTelefono) . '
+							' . $objDatabase->SqlVariable($this->intTelefono) . ',
+							' . $objDatabase->SqlVariable($this->intNroAbogado) . '
 						)
 					');
 
@@ -654,7 +668,8 @@
 						SET
 							`nombre` = ' . $objDatabase->SqlVariable($this->strNombre) . ',
 							`apellido` = ' . $objDatabase->SqlVariable($this->strApellido) . ',
-							`telefono` = ' . $objDatabase->SqlVariable($this->intTelefono) . '
+							`telefono` = ' . $objDatabase->SqlVariable($this->intTelefono) . ',
+							`nro_abogado` = ' . $objDatabase->SqlVariable($this->intNroAbogado) . '
 						WHERE
 							`id_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
 					');
@@ -742,6 +757,7 @@
 			$this->strNombre = $objReloaded->strNombre;
 			$this->strApellido = $objReloaded->strApellido;
 			$this->intTelefono = $objReloaded->intTelefono;
+			$this->intNroAbogado = $objReloaded->intNroAbogado;
 		}
 
 		/**
@@ -758,6 +774,7 @@
 					`nombre`,
 					`apellido`,
 					`telefono`,
+					`nro_abogado`,
 					__sys_login_id,
 					__sys_action,
 					__sys_date
@@ -766,6 +783,7 @@
 					' . $objDatabase->SqlVariable($this->strNombre) . ',
 					' . $objDatabase->SqlVariable($this->strApellido) . ',
 					' . $objDatabase->SqlVariable($this->intTelefono) . ',
+					' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
 					' . (($objDatabase->JournaledById) ? $objDatabase->JournaledById : 'NULL') . ',
 					' . $objDatabase->SqlVariable($strJournalCommand) . ',
 					NOW()
@@ -835,6 +853,11 @@
 					// Gets the value for intTelefono 
 					// @return integer
 					return $this->intTelefono;
+
+				case 'NroAbogado':
+					// Gets the value for intNroAbogado (Not Null)
+					// @return integer
+					return $this->intNroAbogado;
 
 
 				///////////////////
@@ -913,6 +936,17 @@
 					// @return integer
 					try {
 						return ($this->intTelefono = QType::Cast($mixValue, QType::Integer));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'NroAbogado':
+					// Sets the value for intNroAbogado (Not Null)
+					// @param integer $mixValue
+					// @return integer
+					try {
+						return ($this->intNroAbogado = QType::Cast($mixValue, QType::Integer));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1145,6 +1179,7 @@
 			$strToReturn .= '<element name="Nombre" type="xsd:string"/>';
 			$strToReturn .= '<element name="Apellido" type="xsd:string"/>';
 			$strToReturn .= '<element name="Telefono" type="xsd:int"/>';
+			$strToReturn .= '<element name="NroAbogado" type="xsd:int"/>';
 			$strToReturn .= '<element name="__blnRestored" type="xsd:boolean"/>';
 			$strToReturn .= '</sequence></complexType>';
 			return $strToReturn;
@@ -1175,6 +1210,8 @@
 				$objToReturn->strApellido = $objSoapObject->Apellido;
 			if (property_exists($objSoapObject, 'Telefono'))
 				$objToReturn->intTelefono = $objSoapObject->Telefono;
+			if (property_exists($objSoapObject, 'NroAbogado'))
+				$objToReturn->intNroAbogado = $objSoapObject->NroAbogado;
 			if (property_exists($objSoapObject, '__blnRestored'))
 				$objToReturn->__blnRestored = $objSoapObject->__blnRestored;
 			return $objToReturn;
@@ -1212,6 +1249,7 @@
 	 * @property-read QQNode $Nombre
 	 * @property-read QQNode $Apellido
 	 * @property-read QQNode $Telefono
+	 * @property-read QQNode $NroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 */
 	class QQNodeAbogados extends QQNode {
@@ -1228,6 +1266,8 @@
 					return new QQNode('apellido', 'Apellido', 'string', $this);
 				case 'Telefono':
 					return new QQNode('telefono', 'Telefono', 'integer', $this);
+				case 'NroAbogado':
+					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
 				case 'TramitesAsignadosAsNroAbogado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasnroabogado', 'reverse_reference', 'nro_abogado');
 
@@ -1249,6 +1289,7 @@
 	 * @property-read QQNode $Nombre
 	 * @property-read QQNode $Apellido
 	 * @property-read QQNode $Telefono
+	 * @property-read QQNode $NroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
@@ -1266,6 +1307,8 @@
 					return new QQNode('apellido', 'Apellido', 'string', $this);
 				case 'Telefono':
 					return new QQNode('telefono', 'Telefono', 'integer', $this);
+				case 'NroAbogado':
+					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
 				case 'TramitesAsignadosAsNroAbogado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasnroabogado', 'reverse_reference', 'nro_abogado');
 
