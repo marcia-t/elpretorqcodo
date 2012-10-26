@@ -5,7 +5,6 @@ class CarpetaTramitesForm extends QForm {
 	
 	protected $lstAgentes;
 	protected $lstZonas;
-	protected $pnlTitle;
 	protected $pnlList;
 	protected $pnlEdit;
 	protected $mctTramitesAsignados;

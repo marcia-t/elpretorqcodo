@@ -16,7 +16,7 @@
 	</div>
 
 	<div id="formControls">
-		<?php $this->lblIdModalidad->RenderWithName(); ?>
+		
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 
