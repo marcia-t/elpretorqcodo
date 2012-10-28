@@ -156,6 +156,7 @@
 		protected $lblFechaVencimiento;
 
 
+		protected $dtxCalendar;
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
 
 		// QLabel Controls (if applicable) to view Unique ReverseReferences and ManyToMany References

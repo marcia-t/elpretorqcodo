@@ -12,7 +12,7 @@
 	<?php $this->RenderBegin() ?>
 
 	<div id="titleBar">
-		<h2><?php _t('Crear un nuevo trámite')?></h2>
+		<h2>Crear/editar un trámite</h2>
 	</div>
 
 	<div id="formControls">
