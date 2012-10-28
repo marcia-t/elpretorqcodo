@@ -11,7 +11,7 @@
 		protected $strDateTimePickerFormat = QDateTimePickerFormat::MonthDayYear;
 
 		// If these stay null, then it will use the $DefaultMinimumYear and $DefaultMaximumYear static variables on QDateTimePicker
-		protected $intMinimumYear = null;
+		protected $intMinimumYear = 2012;
 		protected $intMaximumYear = null;
 
 		// Default format of the Hour field (see http://www.php.net/date for more info)

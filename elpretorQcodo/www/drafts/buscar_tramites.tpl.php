@@ -8,6 +8,7 @@
 	<div id="left2">
 		<div id="formControls">
 
+		
 			<?php $this->lblResponse->Render(); ?>
 
 			<?php $this->lstIdAgenteObject->RenderWithName(); ?>
@@ -23,6 +24,8 @@
 			<?php $this->lstTipoTramiteObject->RenderWithName(); ?>
 
 			<?php $this->calFechaVencimiento->RenderWithName(); ?>
+			
+			<?php $this->txtAutos->RenderWithName(); ?>
 
 
 			<div id="save">
