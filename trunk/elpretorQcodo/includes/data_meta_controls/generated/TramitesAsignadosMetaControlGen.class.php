@@ -30,6 +30,8 @@
 	 * property-read QLabel $FechaSalidaLabel
 	 * property QListBox $TipoTramiteControl
 	 * property-read QLabel $TipoTramiteLabel
+	 * property QTextBox $AutosControl
+	 * property-read QLabel $AutosLabel
 	 * property QDateTimePicker $FechaVencimientoControl
 	 * property-read QLabel $FechaVencimientoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
@@ -106,6 +108,12 @@
 		protected $lstTipoTramiteObject;
 
         /**
+         * @var QTextBox txtAutos;
+         * @access protected
+         */
+		protected $txtAutos;
+
+        /**
          * @var QDateTimePicker calFechaVencimiento;
          * @access protected
          */
@@ -150,13 +158,18 @@
 		protected $lblTipoTramite;
 
         /**
+         * @var QLabel lblAutos
+         * @access protected
+         */
+		protected $lblAutos;
+
+        /**
          * @var QLabel lblFechaVencimiento
          * @access protected
          */
 		protected $lblFechaVencimiento;
 
 
-		protected $dtxCalendar;
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
 
 		// QLabel Controls (if applicable) to view Unique ReverseReferences and ManyToMany References
@@ -278,7 +291,7 @@
 		 */
 		public function lstIdAgenteObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdAgenteObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdAgenteObject->Name = 'Agente';
+			$this->lstIdAgenteObject->Name = QApplication::Translate('Id Agente Object');
 			$this->lstIdAgenteObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdAgenteObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -306,7 +319,7 @@
 		 */
 		public function lblIdAgente_Create($strControlId = null) {
 			$this->lblIdAgente = new QLabel($this->objParentObject, $strControlId);
-			$this->lblIdAgente->Name = 'Agente';
+			$this->lblIdAgente->Name = QApplication::Translate('Id Agente Object');
 			$this->lblIdAgente->Text = ($this->objTramitesAsignados->IdAgenteObject) ? $this->objTramitesAsignados->IdAgenteObject->__toString() : null;
 			$this->lblIdAgente->Required = true;
 			return $this->lblIdAgente;
@@ -321,7 +334,7 @@
 		 */
 		public function lstNroAbogadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstNroAbogadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstNroAbogadoObject->Name = 'Nro. Abogado';
+			$this->lstNroAbogadoObject->Name = QApplication::Translate('Nro Abogado Object');
 			$this->lstNroAbogadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -364,7 +377,7 @@
 		 */
 		public function lstIdEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdEstadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdEstadoObject->Name = 'Estado';
+			$this->lstIdEstadoObject->Name = QApplication::Translate('Id Estado Object');
 			$this->lstIdEstadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -392,7 +405,7 @@
 		 */
 		public function lblIdEstado_Create($strControlId = null) {
 			$this->lblIdEstado = new QLabel($this->objParentObject, $strControlId);
-			$this->lblIdEstado->Name = 'Estado';
+			$this->lblIdEstado->Name = QApplication::Translate('Id Estado Object');
 			$this->lblIdEstado->Text = ($this->objTramitesAsignados->IdEstadoObject) ? $this->objTramitesAsignados->IdEstadoObject->__toString() : null;
 			$this->lblIdEstado->Required = true;
 			return $this->lblIdEstado;
@@ -467,7 +480,7 @@
 		 */
 		public function lstTipoTramiteObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstTipoTramiteObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstTipoTramiteObject->Name = 'Tipo de trámite';
+			$this->lstTipoTramiteObject->Name = QApplication::Translate('Tipo Tramite Object');
 			$this->lstTipoTramiteObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstTipoTramiteObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -499,6 +512,31 @@
 			$this->lblTipoTramite->Text = ($this->objTramitesAsignados->TipoTramiteObject) ? $this->objTramitesAsignados->TipoTramiteObject->__toString() : null;
 			$this->lblTipoTramite->Required = true;
 			return $this->lblTipoTramite;
+		}
+
+		/**
+		 * Create and setup QTextBox txtAutos
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtAutos_Create($strControlId = null) {
+			$this->txtAutos = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtAutos->Name = QApplication::Translate('Autos');
+			$this->txtAutos->Text = $this->objTramitesAsignados->Autos;
+			$this->txtAutos->MaxLength = TramitesAsignados::AutosMaxLength;
+			return $this->txtAutos;
+		}
+
+		/**
+		 * Create and setup QLabel lblAutos
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblAutos_Create($strControlId = null) {
+			$this->lblAutos = new QLabel($this->objParentObject, $strControlId);
+			$this->lblAutos->Name = QApplication::Translate('Autos');
+			$this->lblAutos->Text = $this->objTramitesAsignados->Autos;
+			return $this->lblAutos;
 		}
 
 		/**
@@ -607,6 +645,9 @@
 			}
 			if ($this->lblTipoTramite) $this->lblTipoTramite->Text = ($this->objTramitesAsignados->TipoTramiteObject) ? $this->objTramitesAsignados->TipoTramiteObject->__toString() : null;
 
+			if ($this->txtAutos) $this->txtAutos->Text = $this->objTramitesAsignados->Autos;
+			if ($this->lblAutos) $this->lblAutos->Text = $this->objTramitesAsignados->Autos;
+
 			if ($this->calFechaVencimiento) $this->calFechaVencimiento->DateTime = $this->objTramitesAsignados->FechaVencimiento;
 			if ($this->lblFechaVencimiento) $this->lblFechaVencimiento->Text = sprintf($this->objTramitesAsignados->FechaVencimiento) ? $this->objTramitesAsignados->__toString($this->strFechaVencimientoDateTimeFormat) : null;
 
@@ -639,6 +680,7 @@
 				if ($this->calFechaIngreso) $this->objTramitesAsignados->FechaIngreso = $this->calFechaIngreso->DateTime;
 				if ($this->calFechaSalida) $this->objTramitesAsignados->FechaSalida = $this->calFechaSalida->DateTime;
 				if ($this->lstTipoTramiteObject) $this->objTramitesAsignados->TipoTramite = $this->lstTipoTramiteObject->SelectedValue;
+				if ($this->txtAutos) $this->objTramitesAsignados->Autos = $this->txtAutos->Text;
 				if ($this->calFechaVencimiento) $this->objTramitesAsignados->FechaVencimiento = $this->calFechaVencimiento->DateTime;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
@@ -724,6 +766,12 @@
 				case 'TipoTramiteLabel':
 					if (!$this->lblTipoTramite) return $this->lblTipoTramite_Create();
 					return $this->lblTipoTramite;
+				case 'AutosControl':
+					if (!$this->txtAutos) return $this->txtAutos_Create();
+					return $this->txtAutos;
+				case 'AutosLabel':
+					if (!$this->lblAutos) return $this->lblAutos_Create();
+					return $this->lblAutos;
 				case 'FechaVencimientoControl':
 					if (!$this->calFechaVencimiento) return $this->calFechaVencimiento_Create();
 					return $this->calFechaVencimiento;
@@ -766,6 +814,8 @@
 						return ($this->calFechaSalida = QType::Cast($mixValue, 'QControl'));
 					case 'TipoTramiteControl':
 						return ($this->lstTipoTramiteObject = QType::Cast($mixValue, 'QControl'));
+					case 'AutosControl':
+						return ($this->txtAutos = QType::Cast($mixValue, 'QControl'));
 					case 'FechaVencimientoControl':
 						return ($this->calFechaVencimiento = QType::Cast($mixValue, 'QControl'));
 					default:

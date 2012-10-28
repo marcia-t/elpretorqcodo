@@ -72,6 +72,7 @@
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaIngreso');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
 			$this->dtgTramitesAsignadoses->MetaAddColumn(QQN::TramitesAsignados()->TipoTramiteObject);
+			$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
 
 			// Setup the Create New button
