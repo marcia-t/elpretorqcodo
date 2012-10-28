@@ -5,7 +5,7 @@
 	// Be sure to move this out of this directory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('TramitesAsignados') . ' - ' . QApplication::Translate('List All');
+	$strPageTitle = 'Trámites asignados en curso';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 

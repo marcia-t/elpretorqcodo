@@ -5,7 +5,7 @@
 	// Be sure to move this out of this directory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('Zonases') . ' - ' . QApplication::Translate('List All');
+	$strPageTitle = 'Listado de zonas';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 
@@ -18,7 +18,7 @@
 	<?php $this->dtgZonases->Render(); ?>
 
 	<p class="create">
-		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/zonas_edit.php"><?php _t('Create a New'); ?> <?php _t('Zonas');?></a>
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/zonas_edit.php">Agregar zona</a>
 	</p>
 
 	<?php $this->RenderEnd() ?>
