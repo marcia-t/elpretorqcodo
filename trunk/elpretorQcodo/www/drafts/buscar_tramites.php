@@ -17,6 +17,7 @@ class BuscarTramitesForm extends QForm {
 	protected $btnBuscar;
 	protected $btnLimpiar;
 	protected $btnEnCurso;
+	protected $txtAutos;
 	protected $btnFinalizar;
 	protected $btnDeRegreso;
 	protected $tramitesSeleccionados = array();
@@ -55,6 +56,8 @@ class BuscarTramitesForm extends QForm {
 		$this->lstTipoTramiteObject->Required = false;
 		$this->calFechaVencimiento = $this->mctTramitesAsignados->calFechaVencimiento_Create();
 		$this->calFechaVencimiento->Required = false;
+		$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
+		$this->txtAutos->Required = false;
 		$this->dtgTramitesAsignadoses = new TramitesAsignadosDataGrid($this);
 
 		// Style the DataGrid (if desired)
@@ -122,7 +125,7 @@ class BuscarTramitesForm extends QForm {
 		if ($this->calFechaSalida) $this->datos['fechaSalida'] = $this->calFechaSalida->DateTime;
 		if ($this->lstTipoTramiteObject) $this->datos['tipoTramite'] = $this->lstTipoTramiteObject->SelectedValue;
 		if ($this->calFechaVencimiento) $this->datos['fechaVencimiento'] = $this->calFechaVencimiento->DateTime;
-		
+		if ($this->txtAutos) $this->datos['txtAutos'] = $this->txtAutos->Text;
 		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
 	}
 
@@ -149,6 +152,7 @@ class BuscarTramitesForm extends QForm {
 		$this->calFechaSalida->DateTime = null;
 		$this->lstTipoTramiteObject->SelectedValue = null;
 		$this->calFechaVencimiento->DateTime = null;
+		$this->txtAutos->Text = null;
 	}
 
 
@@ -234,6 +238,11 @@ class BuscarTramitesForm extends QForm {
 		if (isset ($this->datos['fechaVencimiento'])) {
 			$id = $this->datos['fechaVencimiento']->PHPDate('Y-m-d');
 			$sql.=" AND fecha_vencimiento = '$id'";
+		}
+		
+		if (($this->datos['txtAutos'] != '')) {
+			$id = $this->datos['txtAutos'];
+			$sql.=" AND autos LIKE '%$id%'";
 		}
 
 		$objDbResult = $objDatabase->Query($sql);

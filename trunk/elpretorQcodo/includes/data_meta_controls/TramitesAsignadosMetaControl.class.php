@@ -19,5 +19,25 @@
 	 * @subpackage MetaControls
 	 */
 	class TramitesAsignadosMetaControl extends TramitesAsignadosMetaControlGen {
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaIngreso
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		/*public function calFechaIngreso_CreateBis($strControlId = null) {
+			$this->calFechaIngreso = new QDateTimePicker($this->objParentObject, $strControlId);
+			$this->calFechaIngreso->Name = QApplication::Translate('Fecha Ingreso');
+			$this->calFechaIngreso->DateTime = $this->objTramitesAsignados->FechaIngreso;
+			$this->calFechaIngreso->DateTimePickerType = QDateTimePickerType::Date;
+			$this->calFechaIngreso->Required = true;
+			return $this->calFechaIngreso;
+			$dtxLinkedControl  =  new QDateTimeTextBox($this, 'foo');
+			$dtxLinkedControl->Visible = false;
+			$this->calFechaIngreso = new QCalendar($this, $dtxLinkedControl);
+			$this->calFechaIngreso->DateTime = $this->objTramitesAsignados->FechaIngreso;
+			$this->calFechaIngreso->Required = true;
+			return $this->calFechaIngreso;
+		}*/
 	}
 ?>
