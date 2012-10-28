@@ -5,7 +5,7 @@
 	// Be sure to move this out of this directory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('Modalidadeses') . ' - ' . QApplication::Translate('List All');
+	$strPageTitle = 'Listado de modalidades';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 
@@ -18,7 +18,7 @@
 	<?php $this->dtgModalidadeses->Render(); ?>
 
 	<p class="create">
-		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/modalidades_edit.php"><?php _t('Create a New'); ?> <?php _t('Modalidades');?></a>
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/modalidades_edit.php">Crear una nueva modalidad</a>
 	</p>
 
 	<?php $this->RenderEnd() ?>

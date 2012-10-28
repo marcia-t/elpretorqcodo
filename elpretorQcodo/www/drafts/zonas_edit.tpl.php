@@ -5,7 +5,7 @@
 	// Be sure to move this out of the generated/ subdirectory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('Zonas') . ' - ' . $this->mctZonas->TitleVerb;
+	$strPageTitle = 'Zonas';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 

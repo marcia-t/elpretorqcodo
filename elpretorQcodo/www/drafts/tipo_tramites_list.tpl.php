@@ -5,7 +5,7 @@
 	// Be sure to move this out of this directory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('TipoTramiteses') . ' - ' . QApplication::Translate('List All');
+	$strPageTitle = 'Listado de tipo de trámites';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 
@@ -18,7 +18,7 @@
 	<?php $this->dtgTipoTramiteses->Render(); ?>
 
 	<p class="create">
-		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/tipo_tramites_edit.php"><?php _t('Create a New'); ?> <?php _t('TipoTramites');?></a>
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__) ?>/tipo_tramites_edit.php">Crear tipo de trámite</a>
 	</p>
 
 	<?php $this->RenderEnd() ?>

@@ -1,4 +1,6 @@
-<?php require(__INCLUDES__ . '/header.inc.php'); ?>
+<?php 
+$strPageTitle = 'Buscar trámites';
+require(__INCLUDES__ . '/header.inc.php'); ?>
 <?php $this->RenderBegin(); ?>
 
 <div id="titleBar">
