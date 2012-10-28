@@ -19,6 +19,8 @@
 
 		<?php $_CONTROL->lstTipoTramiteObject->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtAutos->RenderWithName(); ?>
+
 		<?php $_CONTROL->calFechaVencimiento->RenderWithName(); ?>
 
 	</div>

@@ -29,6 +29,8 @@
 
 		<?php $this->lstTipoTramiteObject->RenderWithName(); ?>
 
+		<?php $this->txtAutos->RenderWithName(); ?>
+
 		<?php $this->calFechaVencimiento->RenderWithName(); ?>
 
 	</div>

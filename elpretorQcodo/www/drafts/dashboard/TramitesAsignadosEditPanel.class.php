@@ -27,6 +27,7 @@
 		public $calFechaIngreso;
 		public $calFechaSalida;
 		public $lstTipoTramiteObject;
+		public $txtAutos;
 		public $calFechaVencimiento;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
@@ -64,6 +65,7 @@
 			$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
 			$this->calFechaSalida = $this->mctTramitesAsignados->calFechaSalida_Create();
 			$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create();
+			$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
 			$this->calFechaVencimiento = $this->mctTramitesAsignados->calFechaVencimiento_Create();
 
 			// Create Buttons and Actions on this Form
