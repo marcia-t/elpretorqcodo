@@ -30,7 +30,7 @@
 
 		// Other Controls
 		protected $btnSave;
-		
+		protected $btnDelete;
 		protected $btnCancel;
 
 		// Create QForm Event Handlers as Needed

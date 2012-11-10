@@ -9,6 +9,8 @@
 
 		<?php $_CONTROL->txtNombre->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtActivo->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

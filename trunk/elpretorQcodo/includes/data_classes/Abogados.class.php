@@ -24,7 +24,18 @@
 		 * @return string a nicely formatted string representation of this object
 		 */
 		public function __toString() {
-			return sprintf('%s',  $this->intNroAbogado);
+			return sprintf('%s',  $this->strNroAbogado);
+		}
+		
+	 	public function bindAll(){
+			$objDatabase = Abogados::GetDatabase();
+				
+			$sql = "SELECT *
+			FROM abogados
+			WHERE activo = 1";
+				
+			$objDbResult = $objDatabase->Query($sql);
+			return Abogados::InstantiateDbResult($objDbResult);
 		}
 
 

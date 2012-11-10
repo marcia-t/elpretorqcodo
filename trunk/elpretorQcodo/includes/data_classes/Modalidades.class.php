@@ -27,6 +27,17 @@
 			return sprintf('%s',  $this->strNombre);
 		}
 
+		
+		public function bindAll(){
+			$objDatabase = Modalidades::GetDatabase();
+		
+			$sql = "SELECT *
+			FROM modalidades
+			WHERE activo = 1";
+		
+			$objDbResult = $objDatabase->Query($sql);
+			return Modalidades::InstantiateDbResult($objDbResult);
+		}
 
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...

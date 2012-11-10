@@ -15,6 +15,8 @@
 
 		<?php $_CONTROL->txtNroAbogado->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtActivo->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

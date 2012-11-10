@@ -21,6 +21,8 @@
 
 		<?php $_CONTROL->lstIdZonaObject->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtActivo->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

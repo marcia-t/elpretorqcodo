@@ -295,6 +295,7 @@
 			} else if (is_string($mixContent)) switch ($mixContent) {
 				case 'IdModalidad': return QQN::Modalidades()->IdModalidad;
 				case 'Nombre': return QQN::Modalidades()->Nombre;
+				case 'Activo': return QQN::Modalidades()->Activo;
 				default: throw new QCallerException('Simple Property not found in ModalidadesDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

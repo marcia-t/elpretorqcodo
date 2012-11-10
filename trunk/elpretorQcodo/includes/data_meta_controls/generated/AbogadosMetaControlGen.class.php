@@ -24,8 +24,10 @@
 	 * property-read QLabel $ApellidoLabel
 	 * property QIntegerTextBox $TelefonoControl
 	 * property-read QLabel $TelefonoLabel
-	 * property QIntegerTextBox $NroAbogadoControl
+	 * property QTextBox $NroAbogadoControl
 	 * property-read QLabel $NroAbogadoLabel
+	 * property QIntegerTextBox $ActivoControl
+	 * property-read QLabel $ActivoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -82,10 +84,16 @@
 		protected $txtTelefono;
 
         /**
-         * @var QIntegerTextBox txtNroAbogado;
+         * @var QTextBox txtNroAbogado;
          * @access protected
          */
 		protected $txtNroAbogado;
+
+        /**
+         * @var QIntegerTextBox txtActivo;
+         * @access protected
+         */
+		protected $txtActivo;
 
 
 		// Controls that allow the viewing of Abogados's individual data fields
@@ -112,6 +120,12 @@
          * @access protected
          */
 		protected $lblNroAbogado;
+
+        /**
+         * @var QLabel lblActivo
+         * @access protected
+         */
+		protected $lblActivo;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -307,31 +321,58 @@
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtNroAbogado
+		 * Create and setup QTextBox txtNroAbogado
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtNroAbogado_Create($strControlId = null) {
-			$this->txtNroAbogado = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtNroAbogado = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtNroAbogado->Name = QApplication::Translate('Nro Abogado');
 			$this->txtNroAbogado->Text = $this->objAbogados->NroAbogado;
 			$this->txtNroAbogado->Required = true;
+			$this->txtNroAbogado->MaxLength = Abogados::NroAbogadoMaxLength;
 			return $this->txtNroAbogado;
 		}
 
 		/**
 		 * Create and setup QLabel lblNroAbogado
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblNroAbogado_Create($strControlId = null, $strFormat = null) {
+		public function lblNroAbogado_Create($strControlId = null) {
 			$this->lblNroAbogado = new QLabel($this->objParentObject, $strControlId);
 			$this->lblNroAbogado->Name = QApplication::Translate('Nro Abogado');
 			$this->lblNroAbogado->Text = $this->objAbogados->NroAbogado;
 			$this->lblNroAbogado->Required = true;
-			$this->lblNroAbogado->Format = $strFormat;
 			return $this->lblNroAbogado;
+		}
+
+		/**
+		 * Create and setup QIntegerTextBox txtActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @return QIntegerTextBox
+		 */
+		public function txtActivo_Create($strControlId = null) {
+			$this->txtActivo = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtActivo->Name = QApplication::Translate('Activo');
+			$this->txtActivo->Text = $this->objAbogados->Activo;
+			$this->txtActivo->Required = true;
+			return $this->txtActivo;
+		}
+
+		/**
+		 * Create and setup QLabel lblActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @param string $strFormat optional sprintf format to use
+		 * @return QLabel
+		 */
+		public function lblActivo_Create($strControlId = null, $strFormat = null) {
+			$this->lblActivo = new QLabel($this->objParentObject, $strControlId);
+			$this->lblActivo->Name = QApplication::Translate('Activo');
+			$this->lblActivo->Text = $this->objAbogados->Activo;
+			$this->lblActivo->Required = true;
+			$this->lblActivo->Format = $strFormat;
+			return $this->lblActivo;
 		}
 
 
@@ -358,6 +399,9 @@
 
 			if ($this->txtNroAbogado) $this->txtNroAbogado->Text = $this->objAbogados->NroAbogado;
 			if ($this->lblNroAbogado) $this->lblNroAbogado->Text = $this->objAbogados->NroAbogado;
+
+			if ($this->txtActivo) $this->txtActivo->Text = $this->objAbogados->Activo;
+			if ($this->lblActivo) $this->lblActivo->Text = $this->objAbogados->Activo;
 
 		}
 
@@ -386,6 +430,7 @@
 				if ($this->txtApellido) $this->objAbogados->Apellido = $this->txtApellido->Text;
 				if ($this->txtTelefono) $this->objAbogados->Telefono = $this->txtTelefono->Text;
 				if ($this->txtNroAbogado) $this->objAbogados->NroAbogado = $this->txtNroAbogado->Text;
+				$this->objAbogados->Activo = 1;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -458,6 +503,12 @@
 				case 'NroAbogadoLabel':
 					if (!$this->lblNroAbogado) return $this->lblNroAbogado_Create();
 					return $this->lblNroAbogado;
+				case 'ActivoControl':
+					if (!$this->txtActivo) return $this->txtActivo_Create();
+					return $this->txtActivo;
+				case 'ActivoLabel':
+					if (!$this->lblActivo) return $this->lblActivo_Create();
+					return $this->lblActivo;
 				default:
 					try {
 						return parent::__get($strName);
@@ -490,6 +541,8 @@
 						return ($this->txtTelefono = QType::Cast($mixValue, 'QControl'));
 					case 'NroAbogadoControl':
 						return ($this->txtNroAbogado = QType::Cast($mixValue, 'QControl'));
+					case 'ActivoControl':
+						return ($this->txtActivo = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

@@ -32,6 +32,8 @@
 	 * property-read QLabel $IdModalidadLabel
 	 * property QListBox $IdZonaControl
 	 * property-read QLabel $IdZonaLabel
+	 * property QIntegerTextBox $ActivoControl
+	 * property-read QLabel $ActivoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -111,6 +113,12 @@
          */
 		protected $lstIdZonaObject;
 
+        /**
+         * @var QIntegerTextBox txtActivo;
+         * @access protected
+         */
+		protected $txtActivo;
+
 
 		// Controls that allow the viewing of TipoTramites's individual data fields
         /**
@@ -154,6 +162,12 @@
          * @access protected
          */
 		protected $lblIdZona;
+
+        /**
+         * @var QLabel lblActivo
+         * @access protected
+         */
+		protected $lblActivo;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -411,7 +425,7 @@
 		 */
 		public function lstIdModalidadObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdModalidadObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdModalidadObject->Name = 'Modalidad';
+			$this->lstIdModalidadObject->Name = QApplication::Translate('Id Modalidad Object');
 			$this->lstIdModalidadObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdModalidadObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -439,7 +453,7 @@
 		 */
 		public function lblIdModalidad_Create($strControlId = null) {
 			$this->lblIdModalidad = new QLabel($this->objParentObject, $strControlId);
-			$this->lblIdModalidad->Name = 'Modalidad';
+			$this->lblIdModalidad->Name = QApplication::Translate('Id Modalidad Object');
 			$this->lblIdModalidad->Text = ($this->objTipoTramites->IdModalidadObject) ? $this->objTipoTramites->IdModalidadObject->__toString() : null;
 			$this->lblIdModalidad->Required = true;
 			return $this->lblIdModalidad;
@@ -454,7 +468,7 @@
 		 */
 		public function lstIdZonaObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdZonaObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdZonaObject->Name = 'Zona';
+			$this->lstIdZonaObject->Name = QApplication::Translate('Id Zona Object');
 			$this->lstIdZonaObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdZonaObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -482,10 +496,38 @@
 		 */
 		public function lblIdZona_Create($strControlId = null) {
 			$this->lblIdZona = new QLabel($this->objParentObject, $strControlId);
-			$this->lblIdZona->Name = 'Zona';
+			$this->lblIdZona->Name = QApplication::Translate('Id Zona Object');
 			$this->lblIdZona->Text = ($this->objTipoTramites->IdZonaObject) ? $this->objTipoTramites->IdZonaObject->__toString() : null;
 			$this->lblIdZona->Required = true;
 			return $this->lblIdZona;
+		}
+
+		/**
+		 * Create and setup QIntegerTextBox txtActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @return QIntegerTextBox
+		 */
+		public function txtActivo_Create($strControlId = null) {
+			$this->txtActivo = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtActivo->Name = QApplication::Translate('Activo');
+			$this->txtActivo->Text = $this->objTipoTramites->Activo;
+			$this->txtActivo->Required = true;
+			return $this->txtActivo;
+		}
+
+		/**
+		 * Create and setup QLabel lblActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @param string $strFormat optional sprintf format to use
+		 * @return QLabel
+		 */
+		public function lblActivo_Create($strControlId = null, $strFormat = null) {
+			$this->lblActivo = new QLabel($this->objParentObject, $strControlId);
+			$this->lblActivo->Name = QApplication::Translate('Activo');
+			$this->lblActivo->Text = $this->objTipoTramites->Activo;
+			$this->lblActivo->Required = true;
+			$this->lblActivo->Format = $strFormat;
+			return $this->lblActivo;
 		}
 
 
@@ -544,6 +586,9 @@
 			}
 			if ($this->lblIdZona) $this->lblIdZona->Text = ($this->objTipoTramites->IdZonaObject) ? $this->objTipoTramites->IdZonaObject->__toString() : null;
 
+			if ($this->txtActivo) $this->txtActivo->Text = $this->objTipoTramites->Activo;
+			if ($this->lblActivo) $this->lblActivo->Text = $this->objTipoTramites->Activo;
+
 		}
 
 
@@ -574,6 +619,7 @@
 				if ($this->txtObservaciones) $this->objTipoTramites->Observaciones = $this->txtObservaciones->Text;
 				if ($this->lstIdModalidadObject) $this->objTipoTramites->IdModalidad = $this->lstIdModalidadObject->SelectedValue;
 				if ($this->lstIdZonaObject) $this->objTipoTramites->IdZona = $this->lstIdZonaObject->SelectedValue;
+				if ($this->txtActivo) $this->objTipoTramites->Activo = $this->txtActivo->Text;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -664,6 +710,12 @@
 				case 'IdZonaLabel':
 					if (!$this->lblIdZona) return $this->lblIdZona_Create();
 					return $this->lblIdZona;
+				case 'ActivoControl':
+					if (!$this->txtActivo) return $this->txtActivo_Create();
+					return $this->txtActivo;
+				case 'ActivoLabel':
+					if (!$this->lblActivo) return $this->lblActivo_Create();
+					return $this->lblActivo;
 				default:
 					try {
 						return parent::__get($strName);
@@ -702,6 +754,8 @@
 						return ($this->lstIdModalidadObject = QType::Cast($mixValue, 'QControl'));
 					case 'IdZonaControl':
 						return ($this->lstIdZonaObject = QType::Cast($mixValue, 'QControl'));
+					case 'ActivoControl':
+						return ($this->txtActivo = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

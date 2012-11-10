@@ -16,6 +16,7 @@
 	</div>
 
 	<div id="formControls">
+		<?php $this->lblIdTramiteAsignado->RenderWithName(); ?>
 
 		<?php $this->lstIdAgenteObject->RenderWithName(); ?>
 

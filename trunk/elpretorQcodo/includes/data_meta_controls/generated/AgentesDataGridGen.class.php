@@ -295,6 +295,7 @@
 			} else if (is_string($mixContent)) switch ($mixContent) {
 				case 'IdAgente': return QQN::Agentes()->IdAgente;
 				case 'NombreApellido': return QQN::Agentes()->NombreApellido;
+				case 'Activo': return QQN::Agentes()->Activo;
 				default: throw new QCallerException('Simple Property not found in AgentesDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

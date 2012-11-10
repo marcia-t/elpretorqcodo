@@ -25,6 +25,7 @@
 		// Controls for Zonas's Data Fields
 		protected $lblIdZona;
 		protected $txtNombre;
+		protected $txtActivo;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -53,6 +54,7 @@
 			// Call MetaControl's methods to create qcontrols based on Zonas's data fields
 			$this->lblIdZona = $this->mctZonas->lblIdZona_Create();
 			$this->txtNombre = $this->mctZonas->txtNombre_Create();
+			$this->txtActivo = $this->mctZonas->txtActivo_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

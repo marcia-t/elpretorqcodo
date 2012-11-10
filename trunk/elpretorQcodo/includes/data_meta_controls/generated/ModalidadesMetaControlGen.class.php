@@ -20,6 +20,8 @@
 	 * property-read QLabel $IdModalidadLabel
 	 * property QTextBox $NombreControl
 	 * property-read QLabel $NombreLabel
+	 * property QIntegerTextBox $ActivoControl
+	 * property-read QLabel $ActivoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -63,6 +65,12 @@
          */
 		protected $txtNombre;
 
+        /**
+         * @var QIntegerTextBox txtActivo;
+         * @access protected
+         */
+		protected $txtActivo;
+
 
 		// Controls that allow the viewing of Modalidades's individual data fields
         /**
@@ -70,6 +78,12 @@
          * @access protected
          */
 		protected $lblNombre;
+
+        /**
+         * @var QLabel lblActivo
+         * @access protected
+         */
+		protected $lblActivo;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -211,6 +225,34 @@
 			return $this->lblNombre;
 		}
 
+		/**
+		 * Create and setup QIntegerTextBox txtActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @return QIntegerTextBox
+		 */
+		public function txtActivo_Create($strControlId = null) {
+			$this->txtActivo = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtActivo->Name = QApplication::Translate('Activo');
+			$this->txtActivo->Text = $this->objModalidades->Activo;
+			$this->txtActivo->Required = true;
+			return $this->txtActivo;
+		}
+
+		/**
+		 * Create and setup QLabel lblActivo
+		 * @param string $strControlId optional ControlId to use
+		 * @param string $strFormat optional sprintf format to use
+		 * @return QLabel
+		 */
+		public function lblActivo_Create($strControlId = null, $strFormat = null) {
+			$this->lblActivo = new QLabel($this->objParentObject, $strControlId);
+			$this->lblActivo->Name = QApplication::Translate('Activo');
+			$this->lblActivo->Text = $this->objModalidades->Activo;
+			$this->lblActivo->Required = true;
+			$this->lblActivo->Format = $strFormat;
+			return $this->lblActivo;
+		}
+
 
 
 		/**
@@ -226,6 +268,9 @@
 
 			if ($this->txtNombre) $this->txtNombre->Text = $this->objModalidades->Nombre;
 			if ($this->lblNombre) $this->lblNombre->Text = $this->objModalidades->Nombre;
+
+			if ($this->txtActivo) $this->txtActivo->Text = $this->objModalidades->Activo;
+			if ($this->lblActivo) $this->lblActivo->Text = $this->objModalidades->Activo;
 
 		}
 
@@ -251,6 +296,7 @@
 			try {
 				// Update any fields for controls that have been created
 				if ($this->txtNombre) $this->objModalidades->Nombre = $this->txtNombre->Text;
+				if ($this->txtActivo) $this->objModalidades->Activo = $this->txtActivo->Text;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -305,6 +351,12 @@
 				case 'NombreLabel':
 					if (!$this->lblNombre) return $this->lblNombre_Create();
 					return $this->lblNombre;
+				case 'ActivoControl':
+					if (!$this->txtActivo) return $this->txtActivo_Create();
+					return $this->txtActivo;
+				case 'ActivoLabel':
+					if (!$this->lblActivo) return $this->lblActivo_Create();
+					return $this->lblActivo;
 				default:
 					try {
 						return parent::__get($strName);
@@ -331,6 +383,8 @@
 						return ($this->lblIdModalidad = QType::Cast($mixValue, 'QControl'));
 					case 'NombreControl':
 						return ($this->txtNombre = QType::Cast($mixValue, 'QControl'));
+					case 'ActivoControl':
+						return ($this->txtActivo = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

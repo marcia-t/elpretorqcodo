@@ -57,7 +57,10 @@
 			// can traverse down QQN::agentes() to display fields that are down the hierarchy)
 			$this->dtgAgenteses->MetaAddColumn('IdAgente');
 			$this->dtgAgenteses->MetaAddColumn('NombreApellido');
+			$this->dtgAgenteses->DataSource = Agentes::bindAll();
 		}
+		
+		
 	}
 
 	// Go ahead and run this form object to generate the page and event handlers, implicitly using
