@@ -55,7 +55,6 @@
 
 			// Create the Other Columns (note that you can use strings for tramites_asignados's properties, or you
 			// can traverse down QQN::tramites_asignados() to display fields that are down the hierarchy)
-			$this->dtgTramitesAsignadoses->AgregarColumna('IdTramiteAsignado', 'Tramite');
 			$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdAgenteObject, 'Agente');
 			$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->NroAbogadoObject, 'Abogado');
 			$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdEstadoObject, 'Estado');

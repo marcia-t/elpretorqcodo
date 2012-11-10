@@ -55,7 +55,6 @@
 
 			// Create the Other Columns (note that you can use strings for tipo_tramites's properties, or you
 			// can traverse down QQN::tipo_tramites() to display fields that are down the hierarchy)
-			$this->dtgTipoTramiteses->AgregarColumna('IdTipoTramite', 'Tipo de trámite');
 			$this->dtgTipoTramiteses->MetaAddColumn('Nombre');
 			$this->dtgTipoTramiteses->MetaAddColumn('Timbrado');
 			$this->dtgTipoTramiteses->MetaAddColumn('Honorario');
