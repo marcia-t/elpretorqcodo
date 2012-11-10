@@ -7,7 +7,7 @@ require(__INCLUDES__ . '/headervisita.inc.php'); ?>
 	<h2>Buscar trámites</h2>
 </div>
 <div id="dashboard">
-	<div id="left2">
+	<div id="left3" >
 		<div id="formControls">
 
 		

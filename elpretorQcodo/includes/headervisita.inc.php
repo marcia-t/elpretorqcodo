@@ -19,4 +19,4 @@
    <li class='active'><a href='http://qcodo/drafts/buscar_tramites_visita.php'><span>Inicio</span></a></li>
 </ul>
 </div>
-	</head><body> 
+</head><body> 

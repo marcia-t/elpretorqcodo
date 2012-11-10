@@ -41,11 +41,14 @@ class BuscarTramitesForm extends QForm {
 		$this->lstIdEstadoObject->Required = false;
 		$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
 		$this->calFechaIngreso->Required = false;
+		$this->calFechaIngreso->Name = 'Fecha desde:';
 		$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
 		$this->txtAutos->Required = false;
 		$this->txtAbogado = new QTextBox($this);
 		$this->txtAbogado->Name = 'Nombre o apellido del abogado';
 		$this->txtAbogado->Required = false;
+		
+		
 		$this->dtgTramitesAsignadoses = new TramitesAsignadosDataGrid($this);
 
 		// Style the DataGrid (if desired)
@@ -70,7 +73,6 @@ class BuscarTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaIngreso');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
-		/*$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Seleccionar', '<?= $_FORM->chkSelected_Render($_ITEM) ?>','HtmlEntities=false'));*/
 		$this->btnBuscar = new QButton($this);
 		$this->btnBuscar->Text = 'Buscar';
 		$this->btnBuscar->AddAction(new QClickEvent(), new QAjaxAction('btnBuscar_Click'));
@@ -81,17 +83,7 @@ class BuscarTramitesForm extends QForm {
 		$this->btnLimpiar->AddAction(new QClickEvent(), new QAjaxAction('btnLimpiar_Click'));
 
 		
-		/*$this->btnFinalizar = new QButton($this);
-		$this->btnFinalizar->Text = 'Finalizar';
-		$this->btnFinalizar->AddAction(new QClickEvent(), new QAjaxAction('btnFinalizar_Click'));
 		
-		$this->btnDeRegreso = new QButton($this);
-		$this->btnDeRegreso->Text = 'De regreso';
-		$this->btnDeRegreso->AddAction(new QClickEvent(), new QAjaxAction('btnDeRegreso_Click'));
-		
-		$this->btnEnCurso = new QButton($this);
-		$this->btnEnCurso->Text = 'En curso';
-		$this->btnEnCurso->AddAction(new QClickEvent(), new QAjaxAction('btnEnCurso_Click'));*/
 	}
 
 	
@@ -106,20 +98,7 @@ class BuscarTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
 	}
 
-	protected function btnFinalizar_Click($strFormId, $strControlId, $strParameter) {
-		$this->finalizarTramitesSeleccionados();
-		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
-	}
 	
-	protected function btnEnCurso_Click($strFormId, $strControlId, $strParameter) {
-		$this->enCursoTramitesSeleccionados();
-		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
-	}
-	
-	protected function btnDeRegreso_Click($strFormId, $strControlId, $strParameter) {
-		$this->deRegresoTramitesSeleccionados();
-		$this->dtgTramitesAsignadoses->Refresh();
-	}
 	
 	protected function btnLimpiar_Click($strFormId, $strControlId, $strParameter) {
 		$this->calFechaIngreso->DateTime = null;
@@ -194,7 +173,7 @@ class BuscarTramitesForm extends QForm {
 
 		if (isset ($this->datos['fechaIngreso'])) {
 			$id = $this->datos['fechaIngreso']->PHPDate('Y-m-d');
-			$sql.=" AND fecha_ingreso = '$id'";
+			$sql.=" AND fecha_ingreso > '$id'";
 		}
 
 
