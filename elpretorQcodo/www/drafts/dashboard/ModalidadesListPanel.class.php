@@ -67,6 +67,7 @@
 			// can traverse down QQN::modalidades() to display fields that are down the hierarchy)
 			$this->dtgModalidadeses->MetaAddColumn('IdModalidad');
 			$this->dtgModalidadeses->MetaAddColumn('Nombre');
+			$this->dtgModalidadeses->MetaAddColumn('Activo');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

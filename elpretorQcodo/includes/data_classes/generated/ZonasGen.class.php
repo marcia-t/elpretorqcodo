@@ -17,6 +17,7 @@
 	 * @subpackage GeneratedDataObjects
 	 * @property integer $IdZona the value for intIdZona (Read-Only PK)
 	 * @property string $Nombre the value for strNombre (Not Null)
+	 * @property integer $Activo the value for intActivo (Not Null)
 	 * @property TipoTramites $_TipoTramitesAsIdZona the value for the private _objTipoTramitesAsIdZona (Read-Only) if set due to an expansion on the tipo_tramites.id_zona reverse relationship
 	 * @property TipoTramites[] $_TipoTramitesAsIdZonaArray the value for the private _objTipoTramitesAsIdZonaArray (Read-Only) if set due to an ExpandAsArray on the tipo_tramites.id_zona reverse relationship
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
@@ -42,6 +43,14 @@
 		protected $strNombre;
 		const NombreMaxLength = 45;
 		const NombreDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column zonas.activo
+		 * @var integer intActivo
+		 */
+		protected $intActivo;
+		const ActivoDefault = null;
 
 
 		/**
@@ -394,6 +403,7 @@
 
 			$objBuilder->AddSelectItem($strTableName, 'id_zona', $strAliasPrefix . 'id_zona');
 			$objBuilder->AddSelectItem($strTableName, 'nombre', $strAliasPrefix . 'nombre');
+			$objBuilder->AddSelectItem($strTableName, 'activo', $strAliasPrefix . 'activo');
 		}
 
 
@@ -461,6 +471,8 @@
 			$objToReturn->intIdZona = $objDbRow->GetColumn($strAliasName, 'Integer');
 			$strAliasName = array_key_exists($strAliasPrefix . 'nombre', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nombre'] : $strAliasPrefix . 'nombre';
 			$objToReturn->strNombre = $objDbRow->GetColumn($strAliasName, 'VarChar');
+			$strAliasName = array_key_exists($strAliasPrefix . 'activo', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'activo'] : $strAliasPrefix . 'activo';
+			$objToReturn->intActivo = $objDbRow->GetColumn($strAliasName, 'Integer');
 
 			// Instantiate Virtual Attributes
 			foreach ($objDbRow->GetColumnNameArray() as $strColumnName => $mixValue) {
@@ -601,9 +613,11 @@
 					// Perform an INSERT query
 					$objDatabase->NonQuery('
 						INSERT INTO `zonas` (
-							`nombre`
+							`nombre`,
+							`activo`
 						) VALUES (
-							' . $objDatabase->SqlVariable($this->strNombre) . '
+							' . $objDatabase->SqlVariable($this->strNombre) . ',
+							' . $objDatabase->SqlVariable($this->intActivo) . '
 						)
 					');
 
@@ -623,7 +637,8 @@
 						UPDATE
 							`zonas`
 						SET
-							`nombre` = ' . $objDatabase->SqlVariable($this->strNombre) . '
+							`nombre` = ' . $objDatabase->SqlVariable($this->strNombre) . ',
+							`activo` = ' . $objDatabase->SqlVariable($this->intActivo) . '
 						WHERE
 							`id_zona` = ' . $objDatabase->SqlVariable($this->intIdZona) . '
 					');
@@ -709,6 +724,7 @@
 
 			// Update $this's local variables to match
 			$this->strNombre = $objReloaded->strNombre;
+			$this->intActivo = $objReloaded->intActivo;
 		}
 
 		/**
@@ -723,12 +739,14 @@
 				INSERT INTO `zonas` (
 					`id_zona`,
 					`nombre`,
+					`activo`,
 					__sys_login_id,
 					__sys_action,
 					__sys_date
 				) VALUES (
 					' . $objDatabase->SqlVariable($this->intIdZona) . ',
 					' . $objDatabase->SqlVariable($this->strNombre) . ',
+					' . $objDatabase->SqlVariable($this->intActivo) . ',
 					' . (($objDatabase->JournaledById) ? $objDatabase->JournaledById : 'NULL') . ',
 					' . $objDatabase->SqlVariable($strJournalCommand) . ',
 					NOW()
@@ -789,6 +807,11 @@
 					// @return string
 					return $this->strNombre;
 
+				case 'Activo':
+					// Gets the value for intActivo (Not Null)
+					// @return integer
+					return $this->intActivo;
+
 
 				///////////////////
 				// Member Objects
@@ -844,6 +867,17 @@
 					// @return string
 					try {
 						return ($this->strNombre = QType::Cast($mixValue, QType::String));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'Activo':
+					// Sets the value for intActivo (Not Null)
+					// @param integer $mixValue
+					// @return integer
+					try {
+						return ($this->intActivo = QType::Cast($mixValue, QType::Integer));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1074,6 +1108,7 @@
 			$strToReturn = '<complexType name="Zonas"><sequence>';
 			$strToReturn .= '<element name="IdZona" type="xsd:int"/>';
 			$strToReturn .= '<element name="Nombre" type="xsd:string"/>';
+			$strToReturn .= '<element name="Activo" type="xsd:int"/>';
 			$strToReturn .= '<element name="__blnRestored" type="xsd:boolean"/>';
 			$strToReturn .= '</sequence></complexType>';
 			return $strToReturn;
@@ -1100,6 +1135,8 @@
 				$objToReturn->intIdZona = $objSoapObject->IdZona;
 			if (property_exists($objSoapObject, 'Nombre'))
 				$objToReturn->strNombre = $objSoapObject->Nombre;
+			if (property_exists($objSoapObject, 'Activo'))
+				$objToReturn->intActivo = $objSoapObject->Activo;
 			if (property_exists($objSoapObject, '__blnRestored'))
 				$objToReturn->__blnRestored = $objSoapObject->__blnRestored;
 			return $objToReturn;
@@ -1135,6 +1172,7 @@
 	/**
 	 * @property-read QQNode $IdZona
 	 * @property-read QQNode $Nombre
+	 * @property-read QQNode $Activo
 	 * @property-read QQReverseReferenceNodeTipoTramites $TipoTramitesAsIdZona
 	 */
 	class QQNodeZonas extends QQNode {
@@ -1147,6 +1185,8 @@
 					return new QQNode('id_zona', 'IdZona', 'integer', $this);
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
+				case 'Activo':
+					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'TipoTramitesAsIdZona':
 					return new QQReverseReferenceNodeTipoTramites($this, 'tipotramitesasidzona', 'reverse_reference', 'id_zona');
 
@@ -1166,6 +1206,7 @@
 	/**
 	 * @property-read QQNode $IdZona
 	 * @property-read QQNode $Nombre
+	 * @property-read QQNode $Activo
 	 * @property-read QQReverseReferenceNodeTipoTramites $TipoTramitesAsIdZona
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
@@ -1179,6 +1220,8 @@
 					return new QQNode('id_zona', 'IdZona', 'integer', $this);
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
+				case 'Activo':
+					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'TipoTramitesAsIdZona':
 					return new QQReverseReferenceNodeTipoTramites($this, 'tipotramitesasidzona', 'reverse_reference', 'id_zona');
 

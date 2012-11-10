@@ -16,6 +16,7 @@
 	</div>
 
 	<div id="formControls">
+		<?php $this->lblIdTipoTramite->RenderWithName(); ?>
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 
@@ -31,12 +32,13 @@
 
 		<?php $this->lstIdZonaObject->RenderWithName(); ?>
 
+
 	</div>
 
 	<div id="formActions">
 		<div id="save"><?php $this->btnSave->Render(); ?></div>
 		<div id="cancel"><?php $this->btnCancel->Render(); ?></div>
-		
+		<div id="delete"><?php $this->btnDelete->Render(); ?></div>
 	</div>
 
 	<?php $this->RenderEnd() ?>	

@@ -29,6 +29,16 @@
 		}
 
 
+		public function bindAll(){
+			$objDatabase = TipoTramites::GetDatabase();
+		
+			$sql = "SELECT *
+			FROM tipo_tramites
+			WHERE activo = 1";
+		
+			$objDbResult = $objDatabase->Query($sql);
+			return TipoTramites::InstantiateDbResult($objDbResult);
+		}
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
 		// but feel free to use these as a starting point)

@@ -28,6 +28,7 @@
 		public $txtObservaciones;
 		public $lstIdModalidadObject;
 		public $lstIdZonaObject;
+		public $txtActivo;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -65,6 +66,7 @@
 			$this->txtObservaciones = $this->mctTipoTramites->txtObservaciones_Create();
 			$this->lstIdModalidadObject = $this->mctTipoTramites->lstIdModalidadObject_Create();
 			$this->lstIdZonaObject = $this->mctTipoTramites->lstIdZonaObject_Create();
+			$this->txtActivo = $this->mctTipoTramites->txtActivo_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

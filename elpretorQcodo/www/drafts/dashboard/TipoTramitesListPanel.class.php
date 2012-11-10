@@ -73,6 +73,7 @@
 			$this->dtgTipoTramiteses->MetaAddColumn('Observaciones');
 			$this->dtgTipoTramiteses->MetaAddColumn(QQN::TipoTramites()->IdModalidadObject);
 			$this->dtgTipoTramiteses->MetaAddColumn(QQN::TipoTramites()->IdZonaObject);
+			$this->dtgTipoTramiteses->MetaAddColumn('Activo');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

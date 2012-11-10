@@ -67,6 +67,7 @@
 			// can traverse down QQN::agentes() to display fields that are down the hierarchy)
 			$this->dtgAgenteses->MetaAddColumn('IdAgente');
 			$this->dtgAgenteses->MetaAddColumn('NombreApellido');
+			$this->dtgAgenteses->MetaAddColumn('Activo');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

@@ -25,6 +25,7 @@
 		// Controls for Agentes's Data Fields
 		protected $lblIdAgente;
 		protected $txtNombreApellido;
+		protected $txtActivo;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 

@@ -28,6 +28,16 @@
 		}
 
 
+		public function bindAll(){
+			$objDatabase = Agentes::GetDatabase();
+				
+			$sql = "SELECT *
+			FROM agentes
+			WHERE activo = 1";
+				
+			$objDbResult = $objDatabase->Query($sql);
+			return Agentes::InstantiateDbResult($objDbResult);
+		}
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
 		// but feel free to use these as a starting point)

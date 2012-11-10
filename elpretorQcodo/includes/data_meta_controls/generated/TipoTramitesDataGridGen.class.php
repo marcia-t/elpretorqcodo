@@ -303,6 +303,7 @@
 				case 'IdModalidadObject': return QQN::TipoTramites()->IdModalidadObject;
 				case 'IdZona': return QQN::TipoTramites()->IdZona;
 				case 'IdZonaObject': return QQN::TipoTramites()->IdZonaObject;
+				case 'Activo': return QQN::TipoTramites()->Activo;
 				default: throw new QCallerException('Simple Property not found in TipoTramitesDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

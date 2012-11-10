@@ -63,6 +63,8 @@
 			$this->dtgTipoTramiteses->MetaAddColumn('Observaciones');
 			$this->dtgTipoTramiteses->AgregarColumna(QQN::TipoTramites()->IdModalidadObject, 'Modalidad');
 			$this->dtgTipoTramiteses->AgregarColumna(QQN::TipoTramites()->IdZonaObject, 'Zona');
+			
+			$this->dtgTipoTramiteses->DataSource = TipoTramites::bindAll();
 		}
 	}
 
