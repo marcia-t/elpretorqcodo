@@ -54,7 +54,6 @@
 
 			// Create the Other Columns (note that you can use strings for abogados's properties, or you
 			// can traverse down QQN::abogados() to display fields that are down the hierarchy)
-			$this->dtgAbogadoses->MetaAddColumn('IdAbogado');
 			$this->dtgAbogadoses->MetaAddColumn('Nombre');
 			$this->dtgAbogadoses->MetaAddColumn('Apellido');
 			$this->dtgAbogadoses->MetaAddColumn('Telefono');

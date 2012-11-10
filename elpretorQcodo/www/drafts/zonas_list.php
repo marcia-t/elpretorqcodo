@@ -55,7 +55,6 @@
 
 			// Create the Other Columns (note that you can use strings for zonas's properties, or you
 			// can traverse down QQN::zonas() to display fields that are down the hierarchy)
-			$this->dtgZonases->MetaAddColumn('IdZona');
 			$this->dtgZonases->MetaAddColumn('Nombre');
 			
 			$this->dtgZonases->DataSource = Zonas::bindAll();

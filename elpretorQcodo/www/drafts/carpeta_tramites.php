@@ -15,6 +15,10 @@ class CarpetaTramitesForm extends QForm {
 	protected $idZona;
 	protected $lblResponse;
 	protected $chkFinalizados;
+	protected $calFechaIngreso;
+	protected $calFechaSalida;
+	protected $fechaSalida;
+	protected $fechaIngreso;
 
 
 	protected function Form_Create() {
@@ -52,7 +56,6 @@ class CarpetaTramitesForm extends QForm {
 		//$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__ . '/tramites_asignados_edit.php';
 		//$this->dtgTramitesAsignadoses->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
 
-		$this->dtgTramitesAsignadoses->AgregarColumna('IdTramiteAsignado', 'Trámite');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdAgenteObject, 'Agente');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->NroAbogadoObject, 'Abogado');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdEstadoObject, 'Estado');
@@ -67,8 +70,11 @@ class CarpetaTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Finalizar', '<?= $_FORM->finalizar_Render($_ITEM) ?>','HtmlEntities=false'));
 		//$this->dtgTramitesAsignadoses->DataSource = TramitesAsignados::LoadAll();
 		$this->dtgTramitesAsignadoses->DataSource  = $this->generaSQLYBuscar();
-		$this->lstAgentes = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
-		$this->lstZonas = $this->mctTipoTramite->lstIdZonaObject_Create();
+		$this->lstAgentes = $this->mctTramitesAsignados->lstIdAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
+		$this->lstZonas = $this->mctTipoTramite->lstIdZonaObject_Create(null, QQ::Equal(QQN::Zonas()->Activo, 1));
+		$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
+		$this->calFechaSalida = $this->mctTramitesAsignados->calFechaSalida_Create();
+
 
 		$this->btnMostrar = new QButton($this);
 		$this->btnMostrar->Text = 'Mostrar';
@@ -158,6 +164,8 @@ class CarpetaTramitesForm extends QForm {
 
 		$this->idAgente = $this->lstAgentes->SelectedValue;
 		$this->idZona = $this->lstZonas->SelectedValue;
+		if ($this->calFechaIngreso) $this->fechaIngreso = $this->calFechaIngreso->DateTime;
+		if ($this->calFechaSalida) $this->fechaSalida = $this->calFechaSalida->DateTime;
 		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
 
 	}
@@ -179,6 +187,16 @@ class CarpetaTramitesForm extends QForm {
 
 		if ($this->idZona)
 			$sql.= " AND id_zona = $this->idZona";
+
+		if ($this->fechaIngreso){
+			$fecha_ingreso= $this->fechaIngreso->PHPDate('Y-m-d');
+			$sql.= " AND fecha_ingreso ='$fecha_ingreso'";
+		}
+
+		if ($this->fechaSalida){
+			$fecha_salida = $this->fechaSalida->PHPDate('Y-m-d');
+			$sql.= " AND fecha_salida = '$fecha_salida'";
+		}
 
 		$objDbResult = $objDatabase->Query($sql);
 		return TramitesAsignados::InstantiateDbResult($objDbResult);

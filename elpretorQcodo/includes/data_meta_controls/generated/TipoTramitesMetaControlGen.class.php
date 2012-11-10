@@ -425,7 +425,7 @@
 		 */
 		public function lstIdModalidadObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdModalidadObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdModalidadObject->Name = QApplication::Translate('Id Modalidad Object');
+			$this->lstIdModalidadObject->Name = 'Modalidad';
 			$this->lstIdModalidadObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdModalidadObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -468,7 +468,7 @@
 		 */
 		public function lstIdZonaObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdZonaObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdZonaObject->Name = QApplication::Translate('Id Zona Object');
+			$this->lstIdZonaObject->Name = 'Zona';
 			$this->lstIdZonaObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdZonaObject->AddItem(QApplication::Translate('- Select One -'), null);

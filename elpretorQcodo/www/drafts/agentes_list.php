@@ -55,7 +55,6 @@
 
 			// Create the Other Columns (note that you can use strings for agentes's properties, or you
 			// can traverse down QQN::agentes() to display fields that are down the hierarchy)
-			$this->dtgAgenteses->MetaAddColumn('IdAgente');
 			$this->dtgAgenteses->MetaAddColumn('NombreApellido');
 			$this->dtgAgenteses->DataSource = Agentes::bindAll();
 		}

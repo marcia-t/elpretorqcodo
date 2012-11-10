@@ -291,7 +291,7 @@
 		 */
 		public function lstIdAgenteObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdAgenteObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdAgenteObject->Name = QApplication::Translate('Id Agente Object');
+			$this->lstIdAgenteObject->Name = 'Agente';
 			$this->lstIdAgenteObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdAgenteObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -334,7 +334,7 @@
 		 */
 		public function lstNroAbogadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstNroAbogadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstNroAbogadoObject->Name = QApplication::Translate('Nro Abogado Object');
+			$this->lstNroAbogadoObject->Name = 'Nro. Abogado';
 			$this->lstNroAbogadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -377,7 +377,7 @@
 		 */
 		public function lstIdEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdEstadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstIdEstadoObject->Name = QApplication::Translate('Id Estado Object');
+			$this->lstIdEstadoObject->Name = 'Estado';
 			$this->lstIdEstadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstIdEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -480,7 +480,7 @@
 		 */
 		public function lstTipoTramiteObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstTipoTramiteObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstTipoTramiteObject->Name = QApplication::Translate('Tipo Tramite Object');
+			$this->lstTipoTramiteObject->Name = 'Tipo de trámite';
 			$this->lstTipoTramiteObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstTipoTramiteObject->AddItem(QApplication::Translate('- Select One -'), null);
