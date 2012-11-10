@@ -57,12 +57,12 @@
 			$this->mctTramitesAsignados = TramitesAsignadosMetaControl::CreateFromPathInfo($this);
 
 			// Call MetaControl's methods to create qcontrols based on TramitesAsignados's data fields
-			$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
-			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create();
+			$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
+			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1));
 			$this->lstIdEstadoObject = $this->mctTramitesAsignados->lstIdEstadoObject_Create();
 			$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
 			$this->calFechaSalida = $this->mctTramitesAsignados->calFechaSalida_Create();
-			$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create();
+			$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create(null, QQ::Equal(QQN::TipoTramites()->Activo, 1));
 			$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
 			$this->calFechaVencimiento = $this->mctTramitesAsignados->calFechaVencimiento_Create();
 
