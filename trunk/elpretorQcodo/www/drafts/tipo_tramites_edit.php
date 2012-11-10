@@ -23,7 +23,6 @@
 		protected $mctTipoTramites;
 
 		// Controls for TipoTramites's Data Fields
-		protected $lblIdTipoTramite;
 		protected $txtNombre;
 		protected $txtTimbrado;
 		protected $txtHonorario;
@@ -57,7 +56,6 @@
 			$this->mctTipoTramites = TipoTramitesMetaControl::CreateFromPathInfo($this);
 
 			// Call MetaControl's methods to create qcontrols based on TipoTramites's data fields
-			$this->lblIdTipoTramite = $this->mctTipoTramites->lblIdTipoTramite_Create();
 			$this->txtNombre = $this->mctTipoTramites->txtNombre_Create();
 			$this->txtTimbrado = $this->mctTipoTramites->txtTimbrado_Create();
 			$this->txtHonorario = $this->mctTipoTramites->txtHonorario_Create();
@@ -78,7 +76,7 @@
 
 			$this->btnDelete = new QButton($this);
 			$this->btnDelete->Text = QApplication::Translate('Delete');
-			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction(QApplication::Translate('Are you SURE you want to DELETE this') . ' ' . QApplication::Translate('TipoTramites') . '?'));
+			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction('¿Está seguro de eliminar este tipo de trámite?'));
 			$this->btnDelete->AddAction(new QClickEvent(), new QAjaxAction('btnDelete_Click'));
 			$this->btnDelete->Visible = $this->mctTipoTramites->EditMode;
 		}

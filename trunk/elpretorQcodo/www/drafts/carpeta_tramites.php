@@ -65,8 +65,8 @@ class CarpetaTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('En curso', '<?= $_FORM->encurso_Render($_ITEM) ?>','HtmlEntities=false'));
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('De regreso', '<?= $_FORM->deregreso_Render($_ITEM) ?>','HtmlEntities=false'));
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Finalizar', '<?= $_FORM->finalizar_Render($_ITEM) ?>','HtmlEntities=false'));
-		$this->dtgTramitesAsignadoses->DataSource = TramitesAsignados::LoadAll();
-
+		//$this->dtgTramitesAsignadoses->DataSource = TramitesAsignados::LoadAll();
+		$this->dtgTramitesAsignadoses->DataSource  = $this->generaSQLYBuscar();
 		$this->lstAgentes = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
 		$this->lstZonas = $this->mctTipoTramite->lstIdZonaObject_Create();
 

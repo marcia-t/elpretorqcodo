@@ -20,7 +20,6 @@
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 
-		<?php $this->txtActivo->RenderWithName(); ?>
 
 	</div>
 
