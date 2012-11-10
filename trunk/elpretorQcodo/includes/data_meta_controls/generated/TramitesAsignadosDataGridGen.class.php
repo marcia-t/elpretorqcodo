@@ -306,6 +306,7 @@
 				case 'TipoTramiteObject': return QQN::TramitesAsignados()->TipoTramiteObject;
 				case 'Autos': return QQN::TramitesAsignados()->Autos;
 				case 'FechaVencimiento': return QQN::TramitesAsignados()->FechaVencimiento;
+				case 'Observaciones': return QQN::TramitesAsignados()->Observaciones;
 				default: throw new QCallerException('Simple Property not found in TramitesAsignadosDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

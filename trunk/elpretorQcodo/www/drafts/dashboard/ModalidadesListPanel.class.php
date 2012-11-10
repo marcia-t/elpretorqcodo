@@ -68,6 +68,7 @@
 			$this->dtgModalidadeses->MetaAddColumn('IdModalidad');
 			$this->dtgModalidadeses->MetaAddColumn('Nombre');
 			$this->dtgModalidadeses->MetaAddColumn('Activo');
+			$this->dtgModalidadeses->MetaAddColumn('Observaciones');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

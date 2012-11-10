@@ -38,7 +38,7 @@
 		protected function Form_Create() {
 			// Instantiate the Meta DataGrid
 			$this->dtgAbogadoses = new AbogadosDataGrid($this);
-		
+
 			// Style the DataGrid (if desired)
 			$this->dtgAbogadoses->CssClass = 'datagrid';
 			$this->dtgAbogadoses->AlternateRowStyle->CssClass = 'alternate';
@@ -48,22 +48,21 @@
 			$this->dtgAbogadoses->ItemsPerPage = 20;
 
 			// Use the MetaDataGrid functionality to add Columns for this datagrid
+
 			// Create an Edit Column
 			$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__ . '/abogados_edit.php';
 			$this->dtgAbogadoses->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
 
 			// Create the Other Columns (note that you can use strings for abogados's properties, or you
 			// can traverse down QQN::abogados() to display fields that are down the hierarchy)
+			
 			$this->dtgAbogadoses->MetaAddColumn('Nombre');
 			$this->dtgAbogadoses->MetaAddColumn('Apellido');
 			$this->dtgAbogadoses->MetaAddColumn('Telefono');
 			$this->dtgAbogadoses->MetaAddColumn('NroAbogado');
+			$this->dtgAbogadoses->MetaAddColumn('Observaciones');
 			$this->dtgAbogadoses->DataSource =Abogados::bindAll();
-			
 		}
-		
-	
-		
 	}
 
 	// Go ahead and run this form object to generate the page and event handlers, implicitly using

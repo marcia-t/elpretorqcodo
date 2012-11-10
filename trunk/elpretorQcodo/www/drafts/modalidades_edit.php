@@ -25,6 +25,8 @@
 		// Controls for Modalidades's Data Fields
 		protected $lblIdModalidad;
 		protected $txtNombre;
+		protected $txtActivo;
+		protected $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -53,6 +55,8 @@
 			// Call MetaControl's methods to create qcontrols based on Modalidades's data fields
 			$this->lblIdModalidad = $this->mctModalidades->lblIdModalidad_Create();
 			$this->txtNombre = $this->mctModalidades->txtNombre_Create();
+			
+			$this->txtObservaciones = $this->mctModalidades->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

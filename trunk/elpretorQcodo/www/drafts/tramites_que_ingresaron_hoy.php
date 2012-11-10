@@ -18,10 +18,10 @@ require(dirname(__FILE__) . '/../../includes/prepend.inc.php');
  * @package My Application
  * @subpackage Drafts
  */
-class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
+class TramitesQueIngresaronHoyListForm extends QForm {
 	// Local instance of the Meta DataGrid to list TramitesAsignadoses
 	protected $dtgTramitesAsignadoses;
-
+protected $lblResponse;
 	// Create QForm Event Handlers as Needed
 
 	//		protected function Form_Exit() {}
@@ -47,8 +47,8 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
 		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
-		
-		
+$this->lblResponse = new QLabel($this);
+
 		// Create an Edit Column
 		$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__ . '/tramites_asignados_edit.php';
 		$this->dtgTramitesAsignadoses->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
@@ -63,32 +63,31 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
-		
-		
+
+
 		$this->dtgTramitesAsignadoses->DataSource = $this->generarSQLYBuscar();
 	}
-	
+
 	public function generarSQLYBuscar(){
-	
+
 		$objDatabase = TramitesAsignados::GetDatabase();
-	
-		$semanaNumero = date("W");
-		
-		
+
+		$fechaDeHoy  =date("Y-m-d");
+
+		$this->lblResponse->Text = $fechaDeHoy;
 		$sql = "SELECT *
 		FROM sistema.tramites_asignados
-		WHERE WEEKOFYEAR(fecha_vencimiento) = $semanaNumero";
-	
-		
-	
+		WHERE fecha_ingreso = '$fechaDeHoy'";
+
+
+
 		$objDbResult = $objDatabase->Query($sql);
 		return TramitesAsignados::InstantiateDbResult($objDbResult);
-		}
-	
+	}
+
 }
 
 // Go ahead and run this form object to generate the page and event handlers, implicitly using
 // tramites_asignados_list.tpl.php as the included HTML template file
-TramitesAsignadosVencenEstaSemanaListForm::Run('TramitesAsignadosVencenEstaSemanaListForm');
+TramitesQueIngresaronHoyListForm::Run('TramitesQueIngresaronHoyListForm');
 ?>

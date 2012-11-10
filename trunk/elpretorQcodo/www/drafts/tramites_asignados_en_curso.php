@@ -50,6 +50,7 @@ protected function Form_Create() {
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
 			$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
+			$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 		}
 	
 	

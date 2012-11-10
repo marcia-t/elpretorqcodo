@@ -296,6 +296,7 @@
 				case 'IdZona': return QQN::Zonas()->IdZona;
 				case 'Nombre': return QQN::Zonas()->Nombre;
 				case 'Activo': return QQN::Zonas()->Activo;
+				case 'Observaciones': return QQN::Zonas()->Observaciones;
 				default: throw new QCallerException('Simple Property not found in ZonasDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

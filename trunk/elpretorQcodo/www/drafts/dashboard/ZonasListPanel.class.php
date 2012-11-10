@@ -68,6 +68,7 @@
 			$this->dtgZonases->MetaAddColumn('IdZona');
 			$this->dtgZonases->MetaAddColumn('Nombre');
 			$this->dtgZonases->MetaAddColumn('Activo');
+			$this->dtgZonases->MetaAddColumn('Observaciones');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

@@ -74,6 +74,7 @@
 			$this->dtgTramitesAsignadoses->MetaAddColumn(QQN::TramitesAsignados()->TipoTramiteObject);
 			$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
+			$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

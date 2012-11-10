@@ -23,6 +23,7 @@
 		public $lblIdModalidad;
 		public $txtNombre;
 		public $txtActivo;
+		public $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -55,6 +56,7 @@
 			$this->lblIdModalidad = $this->mctModalidades->lblIdModalidad_Create();
 			$this->txtNombre = $this->mctModalidades->txtNombre_Create();
 			$this->txtActivo = $this->mctModalidades->txtActivo_Create();
+			$this->txtObservaciones = $this->mctModalidades->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

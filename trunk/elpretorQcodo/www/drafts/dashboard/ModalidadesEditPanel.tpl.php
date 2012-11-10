@@ -11,6 +11,8 @@
 
 		<?php $_CONTROL->txtActivo->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtObservaciones->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

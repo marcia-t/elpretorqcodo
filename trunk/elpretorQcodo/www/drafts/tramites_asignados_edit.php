@@ -31,6 +31,7 @@
 		protected $lstTipoTramiteObject;
 		protected $txtAutos;
 		protected $calFechaVencimiento;
+		protected $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -65,6 +66,7 @@
 			$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create(null, QQ::Equal(QQN::TipoTramites()->Activo, 1));
 			$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
 			$this->calFechaVencimiento = $this->mctTramitesAsignados->calFechaVencimiento_Create();
+			$this->txtObservaciones = $this->mctTramitesAsignados->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

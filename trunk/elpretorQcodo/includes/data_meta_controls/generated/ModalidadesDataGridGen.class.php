@@ -296,6 +296,7 @@
 				case 'IdModalidad': return QQN::Modalidades()->IdModalidad;
 				case 'Nombre': return QQN::Modalidades()->Nombre;
 				case 'Activo': return QQN::Modalidades()->Activo;
+				case 'Observaciones': return QQN::Modalidades()->Observaciones;
 				default: throw new QCallerException('Simple Property not found in ModalidadesDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

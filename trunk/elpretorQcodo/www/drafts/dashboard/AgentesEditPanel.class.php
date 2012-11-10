@@ -23,6 +23,7 @@
 		public $lblIdAgente;
 		public $txtNombreApellido;
 		public $txtActivo;
+		public $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -55,6 +56,7 @@
 			$this->lblIdAgente = $this->mctAgentes->lblIdAgente_Create();
 			$this->txtNombreApellido = $this->mctAgentes->txtNombreApellido_Create();
 			$this->txtActivo = $this->mctAgentes->txtActivo_Create();
+			$this->txtObservaciones = $this->mctAgentes->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

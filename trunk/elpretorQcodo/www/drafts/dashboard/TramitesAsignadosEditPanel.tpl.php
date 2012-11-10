@@ -23,6 +23,8 @@
 
 		<?php $_CONTROL->calFechaVencimiento->RenderWithName(); ?>
 
+		<?php $_CONTROL->txtObservaciones->RenderWithName(); ?>
+
 	</div>
 
 	<div id="formActions">

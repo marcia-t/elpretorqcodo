@@ -68,6 +68,7 @@
 			$this->dtgAgenteses->MetaAddColumn('IdAgente');
 			$this->dtgAgenteses->MetaAddColumn('NombreApellido');
 			$this->dtgAgenteses->MetaAddColumn('Activo');
+			$this->dtgAgenteses->MetaAddColumn('Observaciones');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);
