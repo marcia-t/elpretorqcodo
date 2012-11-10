@@ -34,6 +34,8 @@
 	 * property-read QLabel $AutosLabel
 	 * property QDateTimePicker $FechaVencimientoControl
 	 * property-read QLabel $FechaVencimientoLabel
+	 * property QTextBox $ObservacionesControl
+	 * property-read QLabel $ObservacionesLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -119,6 +121,12 @@
          */
 		protected $calFechaVencimiento;
 
+        /**
+         * @var QTextBox txtObservaciones;
+         * @access protected
+         */
+		protected $txtObservaciones;
+
 
 		// Controls that allow the viewing of TramitesAsignados's individual data fields
         /**
@@ -168,6 +176,12 @@
          * @access protected
          */
 		protected $lblFechaVencimiento;
+
+        /**
+         * @var QLabel lblObservaciones
+         * @access protected
+         */
+		protected $lblObservaciones;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -570,6 +584,31 @@
 
 		protected $strFechaVencimientoDateTimeFormat;
 
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objTramitesAsignados->Observaciones;
+			$this->txtObservaciones->MaxLength = TramitesAsignados::ObservacionesMaxLength;
+			return $this->txtObservaciones;
+		}
+
+		/**
+		 * Create and setup QLabel lblObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblObservaciones_Create($strControlId = null) {
+			$this->lblObservaciones = new QLabel($this->objParentObject, $strControlId);
+			$this->lblObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->lblObservaciones->Text = $this->objTramitesAsignados->Observaciones;
+			return $this->lblObservaciones;
+		}
+
 
 
 		/**
@@ -651,6 +690,9 @@
 			if ($this->calFechaVencimiento) $this->calFechaVencimiento->DateTime = $this->objTramitesAsignados->FechaVencimiento;
 			if ($this->lblFechaVencimiento) $this->lblFechaVencimiento->Text = sprintf($this->objTramitesAsignados->FechaVencimiento) ? $this->objTramitesAsignados->__toString($this->strFechaVencimientoDateTimeFormat) : null;
 
+			if ($this->txtObservaciones) $this->txtObservaciones->Text = $this->objTramitesAsignados->Observaciones;
+			if ($this->lblObservaciones) $this->lblObservaciones->Text = $this->objTramitesAsignados->Observaciones;
+
 		}
 
 
@@ -682,6 +724,7 @@
 				if ($this->lstTipoTramiteObject) $this->objTramitesAsignados->TipoTramite = $this->lstTipoTramiteObject->SelectedValue;
 				if ($this->txtAutos) $this->objTramitesAsignados->Autos = $this->txtAutos->Text;
 				if ($this->calFechaVencimiento) $this->objTramitesAsignados->FechaVencimiento = $this->calFechaVencimiento->DateTime;
+				if ($this->txtObservaciones) $this->objTramitesAsignados->Observaciones = $this->txtObservaciones->Text;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -778,6 +821,12 @@
 				case 'FechaVencimientoLabel':
 					if (!$this->lblFechaVencimiento) return $this->lblFechaVencimiento_Create();
 					return $this->lblFechaVencimiento;
+				case 'ObservacionesControl':
+					if (!$this->txtObservaciones) return $this->txtObservaciones_Create();
+					return $this->txtObservaciones;
+				case 'ObservacionesLabel':
+					if (!$this->lblObservaciones) return $this->lblObservaciones_Create();
+					return $this->lblObservaciones;
 				default:
 					try {
 						return parent::__get($strName);
@@ -818,6 +867,8 @@
 						return ($this->txtAutos = QType::Cast($mixValue, 'QControl'));
 					case 'FechaVencimientoControl':
 						return ($this->calFechaVencimiento = QType::Cast($mixValue, 'QControl'));
+					case 'ObservacionesControl':
+						return ($this->txtObservaciones = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

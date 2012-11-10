@@ -71,6 +71,7 @@
 			$this->dtgAbogadoses->MetaAddColumn('Telefono');
 			$this->dtgAbogadoses->MetaAddColumn('NroAbogado');
 			$this->dtgAbogadoses->MetaAddColumn('Activo');
+			$this->dtgAbogadoses->MetaAddColumn('Observaciones');
 
 			// Setup the Create New button
 			$this->btnCreateNew = new QButton($this);

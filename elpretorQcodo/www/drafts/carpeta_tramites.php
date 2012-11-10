@@ -64,6 +64,8 @@ class CarpetaTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
+		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
+		
 
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('En curso', '<?= $_FORM->encurso_Render($_ITEM) ?>','HtmlEntities=false'));
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('De regreso', '<?= $_FORM->deregreso_Render($_ITEM) ?>','HtmlEntities=false'));

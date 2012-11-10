@@ -20,6 +20,9 @@
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 
+		
+
+		<?php $this->txtObservaciones->RenderWithName(); ?>
 
 	</div>
 

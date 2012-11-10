@@ -24,6 +24,7 @@
 	 * @property integer $TipoTramite the value for intTipoTramite (Not Null)
 	 * @property string $Autos the value for strAutos 
 	 * @property QDateTime $FechaVencimiento the value for dttFechaVencimiento (Not Null)
+	 * @property string $Observaciones the value for strObservaciones 
 	 * @property Agentes $IdAgenteObject the value for the Agentes object referenced by intIdAgente (Not Null)
 	 * @property Abogados $NroAbogadoObject the value for the Abogados object referenced by intNroAbogado (Not Null)
 	 * @property Estados $IdEstadoObject the value for the Estados object referenced by intIdEstado (Not Null)
@@ -107,6 +108,15 @@
 		 */
 		protected $dttFechaVencimiento;
 		const FechaVencimientoDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column tramites_asignados.observaciones
+		 * @var string strObservaciones
+		 */
+		protected $strObservaciones;
+		const ObservacionesMaxLength = 50;
+		const ObservacionesDefault = null;
 
 
 		/**
@@ -490,6 +500,7 @@
 			$objBuilder->AddSelectItem($strTableName, 'tipo_tramite', $strAliasPrefix . 'tipo_tramite');
 			$objBuilder->AddSelectItem($strTableName, 'autos', $strAliasPrefix . 'autos');
 			$objBuilder->AddSelectItem($strTableName, 'fecha_vencimiento', $strAliasPrefix . 'fecha_vencimiento');
+			$objBuilder->AddSelectItem($strTableName, 'observaciones', $strAliasPrefix . 'observaciones');
 		}
 
 
@@ -539,6 +550,8 @@
 			$objToReturn->strAutos = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'fecha_vencimiento', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'fecha_vencimiento'] : $strAliasPrefix . 'fecha_vencimiento';
 			$objToReturn->dttFechaVencimiento = $objDbRow->GetColumn($strAliasName, 'Date');
+			$strAliasName = array_key_exists($strAliasPrefix . 'observaciones', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'observaciones'] : $strAliasPrefix . 'observaciones';
+			$objToReturn->strObservaciones = $objDbRow->GetColumn($strAliasName, 'VarChar');
 
 			// Instantiate Virtual Attributes
 			foreach ($objDbRow->GetColumnNameArray() as $strColumnName => $mixValue) {
@@ -836,7 +849,8 @@
 							`fecha_salida`,
 							`tipo_tramite`,
 							`autos`,
-							`fecha_vencimiento`
+							`fecha_vencimiento`,
+							`observaciones`
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->intIdAgente) . ',
 							' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
@@ -845,7 +859,8 @@
 							' . $objDatabase->SqlVariable($this->dttFechaSalida) . ',
 							' . $objDatabase->SqlVariable($this->intTipoTramite) . ',
 							' . $objDatabase->SqlVariable($this->strAutos) . ',
-							' . $objDatabase->SqlVariable($this->dttFechaVencimiento) . '
+							' . $objDatabase->SqlVariable($this->dttFechaVencimiento) . ',
+							' . $objDatabase->SqlVariable($this->strObservaciones) . '
 						)
 					');
 
@@ -872,7 +887,8 @@
 							`fecha_salida` = ' . $objDatabase->SqlVariable($this->dttFechaSalida) . ',
 							`tipo_tramite` = ' . $objDatabase->SqlVariable($this->intTipoTramite) . ',
 							`autos` = ' . $objDatabase->SqlVariable($this->strAutos) . ',
-							`fecha_vencimiento` = ' . $objDatabase->SqlVariable($this->dttFechaVencimiento) . '
+							`fecha_vencimiento` = ' . $objDatabase->SqlVariable($this->dttFechaVencimiento) . ',
+							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . '
 						WHERE
 							`id_tramite_asignado` = ' . $objDatabase->SqlVariable($this->intIdTramiteAsignado) . '
 					');
@@ -965,6 +981,7 @@
 			$this->TipoTramite = $objReloaded->TipoTramite;
 			$this->strAutos = $objReloaded->strAutos;
 			$this->dttFechaVencimiento = $objReloaded->dttFechaVencimiento;
+			$this->strObservaciones = $objReloaded->strObservaciones;
 		}
 
 		/**
@@ -986,6 +1003,7 @@
 					`tipo_tramite`,
 					`autos`,
 					`fecha_vencimiento`,
+					`observaciones`,
 					__sys_login_id,
 					__sys_action,
 					__sys_date
@@ -999,6 +1017,7 @@
 					' . $objDatabase->SqlVariable($this->intTipoTramite) . ',
 					' . $objDatabase->SqlVariable($this->strAutos) . ',
 					' . $objDatabase->SqlVariable($this->dttFechaVencimiento) . ',
+					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
 					' . (($objDatabase->JournaledById) ? $objDatabase->JournaledById : 'NULL') . ',
 					' . $objDatabase->SqlVariable($strJournalCommand) . ',
 					NOW()
@@ -1093,6 +1112,11 @@
 					// Gets the value for dttFechaVencimiento (Not Null)
 					// @return QDateTime
 					return $this->dttFechaVencimiento;
+
+				case 'Observaciones':
+					// Gets the value for strObservaciones 
+					// @return string
+					return $this->strObservaciones;
 
 
 				///////////////////
@@ -1271,6 +1295,17 @@
 						throw $objExc;
 					}
 
+				case 'Observaciones':
+					// Sets the value for strObservaciones 
+					// @param string $mixValue
+					// @return string
+					try {
+						return ($this->strObservaciones = QType::Cast($mixValue, QType::String));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
 
 				///////////////////
 				// Member Objects
@@ -1441,6 +1476,7 @@
 			$strToReturn .= '<element name="TipoTramiteObject" type="xsd1:TipoTramites"/>';
 			$strToReturn .= '<element name="Autos" type="xsd:string"/>';
 			$strToReturn .= '<element name="FechaVencimiento" type="xsd:dateTime"/>';
+			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
 			$strToReturn .= '<element name="__blnRestored" type="xsd:boolean"/>';
 			$strToReturn .= '</sequence></complexType>';
 			return $strToReturn;
@@ -1489,6 +1525,8 @@
 				$objToReturn->strAutos = $objSoapObject->Autos;
 			if (property_exists($objSoapObject, 'FechaVencimiento'))
 				$objToReturn->dttFechaVencimiento = new QDateTime($objSoapObject->FechaVencimiento);
+			if (property_exists($objSoapObject, 'Observaciones'))
+				$objToReturn->strObservaciones = $objSoapObject->Observaciones;
 			if (property_exists($objSoapObject, '__blnRestored'))
 				$objToReturn->__blnRestored = $objSoapObject->__blnRestored;
 			return $objToReturn;
@@ -1557,6 +1595,7 @@
 	 * @property-read QQNodeTipoTramites $TipoTramiteObject
 	 * @property-read QQNode $Autos
 	 * @property-read QQNode $FechaVencimiento
+	 * @property-read QQNode $Observaciones
 	 */
 	class QQNodeTramitesAsignados extends QQNode {
 		protected $strTableName = 'tramites_asignados';
@@ -1590,6 +1629,8 @@
 					return new QQNode('autos', 'Autos', 'string', $this);
 				case 'FechaVencimiento':
 					return new QQNode('fecha_vencimiento', 'FechaVencimiento', 'QDateTime', $this);
+				case 'Observaciones':
+					return new QQNode('observaciones', 'Observaciones', 'string', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_tramite_asignado', 'IdTramiteAsignado', 'integer', $this);
@@ -1618,6 +1659,7 @@
 	 * @property-read QQNodeTipoTramites $TipoTramiteObject
 	 * @property-read QQNode $Autos
 	 * @property-read QQNode $FechaVencimiento
+	 * @property-read QQNode $Observaciones
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
 	class QQReverseReferenceNodeTramitesAsignados extends QQReverseReferenceNode {
@@ -1652,6 +1694,8 @@
 					return new QQNode('autos', 'Autos', 'string', $this);
 				case 'FechaVencimiento':
 					return new QQNode('fecha_vencimiento', 'FechaVencimiento', 'QDateTime', $this);
+				case 'Observaciones':
+					return new QQNode('observaciones', 'Observaciones', 'string', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_tramite_asignado', 'IdTramiteAsignado', 'integer', $this);

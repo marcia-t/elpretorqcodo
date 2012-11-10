@@ -16,6 +16,7 @@
 	</div>
 
 	<div id="formControls">
+		
 
 		<?php $this->txtNombre->RenderWithName(); ?>
 
@@ -31,6 +32,7 @@
 
 		<?php $this->lstIdZonaObject->RenderWithName(); ?>
 
+		
 
 	</div>
 

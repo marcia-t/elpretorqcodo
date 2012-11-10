@@ -23,6 +23,7 @@
 		public $lblIdZona;
 		public $txtNombre;
 		public $txtActivo;
+		public $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -55,6 +56,7 @@
 			$this->lblIdZona = $this->mctZonas->lblIdZona_Create();
 			$this->txtNombre = $this->mctZonas->txtNombre_Create();
 			$this->txtActivo = $this->mctZonas->txtActivo_Create();
+			$this->txtObservaciones = $this->mctZonas->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

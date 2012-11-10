@@ -26,6 +26,7 @@
 		public $txtTelefono;
 		public $txtNroAbogado;
 		public $txtActivo;
+		public $txtObservaciones;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -61,6 +62,7 @@
 			$this->txtTelefono = $this->mctAbogados->txtTelefono_Create();
 			$this->txtNroAbogado = $this->mctAbogados->txtNroAbogado_Create();
 			$this->txtActivo = $this->mctAbogados->txtActivo_Create();
+			$this->txtObservaciones = $this->mctAbogados->txtObservaciones_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);

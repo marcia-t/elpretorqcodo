@@ -26,6 +26,9 @@
 
 		<?php $this->txtNroAbogado->RenderWithName(); ?>
 
+		
+
+		<?php $this->txtObservaciones->RenderWithName(); ?>
 
 	</div>
 

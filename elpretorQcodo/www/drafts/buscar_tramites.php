@@ -87,6 +87,7 @@ class BuscarTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
+		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 		/*$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Seleccionar', '<?= $_FORM->chkSelected_Render($_ITEM) ?>','HtmlEntities=false'));*/
 		$this->btnBuscar = new QButton($this);
 		$this->btnBuscar->Text = 'Buscar';

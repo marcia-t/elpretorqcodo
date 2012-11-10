@@ -57,6 +57,7 @@
 			// can traverse down QQN::modalidades() to display fields that are down the hierarchy)
 			$this->dtgModalidadeses->MetaAddColumn('Nombre');
 			
+			$this->dtgModalidadeses->MetaAddColumn('Observaciones');
 			$this->dtgModalidadeses->DataSource = Modalidades::bindAll();
 		}
 	}

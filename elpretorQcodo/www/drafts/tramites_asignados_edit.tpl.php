@@ -16,6 +16,7 @@
 	</div>
 
 	<div id="formControls">
+		
 
 		<?php $this->lstIdAgenteObject->RenderWithName(); ?>
 
@@ -32,6 +33,8 @@
 		<?php $this->txtAutos->RenderWithName(); ?>
 
 		<?php $this->calFechaVencimiento->RenderWithName(); ?>
+
+		<?php $this->txtObservaciones->RenderWithName(); ?>
 
 	</div>
 

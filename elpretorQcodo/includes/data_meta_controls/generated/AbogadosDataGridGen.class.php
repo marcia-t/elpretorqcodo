@@ -299,6 +299,7 @@
 				case 'Telefono': return QQN::Abogados()->Telefono;
 				case 'NroAbogado': return QQN::Abogados()->NroAbogado;
 				case 'Activo': return QQN::Abogados()->Activo;
+				case 'Observaciones': return QQN::Abogados()->Observaciones;
 				default: throw new QCallerException('Simple Property not found in AbogadosDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');
