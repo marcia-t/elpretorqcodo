@@ -23,7 +23,6 @@
 		protected $mctTramitesAsignados;
 
 		// Controls for TramitesAsignados's Data Fields
-		protected $lblIdTramiteAsignado;
 		protected $lstIdAgenteObject;
 		protected $lstNroAbogadoObject;
 		protected $lstIdEstadoObject;
@@ -58,7 +57,6 @@
 			$this->mctTramitesAsignados = TramitesAsignadosMetaControl::CreateFromPathInfo($this);
 
 			// Call MetaControl's methods to create qcontrols based on TramitesAsignados's data fields
-			$this->lblIdTramiteAsignado = $this->mctTramitesAsignados->lblIdTramiteAsignado_Create();
 			$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
 			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create();
 			$this->lstIdEstadoObject = $this->mctTramitesAsignados->lstIdEstadoObject_Create();

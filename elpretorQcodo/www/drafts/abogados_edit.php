@@ -72,7 +72,7 @@
 
 			$this->btnDelete = new QButton($this);
 			$this->btnDelete->Text = QApplication::Translate('Delete');
-			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction(QApplication::Translate('Are you SURE you want to DELETE this') . ' ' . QApplication::Translate('Abogados') . '?'));
+			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction('¿Está seguro de eliminar este abogado?'));
 			$this->btnDelete->AddAction(new QClickEvent(), new QAjaxAction('btnDelete_Click'));
 			$this->btnDelete->Visible = $this->mctAbogados->EditMode;
 		}

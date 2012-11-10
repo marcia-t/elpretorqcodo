@@ -27,6 +27,17 @@
 			return sprintf('%s',  $this->strNombre);
 		}
 
+		
+		public function bindAll(){
+			$objDatabase = Zonas::GetDatabase();
+		
+			$sql = "SELECT *
+			FROM zonas
+			WHERE activo = 1";
+		
+			$objDbResult = $objDatabase->Query($sql);
+			return Zonas::InstantiateDbResult($objDbResult);
+		}
 
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...

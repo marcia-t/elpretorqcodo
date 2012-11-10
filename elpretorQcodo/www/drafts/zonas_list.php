@@ -57,7 +57,9 @@
 			// can traverse down QQN::zonas() to display fields that are down the hierarchy)
 			$this->dtgZonases->MetaAddColumn('IdZona');
 			$this->dtgZonases->MetaAddColumn('Nombre');
-			$this->dtgZonases->MetaAddColumn('Activo');
+			
+			$this->dtgZonases->DataSource = Zonas::bindAll();
+			
 		}
 	}
 

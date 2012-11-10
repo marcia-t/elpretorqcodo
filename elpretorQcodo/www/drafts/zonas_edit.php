@@ -25,7 +25,6 @@
 		// Controls for Zonas's Data Fields
 		protected $lblIdZona;
 		protected $txtNombre;
-		protected $txtActivo;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -54,7 +53,6 @@
 			// Call MetaControl's methods to create qcontrols based on Zonas's data fields
 			$this->lblIdZona = $this->mctZonas->lblIdZona_Create();
 			$this->txtNombre = $this->mctZonas->txtNombre_Create();
-			$this->txtActivo = $this->mctZonas->txtActivo_Create();
 
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);
@@ -68,7 +66,7 @@
 
 			$this->btnDelete = new QButton($this);
 			$this->btnDelete->Text = QApplication::Translate('Delete');
-			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction(QApplication::Translate('Are you SURE you want to DELETE this') . ' ' . QApplication::Translate('Zonas') . '?'));
+			$this->btnDelete->AddAction(new QClickEvent(), new QConfirmAction('¿Está seguro de eliminar esta zona?'));
 			$this->btnDelete->AddAction(new QClickEvent(), new QAjaxAction('btnDelete_Click'));
 			$this->btnDelete->Visible = $this->mctZonas->EditMode;
 		}
