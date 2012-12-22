@@ -472,6 +472,7 @@
 				if ($this->txtApellido) $this->objAbogados->Apellido = $this->txtApellido->Text;
 				if ($this->txtTelefono) $this->objAbogados->Telefono = $this->txtTelefono->Text;
 				if ($this->txtNroAbogado) $this->objAbogados->NroAbogado = $this->txtNroAbogado->Text;
+				if ($this->txtObservaciones) $this->objAbogados->Observaciones = $this->txtObservaciones->Text; 
 				$this->objAbogados->Activo = 1;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
