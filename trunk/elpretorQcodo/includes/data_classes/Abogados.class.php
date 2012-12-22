@@ -38,6 +38,26 @@
 			return Abogados::InstantiateDbResult($objDbResult);
 		}
 
+		
+		public function Delete() {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Cannot delete this Abogados with an unset primary key.');
+		
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+		
+		
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+					UPDATE
+					`abogados`
+					SET `activo` = 0
+					WHERE
+					`id_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '');
+		
+			// Journaling
+			if ($objDatabase->JournalingDatabase) $this->Journal('DELETE');
+		}
 
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...

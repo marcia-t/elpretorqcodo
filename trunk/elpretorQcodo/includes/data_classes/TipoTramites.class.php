@@ -39,6 +39,28 @@
 			$objDbResult = $objDatabase->Query($sql);
 			return TipoTramites::InstantiateDbResult($objDbResult);
 		}
+		
+		
+		public function Delete() {
+			if ((is_null($this->intIdTipoTramite)))
+				throw new QUndefinedPrimaryKeyException('Cannot delete this TipoTramites with an unset primary key.');
+		
+			// Get the Database Object for this Class
+			$objDatabase = TipoTramites::GetDatabase();
+		
+		
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+					UPDATE
+					`tipo_tramites`
+					SET `activo` = 0
+					WHERE
+					`id_tipo_tramite` = ' . $objDatabase->SqlVariable($this->intIdTipoTramite) . '');
+		
+			// Journaling
+			if ($objDatabase->JournalingDatabase) $this->Journal('DELETE');
+		}
+		
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
 		// but feel free to use these as a starting point)

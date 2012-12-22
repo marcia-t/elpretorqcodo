@@ -38,6 +38,27 @@
 			$objDbResult = $objDatabase->Query($sql);
 			return Agentes::InstantiateDbResult($objDbResult);
 		}
+		
+		
+		public function Delete() {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Cannot delete this Agentes with an unset primary key.');
+		
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+		
+		
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+					UPDATE
+					`agentes`
+					SET `activo` = 0
+					WHERE
+					`id_agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '');
+		
+			// Journaling
+			if ($objDatabase->JournalingDatabase) $this->Journal('DELETE');
+		}
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
 		// but feel free to use these as a starting point)
