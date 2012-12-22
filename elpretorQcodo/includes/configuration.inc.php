@@ -136,6 +136,7 @@
 
 			// Destination for generated form drafts and panel drafts
 			define ('__FORM_DRAFTS__', __SUBDIRECTORY__ . '/drafts');
+			define ('__FORM_APP__', __SUBDIRECTORY__ . '/app');
 			define ('__PANEL_DRAFTS__', __SUBDIRECTORY__ . '/drafts/dashboard');
 
 			// Examples and Devtools are deprecated as of 0.4.0, but these constants are still here to

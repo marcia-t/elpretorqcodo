@@ -16,52 +16,52 @@
 <!-- 		</div> -->
 		<div id='cssmenu'>
 <ul>
-   <li class='active'><a href='http://qcodo/drafts/carpeta_tramites.php'><span>Inicio</span></a></li>
+   <li class='active'><a href='/app/carpeta_tramites.php'><span>Inicio</span></a></li>
    <li class='has-sub'><a href='#'><span>Trámites</span></a>
       <ul>
       	 <li class='has-sub'><a href='#'><span>Listados</span></a>
       	 <ul>
-         <li><a href='http://qcodo/drafts/tramites_asignados_list.php'><span>Ver todos los trámites</span></a></li>
-         <li><a href='http://qcodo/drafts/tramites_asignados_que_vencen_esta_semana.php'><span>Trámites que vencen esta semana</span></a></li>
-         <li><a href='http://qcodo/drafts/tramites_asignados_en_curso.php'><span>Ver trámites en curso</span></a></li>
+         <li><a href='/app/tramites_asignados_list.php'><span>Ver todos los trámites</span></a></li>
+         <li><a href='/app/tramites_asignados_que_vencen_esta_semana.php'><span>Trámites que vencen esta semana</span></a></li>
+         <li><a href='/app/tramites_asignados_en_curso.php'><span>Ver trámites en curso</span></a></li>
          </ul>
          
-         <li><a href='http://qcodo/drafts/buscar_tramites.php'><span>Buscar trámite</span></a></li>
-         <li><a href='http://qcodo/drafts/tramites_asignados_edit.php'><span>Asignar nuevo trámite</span></a></li>
+         <li><a href='/app/buscar_tramites.php'><span>Buscar trámite</span></a></li>
+         <li><a href='/app/tramites_asignados_edit.php'><span>Asignar nuevo trámite</span></a></li>
          
-         <li><a href='http://qcodo/drafts/carpeta_tramites.php'><span>Carpeta de trámites</span></a></li>
+         <li><a href='/app/carpeta_tramites.php'><span>Carpeta de trámites</span></a></li>
       </ul>
    </li>
    <li class='has-sub'><a href='#'><span>Sistema</span></a>
  	  <ul>
  	  	<li class='has-sub'><a href='#'><span>Agentes</span></a>
  	  	<ul>
-         <li><a href='http://qcodo/drafts/agentes_list.php'><span>Ver</span></a></li>
-         <li><a href='http://qcodo/drafts/agentes_edit.php'><span>Agregar</span></a></li>
+         <li><a href='/app/agentes_list.php'><span>Ver</span></a></li>
+         <li><a href='/app/agentes_edit.php'><span>Agregar</span></a></li>
          </ul>
          </li>
          <li class='has-sub'><a href='#'><span>Zonas</span></a>
  	  	<ul>
-         <li><a href='http://qcodo/drafts/zonas_list.php'><span>Ver</span></a></li>
-         <li><a href='http://qcodo/drafts/zonas_edit.php'><span>Agregar</span></a></li>
+         <li><a href='/app/zonas_list.php'><span>Ver</span></a></li>
+         <li><a href='/app/zonas_edit.php'><span>Agregar</span></a></li>
          </ul>
          </li>
          <li class='has-sub'><a href='#'><span>Abogados</span></a>
  	  	<ul>
-         <li><a href='http://qcodo/drafts/abogados_list.php'><span>Ver</span></a></li>
-         <li><a href='http://qcodo/drafts/abogados_edit.php'><span>Agregar</span></a></li>
+         <li><a href='/app/abogados_list.php'><span>Ver</span></a></li>
+         <li><a href='/app/abogados_edit.php'><span>Agregar</span></a></li>
          </ul>
          </li>
          <li class='has-sub'><a href='#'><span>Modalidades</span></a>
  	  	<ul>
-         <li><a href='http://qcodo/drafts/modalidades_list.php'><span>Ver</span></a></li>
-         <li><a href='http://qcodo/drafts/modalidades_edit.php'><span>Agregar</span></a></li>
+         <li><a href='/app/modalidades_list.php'><span>Ver</span></a></li>
+         <li><a href='/app/modalidades_edit.php'><span>Agregar</span></a></li>
          </ul>
          </li>
          <li class='has-sub'><a href='#'><span>Tipo de trámites</span></a>
  	  	<ul>
-         <li><a href='http://qcodo/drafts/tipo_tramites_list.php'><span>Ver</span></a></li>
-         <li><a href='http://qcodo/drafts/tipo_tramites_edit.php'><span>Agregar</span></a></li>
+         <li><a href='/app/tipo_tramites_list.php'><span>Ver</span></a></li>
+         <li><a href='/app/tipo_tramites_edit.php'><span>Agregar</span></a></li>
          </ul>
          </li>
           
