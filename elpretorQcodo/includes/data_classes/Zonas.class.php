@@ -38,6 +38,27 @@
 			$objDbResult = $objDatabase->Query($sql);
 			return Zonas::InstantiateDbResult($objDbResult);
 		}
+		
+		
+		public function Delete() {
+			if ((is_null($this->intIdZona)))
+				throw new QUndefinedPrimaryKeyException('Cannot delete this Zonas with an unset primary key.');
+		
+			// Get the Database Object for this Class
+			$objDatabase = Zonas::GetDatabase();
+		
+		
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+					UPDATE
+					`zonas`
+					SET `activo` = 0
+					WHERE
+					`id_zona` = ' . $objDatabase->SqlVariable($this->intIdZona) . '');
+		
+			// Journaling
+			if ($objDatabase->JournalingDatabase) $this->Journal('DELETE');
+		}
 
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
