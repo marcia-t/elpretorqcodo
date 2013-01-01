@@ -13,6 +13,30 @@
 			return new QQNodeAgentes('agentes', null, null);
 		}
 		/**
+		 * @return QQNodeCasilleros
+		 */
+		static public function Casilleros() {
+			return new QQNodeCasilleros('casilleros', null, null);
+		}
+		/**
+		 * @return QQNodeCedulas
+		 */
+		static public function Cedulas() {
+			return new QQNodeCedulas('cedulas', null, null);
+		}
+		/**
+		 * @return QQNodeDeclaratorias
+		 */
+		static public function Declaratorias() {
+			return new QQNodeDeclaratorias('declaratorias', null, null);
+		}
+		/**
+		 * @return QQNodeEstadoDeclaratoria
+		 */
+		static public function EstadoDeclaratoria() {
+			return new QQNodeEstadoDeclaratoria('estado_declaratoria', null, null);
+		}
+		/**
 		 * @return QQNodeEstados
 		 */
 		static public function Estados() {

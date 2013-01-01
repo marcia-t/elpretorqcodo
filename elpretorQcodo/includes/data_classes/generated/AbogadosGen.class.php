@@ -22,6 +22,8 @@
 	 * @property string $NroAbogado the value for strNroAbogado (Not Null)
 	 * @property integer $Activo the value for intActivo (Not Null)
 	 * @property string $Observaciones the value for strObservaciones 
+	 * @property Declaratorias $_DeclaratoriasAsNroAbogado the value for the private _objDeclaratoriasAsNroAbogado (Read-Only) if set due to an expansion on the declaratorias.nro_abogado reverse relationship
+	 * @property Declaratorias[] $_DeclaratoriasAsNroAbogadoArray the value for the private _objDeclaratoriasAsNroAbogadoArray (Read-Only) if set due to an ExpandAsArray on the declaratorias.nro_abogado reverse relationship
 	 * @property TramitesAsignados $_TramitesAsignadosAsNroAbogado the value for the private _objTramitesAsignadosAsNroAbogado (Read-Only) if set due to an expansion on the tramites_asignados.nro_abogado reverse relationship
 	 * @property TramitesAsignados[] $_TramitesAsignadosAsNroAbogadoArray the value for the private _objTramitesAsignadosAsNroAbogadoArray (Read-Only) if set due to an ExpandAsArray on the tramites_asignados.nro_abogado reverse relationship
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
@@ -91,6 +93,22 @@
 		const ObservacionesMaxLength = 50;
 		const ObservacionesDefault = null;
 
+
+		/**
+		 * Private member variable that stores a reference to a single DeclaratoriasAsNroAbogado object
+		 * (of type Declaratorias), if this Abogados object was restored with
+		 * an expansion on the declaratorias association table.
+		 * @var Declaratorias _objDeclaratoriasAsNroAbogado;
+		 */
+		private $_objDeclaratoriasAsNroAbogado;
+
+		/**
+		 * Private member variable that stores a reference to an array of DeclaratoriasAsNroAbogado objects
+		 * (of type Declaratorias[]), if this Abogados object was restored with
+		 * an ExpandAsArray on the declaratorias association table.
+		 * @var Declaratorias[] _objDeclaratoriasAsNroAbogadoArray;
+		 */
+		private $_objDeclaratoriasAsNroAbogadoArray = array();
 
 		/**
 		 * Private member variable that stores a reference to a single TramitesAsignadosAsNroAbogado object
@@ -485,6 +503,20 @@
 					$strAliasPrefix = 'abogados__';
 
 
+				$strAlias = $strAliasPrefix . 'declaratoriasasnroabogado__id_declaratoria';
+				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
+					(!is_null($objDbRow->GetColumn($strAliasName)))) {
+					if ($intPreviousChildItemCount = count($objPreviousItem->_objDeclaratoriasAsNroAbogadoArray)) {
+						$objPreviousChildItem = $objPreviousItem->_objDeclaratoriasAsNroAbogadoArray[$intPreviousChildItemCount - 1];
+						$objChildItem = Declaratorias::InstantiateDbRow($objDbRow, $strAliasPrefix . 'declaratoriasasnroabogado__', $strExpandAsArrayNodes, $objPreviousChildItem, $strColumnAliasArray);
+						if ($objChildItem)
+							$objPreviousItem->_objDeclaratoriasAsNroAbogadoArray[] = $objChildItem;
+					} else
+						$objPreviousItem->_objDeclaratoriasAsNroAbogadoArray[] = Declaratorias::InstantiateDbRow($objDbRow, $strAliasPrefix . 'declaratoriasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+					$blnExpandedViaArray = true;
+				}
+
 				$strAlias = $strAliasPrefix . 'tramitesasignadosasnroabogado__id_tramite_asignado';
 				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
@@ -539,6 +571,16 @@
 
 
 
+
+			// Check for DeclaratoriasAsNroAbogado Virtual Binding
+			$strAlias = $strAliasPrefix . 'declaratoriasasnroabogado__id_declaratoria';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName))) {
+				if (($strExpandAsArrayNodes) && (array_key_exists($strAlias, $strExpandAsArrayNodes)))
+					$objToReturn->_objDeclaratoriasAsNroAbogadoArray[] = Declaratorias::InstantiateDbRow($objDbRow, $strAliasPrefix . 'declaratoriasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+				else
+					$objToReturn->_objDeclaratoriasAsNroAbogado = Declaratorias::InstantiateDbRow($objDbRow, $strAliasPrefix . 'declaratoriasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+			}
 
 			// Check for TramitesAsignadosAsNroAbogado Virtual Binding
 			$strAlias = $strAliasPrefix . 'tramitesasignadosasnroabogado__id_tramite_asignado';
@@ -917,6 +959,18 @@
 				// (If restored via a "Many-to" expansion)
 				////////////////////////////
 
+				case '_DeclaratoriasAsNroAbogado':
+					// Gets the value for the private _objDeclaratoriasAsNroAbogado (Read-Only)
+					// if set due to an expansion on the declaratorias.nro_abogado reverse relationship
+					// @return Declaratorias
+					return $this->_objDeclaratoriasAsNroAbogado;
+
+				case '_DeclaratoriasAsNroAbogadoArray':
+					// Gets the value for the private _objDeclaratoriasAsNroAbogadoArray (Read-Only)
+					// if set due to an ExpandAsArray on the declaratorias.nro_abogado reverse relationship
+					// @return Declaratorias[]
+					return (array) $this->_objDeclaratoriasAsNroAbogadoArray;
+
 				case '_TramitesAsignadosAsNroAbogado':
 					// Gets the value for the private _objTramitesAsignadosAsNroAbogado (Read-Only)
 					// if set due to an expansion on the tramites_asignados.nro_abogado reverse relationship
@@ -1052,6 +1106,188 @@
 		///////////////////////////////
 		// ASSOCIATED OBJECTS' METHODS
 		///////////////////////////////
+
+			
+		
+		// Related Objects' Methods for DeclaratoriasAsNroAbogado
+		//-------------------------------------------------------------------
+
+		/**
+		 * Gets all associated DeclaratoriasesAsNroAbogado as an array of Declaratorias objects
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Declaratorias[]
+		*/ 
+		public function GetDeclaratoriasAsNroAbogadoArray($objOptionalClauses = null) {
+			if ((is_null($this->intIdAbogado)))
+				return array();
+
+			try {
+				return Declaratorias::LoadArrayByNroAbogado($this->intIdAbogado, $objOptionalClauses);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Counts all associated DeclaratoriasesAsNroAbogado
+		 * @return int
+		*/ 
+		public function CountDeclaratoriasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				return 0;
+
+			return Declaratorias::CountByNroAbogado($this->intIdAbogado);
+		}
+
+		/**
+		 * Associates a DeclaratoriasAsNroAbogado
+		 * @param Declaratorias $objDeclaratorias
+		 * @return void
+		*/ 
+		public function AssociateDeclaratoriasAsNroAbogado(Declaratorias $objDeclaratorias) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateDeclaratoriasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objDeclaratorias->IdDeclaratoria)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateDeclaratoriasAsNroAbogado on this Abogados with an unsaved Declaratorias.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`declaratorias`
+				SET
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+				WHERE
+					`id_declaratoria` = ' . $objDatabase->SqlVariable($objDeclaratorias->IdDeclaratoria) . '
+			');
+
+			// Journaling (if applicable)
+			if ($objDatabase->JournalingDatabase) {
+				$objDeclaratorias->NroAbogado = $this->intIdAbogado;
+				$objDeclaratorias->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates a DeclaratoriasAsNroAbogado
+		 * @param Declaratorias $objDeclaratorias
+		 * @return void
+		*/ 
+		public function UnassociateDeclaratoriasAsNroAbogado(Declaratorias $objDeclaratorias) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objDeclaratorias->IdDeclaratoria)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this Abogados with an unsaved Declaratorias.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`declaratorias`
+				SET
+					`nro_abogado` = null
+				WHERE
+					`id_declaratoria` = ' . $objDatabase->SqlVariable($objDeclaratorias->IdDeclaratoria) . ' AND
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objDeclaratorias->NroAbogado = null;
+				$objDeclaratorias->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates all DeclaratoriasesAsNroAbogado
+		 * @return void
+		*/ 
+		public function UnassociateAllDeclaratoriasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this unsaved Abogados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Declaratorias::LoadArrayByNroAbogado($this->intIdAbogado) as $objDeclaratorias) {
+					$objDeclaratorias->NroAbogado = null;
+					$objDeclaratorias->Journal('UPDATE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`declaratorias`
+				SET
+					`nro_abogado` = null
+				WHERE
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+		}
+
+		/**
+		 * Deletes an associated DeclaratoriasAsNroAbogado
+		 * @param Declaratorias $objDeclaratorias
+		 * @return void
+		*/ 
+		public function DeleteAssociatedDeclaratoriasAsNroAbogado(Declaratorias $objDeclaratorias) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objDeclaratorias->IdDeclaratoria)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this Abogados with an unsaved Declaratorias.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`declaratorias`
+				WHERE
+					`id_declaratoria` = ' . $objDatabase->SqlVariable($objDeclaratorias->IdDeclaratoria) . ' AND
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objDeclaratorias->Journal('DELETE');
+			}
+		}
+
+		/**
+		 * Deletes all associated DeclaratoriasesAsNroAbogado
+		 * @return void
+		*/ 
+		public function DeleteAllDeclaratoriasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateDeclaratoriasAsNroAbogado on this unsaved Abogados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Declaratorias::LoadArrayByNroAbogado($this->intIdAbogado) as $objDeclaratorias) {
+					$objDeclaratorias->Journal('DELETE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`declaratorias`
+				WHERE
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+		}
 
 			
 		
@@ -1328,6 +1564,7 @@
 	 * @property-read QQNode $NroAbogado
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeDeclaratorias $DeclaratoriasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 */
 	class QQNodeAbogados extends QQNode {
@@ -1350,6 +1587,8 @@
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'DeclaratoriasAsNroAbogado':
+					return new QQReverseReferenceNodeDeclaratorias($this, 'declaratoriasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'TramitesAsignadosAsNroAbogado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasnroabogado', 'reverse_reference', 'nro_abogado');
 
@@ -1374,6 +1613,7 @@
 	 * @property-read QQNode $NroAbogado
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeDeclaratorias $DeclaratoriasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
@@ -1397,6 +1637,8 @@
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'DeclaratoriasAsNroAbogado':
+					return new QQReverseReferenceNodeDeclaratorias($this, 'declaratoriasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'TramitesAsignadosAsNroAbogado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasnroabogado', 'reverse_reference', 'nro_abogado');
 

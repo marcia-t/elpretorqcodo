@@ -19,6 +19,8 @@
 	 * @property string $NombreApellido the value for strNombreApellido (Not Null)
 	 * @property integer $Activo the value for intActivo (Not Null)
 	 * @property string $Observaciones the value for strObservaciones 
+	 * @property Cedulas $_CedulasAsAgente the value for the private _objCedulasAsAgente (Read-Only) if set due to an expansion on the cedulas.agente reverse relationship
+	 * @property Cedulas[] $_CedulasAsAgenteArray the value for the private _objCedulasAsAgenteArray (Read-Only) if set due to an ExpandAsArray on the cedulas.agente reverse relationship
 	 * @property TramitesAsignados $_TramitesAsignadosAsIdAgente the value for the private _objTramitesAsignadosAsIdAgente (Read-Only) if set due to an expansion on the tramites_asignados.id_agente reverse relationship
 	 * @property TramitesAsignados[] $_TramitesAsignadosAsIdAgenteArray the value for the private _objTramitesAsignadosAsIdAgenteArray (Read-Only) if set due to an ExpandAsArray on the tramites_asignados.id_agente reverse relationship
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
@@ -62,6 +64,22 @@
 		const ObservacionesMaxLength = 50;
 		const ObservacionesDefault = null;
 
+
+		/**
+		 * Private member variable that stores a reference to a single CedulasAsAgente object
+		 * (of type Cedulas), if this Agentes object was restored with
+		 * an expansion on the cedulas association table.
+		 * @var Cedulas _objCedulasAsAgente;
+		 */
+		private $_objCedulasAsAgente;
+
+		/**
+		 * Private member variable that stores a reference to an array of CedulasAsAgente objects
+		 * (of type Cedulas[]), if this Agentes object was restored with
+		 * an ExpandAsArray on the cedulas association table.
+		 * @var Cedulas[] _objCedulasAsAgenteArray;
+		 */
+		private $_objCedulasAsAgenteArray = array();
 
 		/**
 		 * Private member variable that stores a reference to a single TramitesAsignadosAsIdAgente object
@@ -453,6 +471,20 @@
 					$strAliasPrefix = 'agentes__';
 
 
+				$strAlias = $strAliasPrefix . 'cedulasasagente__id_cedulas';
+				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
+					(!is_null($objDbRow->GetColumn($strAliasName)))) {
+					if ($intPreviousChildItemCount = count($objPreviousItem->_objCedulasAsAgenteArray)) {
+						$objPreviousChildItem = $objPreviousItem->_objCedulasAsAgenteArray[$intPreviousChildItemCount - 1];
+						$objChildItem = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasagente__', $strExpandAsArrayNodes, $objPreviousChildItem, $strColumnAliasArray);
+						if ($objChildItem)
+							$objPreviousItem->_objCedulasAsAgenteArray[] = $objChildItem;
+					} else
+						$objPreviousItem->_objCedulasAsAgenteArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasagente__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+					$blnExpandedViaArray = true;
+				}
+
 				$strAlias = $strAliasPrefix . 'tramitesasignadosasidagente__id_tramite_asignado';
 				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
@@ -501,6 +533,16 @@
 
 
 
+
+			// Check for CedulasAsAgente Virtual Binding
+			$strAlias = $strAliasPrefix . 'cedulasasagente__id_cedulas';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName))) {
+				if (($strExpandAsArrayNodes) && (array_key_exists($strAlias, $strExpandAsArrayNodes)))
+					$objToReturn->_objCedulasAsAgenteArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasagente__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+				else
+					$objToReturn->_objCedulasAsAgente = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasagente__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+			}
 
 			// Check for TramitesAsignadosAsIdAgente Virtual Binding
 			$strAlias = $strAliasPrefix . 'tramitesasignadosasidagente__id_tramite_asignado';
@@ -846,6 +888,18 @@
 				// (If restored via a "Many-to" expansion)
 				////////////////////////////
 
+				case '_CedulasAsAgente':
+					// Gets the value for the private _objCedulasAsAgente (Read-Only)
+					// if set due to an expansion on the cedulas.agente reverse relationship
+					// @return Cedulas
+					return $this->_objCedulasAsAgente;
+
+				case '_CedulasAsAgenteArray':
+					// Gets the value for the private _objCedulasAsAgenteArray (Read-Only)
+					// if set due to an ExpandAsArray on the cedulas.agente reverse relationship
+					// @return Cedulas[]
+					return (array) $this->_objCedulasAsAgenteArray;
+
 				case '_TramitesAsignadosAsIdAgente':
 					// Gets the value for the private _objTramitesAsignadosAsIdAgente (Read-Only)
 					// if set due to an expansion on the tramites_asignados.id_agente reverse relationship
@@ -948,6 +1002,188 @@
 		///////////////////////////////
 		// ASSOCIATED OBJECTS' METHODS
 		///////////////////////////////
+
+			
+		
+		// Related Objects' Methods for CedulasAsAgente
+		//-------------------------------------------------------------------
+
+		/**
+		 * Gets all associated CedulasesAsAgente as an array of Cedulas objects
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Cedulas[]
+		*/ 
+		public function GetCedulasAsAgenteArray($objOptionalClauses = null) {
+			if ((is_null($this->intIdAgente)))
+				return array();
+
+			try {
+				return Cedulas::LoadArrayByAgente($this->intIdAgente, $objOptionalClauses);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Counts all associated CedulasesAsAgente
+		 * @return int
+		*/ 
+		public function CountCedulasesAsAgente() {
+			if ((is_null($this->intIdAgente)))
+				return 0;
+
+			return Cedulas::CountByAgente($this->intIdAgente);
+		}
+
+		/**
+		 * Associates a CedulasAsAgente
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function AssociateCedulasAsAgente(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsAgente on this unsaved Agentes.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsAgente on this Agentes with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . '
+			');
+
+			// Journaling (if applicable)
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Agente = $this->intIdAgente;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates a CedulasAsAgente
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function UnassociateCedulasAsAgente(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this unsaved Agentes.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this Agentes with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`agente` = null
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Agente = null;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates all CedulasesAsAgente
+		 * @return void
+		*/ 
+		public function UnassociateAllCedulasesAsAgente() {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this unsaved Agentes.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByAgente($this->intIdAgente) as $objCedulas) {
+					$objCedulas->Agente = null;
+					$objCedulas->Journal('UPDATE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`agente` = null
+				WHERE
+					`agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '
+			');
+		}
+
+		/**
+		 * Deletes an associated CedulasAsAgente
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function DeleteAssociatedCedulasAsAgente(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this unsaved Agentes.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this Agentes with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Journal('DELETE');
+			}
+		}
+
+		/**
+		 * Deletes all associated CedulasesAsAgente
+		 * @return void
+		*/ 
+		public function DeleteAllCedulasesAsAgente() {
+			if ((is_null($this->intIdAgente)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsAgente on this unsaved Agentes.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Agentes::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByAgente($this->intIdAgente) as $objCedulas) {
+					$objCedulas->Journal('DELETE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`agente` = ' . $objDatabase->SqlVariable($this->intIdAgente) . '
+			');
+		}
 
 			
 		
@@ -1212,6 +1448,7 @@
 	 * @property-read QQNode $NombreApellido
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsAgente
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsIdAgente
 	 */
 	class QQNodeAgentes extends QQNode {
@@ -1228,6 +1465,8 @@
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'CedulasAsAgente':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasagente', 'reverse_reference', 'agente');
 				case 'TramitesAsignadosAsIdAgente':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasidagente', 'reverse_reference', 'id_agente');
 
@@ -1249,6 +1488,7 @@
 	 * @property-read QQNode $NombreApellido
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsAgente
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsIdAgente
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
@@ -1266,6 +1506,8 @@
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'CedulasAsAgente':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasagente', 'reverse_reference', 'agente');
 				case 'TramitesAsignadosAsIdAgente':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasidagente', 'reverse_reference', 'id_agente');
 
