@@ -13,6 +13,34 @@
 		QApplicationBase::$ClassFile['agentesmetacontrol'] = __DATA_META_CONTROLS__ . '/AgentesMetaControl.class.php';
 		QApplicationBase::$ClassFile['agentesdatagrid'] = __DATA_META_CONTROLS__ . '/AgentesDataGrid.class.php';
 
+	// ClassPaths for the Casilleros class
+		QApplicationBase::$ClassFile['casilleros'] = __DATA_CLASSES__ . '/Casilleros.class.php';
+		QApplicationBase::$ClassFile['qqnodecasilleros'] = __DATA_CLASSES__ . '/Casilleros.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodecasilleros'] = __DATA_CLASSES__ . '/Casilleros.class.php';
+		QApplicationBase::$ClassFile['casillerosmetacontrol'] = __DATA_META_CONTROLS__ . '/CasillerosMetaControl.class.php';
+		QApplicationBase::$ClassFile['casillerosdatagrid'] = __DATA_META_CONTROLS__ . '/CasillerosDataGrid.class.php';
+
+	// ClassPaths for the Cedulas class
+		QApplicationBase::$ClassFile['cedulas'] = __DATA_CLASSES__ . '/Cedulas.class.php';
+		QApplicationBase::$ClassFile['qqnodecedulas'] = __DATA_CLASSES__ . '/Cedulas.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodecedulas'] = __DATA_CLASSES__ . '/Cedulas.class.php';
+		QApplicationBase::$ClassFile['cedulasmetacontrol'] = __DATA_META_CONTROLS__ . '/CedulasMetaControl.class.php';
+		QApplicationBase::$ClassFile['cedulasdatagrid'] = __DATA_META_CONTROLS__ . '/CedulasDataGrid.class.php';
+
+	// ClassPaths for the Declaratorias class
+		QApplicationBase::$ClassFile['declaratorias'] = __DATA_CLASSES__ . '/Declaratorias.class.php';
+		QApplicationBase::$ClassFile['qqnodedeclaratorias'] = __DATA_CLASSES__ . '/Declaratorias.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodedeclaratorias'] = __DATA_CLASSES__ . '/Declaratorias.class.php';
+		QApplicationBase::$ClassFile['declaratoriasmetacontrol'] = __DATA_META_CONTROLS__ . '/DeclaratoriasMetaControl.class.php';
+		QApplicationBase::$ClassFile['declaratoriasdatagrid'] = __DATA_META_CONTROLS__ . '/DeclaratoriasDataGrid.class.php';
+
+	// ClassPaths for the EstadoDeclaratoria class
+		QApplicationBase::$ClassFile['estadodeclaratoria'] = __DATA_CLASSES__ . '/EstadoDeclaratoria.class.php';
+		QApplicationBase::$ClassFile['qqnodeestadodeclaratoria'] = __DATA_CLASSES__ . '/EstadoDeclaratoria.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodeestadodeclaratoria'] = __DATA_CLASSES__ . '/EstadoDeclaratoria.class.php';
+		QApplicationBase::$ClassFile['estadodeclaratoriametacontrol'] = __DATA_META_CONTROLS__ . '/EstadoDeclaratoriaMetaControl.class.php';
+		QApplicationBase::$ClassFile['estadodeclaratoriadatagrid'] = __DATA_META_CONTROLS__ . '/EstadoDeclaratoriaDataGrid.class.php';
+
 	// ClassPaths for the Estados class
 		QApplicationBase::$ClassFile['estados'] = __DATA_CLASSES__ . '/Estados.class.php';
 		QApplicationBase::$ClassFile['qqnodeestados'] = __DATA_CLASSES__ . '/Estados.class.php';
