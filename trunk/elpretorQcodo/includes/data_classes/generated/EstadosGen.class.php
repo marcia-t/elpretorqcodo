@@ -17,6 +17,8 @@
 	 * @subpackage GeneratedDataObjects
 	 * @property integer $IdEstado the value for intIdEstado (Read-Only PK)
 	 * @property string $Nombre the value for strNombre (Not Null)
+	 * @property Cedulas $_CedulasAsEstado the value for the private _objCedulasAsEstado (Read-Only) if set due to an expansion on the cedulas.estado reverse relationship
+	 * @property Cedulas[] $_CedulasAsEstadoArray the value for the private _objCedulasAsEstadoArray (Read-Only) if set due to an ExpandAsArray on the cedulas.estado reverse relationship
 	 * @property TramitesAsignados $_TramitesAsignadosAsIdEstado the value for the private _objTramitesAsignadosAsIdEstado (Read-Only) if set due to an expansion on the tramites_asignados.id_estado reverse relationship
 	 * @property TramitesAsignados[] $_TramitesAsignadosAsIdEstadoArray the value for the private _objTramitesAsignadosAsIdEstadoArray (Read-Only) if set due to an ExpandAsArray on the tramites_asignados.id_estado reverse relationship
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
@@ -43,6 +45,22 @@
 		const NombreMaxLength = 45;
 		const NombreDefault = null;
 
+
+		/**
+		 * Private member variable that stores a reference to a single CedulasAsEstado object
+		 * (of type Cedulas), if this Estados object was restored with
+		 * an expansion on the cedulas association table.
+		 * @var Cedulas _objCedulasAsEstado;
+		 */
+		private $_objCedulasAsEstado;
+
+		/**
+		 * Private member variable that stores a reference to an array of CedulasAsEstado objects
+		 * (of type Cedulas[]), if this Estados object was restored with
+		 * an ExpandAsArray on the cedulas association table.
+		 * @var Cedulas[] _objCedulasAsEstadoArray;
+		 */
+		private $_objCedulasAsEstadoArray = array();
 
 		/**
 		 * Private member variable that stores a reference to a single TramitesAsignadosAsIdEstado object
@@ -432,6 +450,20 @@
 					$strAliasPrefix = 'estados__';
 
 
+				$strAlias = $strAliasPrefix . 'cedulasasestado__id_cedulas';
+				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
+					(!is_null($objDbRow->GetColumn($strAliasName)))) {
+					if ($intPreviousChildItemCount = count($objPreviousItem->_objCedulasAsEstadoArray)) {
+						$objPreviousChildItem = $objPreviousItem->_objCedulasAsEstadoArray[$intPreviousChildItemCount - 1];
+						$objChildItem = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasestado__', $strExpandAsArrayNodes, $objPreviousChildItem, $strColumnAliasArray);
+						if ($objChildItem)
+							$objPreviousItem->_objCedulasAsEstadoArray[] = $objChildItem;
+					} else
+						$objPreviousItem->_objCedulasAsEstadoArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasestado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+					$blnExpandedViaArray = true;
+				}
+
 				$strAlias = $strAliasPrefix . 'tramitesasignadosasidestado__id_tramite_asignado';
 				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
@@ -476,6 +508,16 @@
 
 
 
+
+			// Check for CedulasAsEstado Virtual Binding
+			$strAlias = $strAliasPrefix . 'cedulasasestado__id_cedulas';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName))) {
+				if (($strExpandAsArrayNodes) && (array_key_exists($strAlias, $strExpandAsArrayNodes)))
+					$objToReturn->_objCedulasAsEstadoArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasestado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+				else
+					$objToReturn->_objCedulasAsEstado = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasestado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+			}
 
 			// Check for TramitesAsignadosAsIdEstado Virtual Binding
 			$strAlias = $strAliasPrefix . 'tramitesasignadosasidestado__id_tramite_asignado';
@@ -799,6 +841,18 @@
 				// (If restored via a "Many-to" expansion)
 				////////////////////////////
 
+				case '_CedulasAsEstado':
+					// Gets the value for the private _objCedulasAsEstado (Read-Only)
+					// if set due to an expansion on the cedulas.estado reverse relationship
+					// @return Cedulas
+					return $this->_objCedulasAsEstado;
+
+				case '_CedulasAsEstadoArray':
+					// Gets the value for the private _objCedulasAsEstadoArray (Read-Only)
+					// if set due to an ExpandAsArray on the cedulas.estado reverse relationship
+					// @return Cedulas[]
+					return (array) $this->_objCedulasAsEstadoArray;
+
 				case '_TramitesAsignadosAsIdEstado':
 					// Gets the value for the private _objTramitesAsignadosAsIdEstado (Read-Only)
 					// if set due to an expansion on the tramites_asignados.id_estado reverse relationship
@@ -879,6 +933,188 @@
 		///////////////////////////////
 		// ASSOCIATED OBJECTS' METHODS
 		///////////////////////////////
+
+			
+		
+		// Related Objects' Methods for CedulasAsEstado
+		//-------------------------------------------------------------------
+
+		/**
+		 * Gets all associated CedulasesAsEstado as an array of Cedulas objects
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Cedulas[]
+		*/ 
+		public function GetCedulasAsEstadoArray($objOptionalClauses = null) {
+			if ((is_null($this->intIdEstado)))
+				return array();
+
+			try {
+				return Cedulas::LoadArrayByEstado($this->intIdEstado, $objOptionalClauses);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Counts all associated CedulasesAsEstado
+		 * @return int
+		*/ 
+		public function CountCedulasesAsEstado() {
+			if ((is_null($this->intIdEstado)))
+				return 0;
+
+			return Cedulas::CountByEstado($this->intIdEstado);
+		}
+
+		/**
+		 * Associates a CedulasAsEstado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function AssociateCedulasAsEstado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdEstado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsEstado on this unsaved Estados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsEstado on this Estados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Estados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`estado` = ' . $objDatabase->SqlVariable($this->intIdEstado) . '
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . '
+			');
+
+			// Journaling (if applicable)
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Estado = $this->intIdEstado;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates a CedulasAsEstado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function UnassociateCedulasAsEstado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdEstado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this unsaved Estados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this Estados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Estados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`estado` = null
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`estado` = ' . $objDatabase->SqlVariable($this->intIdEstado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Estado = null;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates all CedulasesAsEstado
+		 * @return void
+		*/ 
+		public function UnassociateAllCedulasesAsEstado() {
+			if ((is_null($this->intIdEstado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this unsaved Estados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Estados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByEstado($this->intIdEstado) as $objCedulas) {
+					$objCedulas->Estado = null;
+					$objCedulas->Journal('UPDATE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`estado` = null
+				WHERE
+					`estado` = ' . $objDatabase->SqlVariable($this->intIdEstado) . '
+			');
+		}
+
+		/**
+		 * Deletes an associated CedulasAsEstado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function DeleteAssociatedCedulasAsEstado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdEstado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this unsaved Estados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this Estados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Estados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`estado` = ' . $objDatabase->SqlVariable($this->intIdEstado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Journal('DELETE');
+			}
+		}
+
+		/**
+		 * Deletes all associated CedulasesAsEstado
+		 * @return void
+		*/ 
+		public function DeleteAllCedulasesAsEstado() {
+			if ((is_null($this->intIdEstado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsEstado on this unsaved Estados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Estados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByEstado($this->intIdEstado) as $objCedulas) {
+					$objCedulas->Journal('DELETE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`estado` = ' . $objDatabase->SqlVariable($this->intIdEstado) . '
+			');
+		}
 
 			
 		
@@ -1135,6 +1371,7 @@
 	/**
 	 * @property-read QQNode $IdEstado
 	 * @property-read QQNode $Nombre
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsEstado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsIdEstado
 	 */
 	class QQNodeEstados extends QQNode {
@@ -1147,6 +1384,8 @@
 					return new QQNode('id_estado', 'IdEstado', 'integer', $this);
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
+				case 'CedulasAsEstado':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasestado', 'reverse_reference', 'estado');
 				case 'TramitesAsignadosAsIdEstado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasidestado', 'reverse_reference', 'id_estado');
 
@@ -1166,6 +1405,7 @@
 	/**
 	 * @property-read QQNode $IdEstado
 	 * @property-read QQNode $Nombre
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsEstado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsIdEstado
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
@@ -1179,6 +1419,8 @@
 					return new QQNode('id_estado', 'IdEstado', 'integer', $this);
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
+				case 'CedulasAsEstado':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasestado', 'reverse_reference', 'estado');
 				case 'TramitesAsignadosAsIdEstado':
 					return new QQReverseReferenceNodeTramitesAsignados($this, 'tramitesasignadosasidestado', 'reverse_reference', 'id_estado');
 

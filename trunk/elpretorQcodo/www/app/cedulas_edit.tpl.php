@@ -35,6 +35,7 @@
 
 		<?php $this->txtObservaciones->RenderWithName(); ?>
 
+		<?php $this->lstEstadoObject->RenderWithName(); ?>
 	</div>
 
 	<div id="formActions">

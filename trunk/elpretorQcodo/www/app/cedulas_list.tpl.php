@@ -5,7 +5,7 @@
 	// Be sure to move this out of this directory before modifying to ensure that subsequent 
 	// code re-generations do not overwrite your changes.
 
-	$strPageTitle = QApplication::Translate('Cedulases') . ' - ' . QApplication::Translate('List All');
+	$strPageTitle = 'Cédulas';
 	require(__INCLUDES__ . '/header.inc.php');
 ?>
 
@@ -18,7 +18,7 @@
 	<?php $this->dtgCedulases->Render(); ?>
 
 	<p class="create">
-		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/cedulas_edit.php"><?php _t('Create a New'); ?> <?php _t('Cedulas');?></a>
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/cedulas_edit.php">Crear nueva cédula</a>
 	</p>
 
 	<?php $this->RenderEnd() ?>

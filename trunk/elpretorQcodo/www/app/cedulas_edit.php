@@ -33,6 +33,7 @@
 		protected $calFechaFin;
 		protected $calAudiencia;
 		protected $txtObservaciones;
+		protected $lstEstadoObject;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -69,7 +70,7 @@
 			$this->calFechaFin = $this->mctCedulas->calFechaFin_Create();
 			$this->calAudiencia = $this->mctCedulas->calAudiencia_Create();
 			$this->txtObservaciones = $this->mctCedulas->txtObservaciones_Create();
-
+			$this->lstEstadoObject = $this->mctCedulas->lstEstadoObject_Create();
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);
 			$this->btnSave->Text = QApplication::Translate('Save');

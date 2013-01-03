@@ -350,7 +350,7 @@
 		 */
 		public function lstEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstEstadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstEstadoObject->Name = 'Estado';
+			$this->lstEstadoObject->Name = QApplication::Translate('Estado Object');
 			$this->lstEstadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
@@ -449,7 +449,7 @@
 		 */
 		public function lstNroAbogadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstNroAbogadoObject = new QListBox($this->objParentObject, $strControlId);
-			$this->lstNroAbogadoObject->Name = 'Número de abogado';
+			$this->lstNroAbogadoObject->Name = QApplication::Translate('Nro Abogado Object');
 			$this->lstNroAbogadoObject->Required = true;
 			if (!$this->blnEditMode)
 				$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);

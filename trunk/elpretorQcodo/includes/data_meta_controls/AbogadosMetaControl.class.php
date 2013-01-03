@@ -19,5 +19,21 @@
 	 * @subpackage MetaControls
 	 */
 	class AbogadosMetaControl extends AbogadosMetaControlGen {
+		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objAbogados->Observaciones;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			$this->txtObservaciones->MaxLength = Abogados::ObservacionesMaxLength;
+			return $this->txtObservaciones;
+		}
+		
+		
 	}
 ?>

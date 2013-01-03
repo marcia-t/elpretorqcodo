@@ -25,7 +25,9 @@
 	 * @property QDateTime $FechaFin the value for dttFechaFin 
 	 * @property QDateTime $Audiencia the value for dttAudiencia (Not Null)
 	 * @property string $Observaciones the value for strObservaciones 
+	 * @property integer $Estado the value for intEstado (Not Null)
 	 * @property Agentes $AgenteObject the value for the Agentes object referenced by intAgente (Not Null)
+	 * @property Estados $EstadoObject the value for the Estados object referenced by intEstado (Not Null)
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
 	 */
 	class CedulasGen extends QBaseClass {
@@ -119,6 +121,14 @@
 
 
 		/**
+		 * Protected member variable that maps to the database column cedulas.estado
+		 * @var integer intEstado
+		 */
+		protected $intEstado;
+		const EstadoDefault = null;
+
+
+		/**
 		 * Protected array of virtual attributes for this object (e.g. extra/other calculated and/or non-object bound
 		 * columns from the run-time database query result for this object).  Used by InstantiateDbRow and
 		 * GetVirtualAttribute.
@@ -149,6 +159,16 @@
 		 * @var Agentes objAgenteObject
 		 */
 		protected $objAgenteObject;
+
+		/**
+		 * Protected member variable that contains the object pointed by the reference
+		 * in the database column cedulas.estado.
+		 *
+		 * NOTE: Always use the EstadoObject property getter to correctly retrieve this Estados object.
+		 * (Because this class implements late binding, this variable reference MAY be null.)
+		 * @var Estados objEstadoObject
+		 */
+		protected $objEstadoObject;
 
 
 
@@ -470,6 +490,7 @@
 			$objBuilder->AddSelectItem($strTableName, 'fecha_fin', $strAliasPrefix . 'fecha_fin');
 			$objBuilder->AddSelectItem($strTableName, 'audiencia', $strAliasPrefix . 'audiencia');
 			$objBuilder->AddSelectItem($strTableName, 'observaciones', $strAliasPrefix . 'observaciones');
+			$objBuilder->AddSelectItem($strTableName, 'estado', $strAliasPrefix . 'estado');
 		}
 
 
@@ -521,6 +542,8 @@
 			$objToReturn->dttAudiencia = $objDbRow->GetColumn($strAliasName, 'Date');
 			$strAliasName = array_key_exists($strAliasPrefix . 'observaciones', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'observaciones'] : $strAliasPrefix . 'observaciones';
 			$objToReturn->strObservaciones = $objDbRow->GetColumn($strAliasName, 'VarChar');
+			$strAliasName = array_key_exists($strAliasPrefix . 'estado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'estado'] : $strAliasPrefix . 'estado';
+			$objToReturn->intEstado = $objDbRow->GetColumn($strAliasName, 'Integer');
 
 			// Instantiate Virtual Attributes
 			foreach ($objDbRow->GetColumnNameArray() as $strColumnName => $mixValue) {
@@ -539,6 +562,12 @@
 			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 			if (!is_null($objDbRow->GetColumn($strAliasName)))
 				$objToReturn->objAgenteObject = Agentes::InstantiateDbRow($objDbRow, $strAliasPrefix . 'agente__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+
+			// Check for EstadoObject Early Binding
+			$strAlias = $strAliasPrefix . 'estado__id_estado';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName)))
+				$objToReturn->objEstadoObject = Estados::InstantiateDbRow($objDbRow, $strAliasPrefix . 'estado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
 
 
 
@@ -660,6 +689,40 @@
 			, $objOptionalClauses
 			);
 		}
+			
+		/**
+		 * Load an array of Cedulas objects,
+		 * by Estado Index(es)
+		 * @param integer $intEstado
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Cedulas[]
+		*/
+		public static function LoadArrayByEstado($intEstado, $objOptionalClauses = null) {
+			// Call Cedulas::QueryArray to perform the LoadArrayByEstado query
+			try {
+				return Cedulas::QueryArray(
+					QQ::Equal(QQN::Cedulas()->Estado, $intEstado),
+					$objOptionalClauses
+					);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Count Cedulases
+		 * by Estado Index(es)
+		 * @param integer $intEstado
+		 * @return int
+		*/
+		public static function CountByEstado($intEstado, $objOptionalClauses = null) {
+			// Call Cedulas::QueryCount to perform the CountByEstado query
+			return Cedulas::QueryCount(
+				QQ::Equal(QQN::Cedulas()->Estado, $intEstado)
+			, $objOptionalClauses
+			);
+		}
 
 
 
@@ -699,7 +762,8 @@
 							`fecha_salida`,
 							`fecha_fin`,
 							`audiencia`,
-							`observaciones`
+							`observaciones`,
+							`estado`
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->strLocalidad) . ',
 							' . $objDatabase->SqlVariable($this->strAutos) . ',
@@ -709,7 +773,8 @@
 							' . $objDatabase->SqlVariable($this->dttFechaSalida) . ',
 							' . $objDatabase->SqlVariable($this->dttFechaFin) . ',
 							' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
-							' . $objDatabase->SqlVariable($this->strObservaciones) . '
+							' . $objDatabase->SqlVariable($this->strObservaciones) . ',
+							' . $objDatabase->SqlVariable($this->intEstado) . '
 						)
 					');
 
@@ -737,7 +802,8 @@
 							`fecha_salida` = ' . $objDatabase->SqlVariable($this->dttFechaSalida) . ',
 							`fecha_fin` = ' . $objDatabase->SqlVariable($this->dttFechaFin) . ',
 							`audiencia` = ' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
-							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . '
+							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . ',
+							`estado` = ' . $objDatabase->SqlVariable($this->intEstado) . '
 						WHERE
 							`id_cedulas` = ' . $objDatabase->SqlVariable($this->intIdCedulas) . '
 					');
@@ -831,6 +897,7 @@
 			$this->dttFechaFin = $objReloaded->dttFechaFin;
 			$this->dttAudiencia = $objReloaded->dttAudiencia;
 			$this->strObservaciones = $objReloaded->strObservaciones;
+			$this->Estado = $objReloaded->Estado;
 		}
 
 		/**
@@ -853,6 +920,7 @@
 					`fecha_fin`,
 					`audiencia`,
 					`observaciones`,
+					`estado`,
 					__sys_login_id,
 					__sys_action,
 					__sys_date
@@ -867,6 +935,7 @@
 					' . $objDatabase->SqlVariable($this->dttFechaFin) . ',
 					' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
+					' . $objDatabase->SqlVariable($this->intEstado) . ',
 					' . (($objDatabase->JournaledById) ? $objDatabase->JournaledById : 'NULL') . ',
 					' . $objDatabase->SqlVariable($strJournalCommand) . ',
 					NOW()
@@ -967,6 +1036,11 @@
 					// @return string
 					return $this->strObservaciones;
 
+				case 'Estado':
+					// Gets the value for intEstado (Not Null)
+					// @return integer
+					return $this->intEstado;
+
 
 				///////////////////
 				// Member Objects
@@ -978,6 +1052,18 @@
 						if ((!$this->objAgenteObject) && (!is_null($this->intAgente)))
 							$this->objAgenteObject = Agentes::Load($this->intAgente);
 						return $this->objAgenteObject;
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'EstadoObject':
+					// Gets the value for the Estados object referenced by intEstado (Not Null)
+					// @return Estados
+					try {
+						if ((!$this->objEstadoObject) && (!is_null($this->intEstado)))
+							$this->objEstadoObject = Estados::Load($this->intEstado);
+						return $this->objEstadoObject;
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1116,6 +1202,18 @@
 						throw $objExc;
 					}
 
+				case 'Estado':
+					// Sets the value for intEstado (Not Null)
+					// @param integer $mixValue
+					// @return integer
+					try {
+						$this->objEstadoObject = null;
+						return ($this->intEstado = QType::Cast($mixValue, QType::Integer));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
 
 				///////////////////
 				// Member Objects
@@ -1144,6 +1242,36 @@
 						// Update Local Member Variables
 						$this->objAgenteObject = $mixValue;
 						$this->intAgente = $mixValue->IdAgente;
+
+						// Return $mixValue
+						return $mixValue;
+					}
+					break;
+
+				case 'EstadoObject':
+					// Sets the value for the Estados object referenced by intEstado (Not Null)
+					// @param Estados $mixValue
+					// @return Estados
+					if (is_null($mixValue)) {
+						$this->intEstado = null;
+						$this->objEstadoObject = null;
+						return null;
+					} else {
+						// Make sure $mixValue actually is a Estados object
+						try {
+							$mixValue = QType::Cast($mixValue, 'Estados');
+						} catch (QInvalidCastException $objExc) {
+							$objExc->IncrementOffset();
+							throw $objExc;
+						} 
+
+						// Make sure $mixValue is a SAVED Estados object
+						if (is_null($mixValue->IdEstado))
+							throw new QCallerException('Unable to set an unsaved EstadoObject for this Cedulas');
+
+						// Update Local Member Variables
+						$this->objEstadoObject = $mixValue;
+						$this->intEstado = $mixValue->IdEstado;
 
 						// Return $mixValue
 						return $mixValue;
@@ -1197,6 +1325,7 @@
 			$strToReturn .= '<element name="FechaFin" type="xsd:dateTime"/>';
 			$strToReturn .= '<element name="Audiencia" type="xsd:dateTime"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
+			$strToReturn .= '<element name="EstadoObject" type="xsd1:Estados"/>';
 			$strToReturn .= '<element name="__blnRestored" type="xsd:boolean"/>';
 			$strToReturn .= '</sequence></complexType>';
 			return $strToReturn;
@@ -1206,6 +1335,7 @@
 			if (!array_key_exists('Cedulas', $strComplexTypeArray)) {
 				$strComplexTypeArray['Cedulas'] = Cedulas::GetSoapComplexTypeXml();
 				Agentes::AlterSoapComplexTypeArray($strComplexTypeArray);
+				Estados::AlterSoapComplexTypeArray($strComplexTypeArray);
 			}
 		}
 
@@ -1241,6 +1371,9 @@
 				$objToReturn->dttAudiencia = new QDateTime($objSoapObject->Audiencia);
 			if (property_exists($objSoapObject, 'Observaciones'))
 				$objToReturn->strObservaciones = $objSoapObject->Observaciones;
+			if ((property_exists($objSoapObject, 'EstadoObject')) &&
+				($objSoapObject->EstadoObject))
+				$objToReturn->EstadoObject = Estados::GetObjectFromSoapObject($objSoapObject->EstadoObject);
 			if (property_exists($objSoapObject, '__blnRestored'))
 				$objToReturn->__blnRestored = $objSoapObject->__blnRestored;
 			return $objToReturn;
@@ -1271,6 +1404,10 @@
 				$objObject->dttFechaFin = $objObject->dttFechaFin->__toString(QDateTime::FormatSoap);
 			if ($objObject->dttAudiencia)
 				$objObject->dttAudiencia = $objObject->dttAudiencia->__toString(QDateTime::FormatSoap);
+			if ($objObject->objEstadoObject)
+				$objObject->objEstadoObject = Estados::GetSoapObjectFromObject($objObject->objEstadoObject, false);
+			else if (!$blnBindRelatedObjects)
+				$objObject->intEstado = null;
 			return $objObject;
 		}
 
@@ -1297,6 +1434,8 @@
 	 * @property-read QQNode $FechaFin
 	 * @property-read QQNode $Audiencia
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQNode $Estado
+	 * @property-read QQNodeEstados $EstadoObject
 	 */
 	class QQNodeCedulas extends QQNode {
 		protected $strTableName = 'cedulas';
@@ -1326,6 +1465,10 @@
 					return new QQNode('audiencia', 'Audiencia', 'QDateTime', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'Estado':
+					return new QQNode('estado', 'Estado', 'integer', $this);
+				case 'EstadoObject':
+					return new QQNodeEstados('estado', 'EstadoObject', 'integer', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_cedulas', 'IdCedulas', 'integer', $this);
@@ -1352,6 +1495,8 @@
 	 * @property-read QQNode $FechaFin
 	 * @property-read QQNode $Audiencia
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQNode $Estado
+	 * @property-read QQNodeEstados $EstadoObject
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
 	class QQReverseReferenceNodeCedulas extends QQReverseReferenceNode {
@@ -1382,6 +1527,10 @@
 					return new QQNode('audiencia', 'Audiencia', 'QDateTime', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'Estado':
+					return new QQNode('estado', 'Estado', 'integer', $this);
+				case 'EstadoObject':
+					return new QQNodeEstados('estado', 'EstadoObject', 'integer', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_cedulas', 'IdCedulas', 'integer', $this);

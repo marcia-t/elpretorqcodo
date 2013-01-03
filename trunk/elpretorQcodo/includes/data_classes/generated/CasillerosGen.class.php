@@ -18,7 +18,7 @@
 	 * @property integer $IdCasillero the value for intIdCasillero (Read-Only PK)
 	 * @property string $NroCasillero the value for strNroCasillero (Not Null)
 	 * @property string $Titular the value for strTitular (Not Null)
-	 * @property string $Observacion the value for strObservacion (Not Null)
+	 * @property string $Observacion the value for strObservacion 
 	 * @property integer $Activo the value for intActivo (Not Null)
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
 	 */
@@ -791,7 +791,7 @@
 					return $this->strTitular;
 
 				case 'Observacion':
-					// Gets the value for strObservacion (Not Null)
+					// Gets the value for strObservacion 
 					// @return string
 					return $this->strObservacion;
 
@@ -860,7 +860,7 @@
 					}
 
 				case 'Observacion':
-					// Sets the value for strObservacion (Not Null)
+					// Sets the value for strObservacion 
 					// @param string $mixValue
 					// @return string
 					try {

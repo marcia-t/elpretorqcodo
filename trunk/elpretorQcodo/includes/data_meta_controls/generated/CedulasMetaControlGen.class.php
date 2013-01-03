@@ -36,6 +36,8 @@
 	 * property-read QLabel $AudienciaLabel
 	 * property QTextBox $ObservacionesControl
 	 * property-read QLabel $ObservacionesLabel
+	 * property QListBox $EstadoControl
+	 * property-read QLabel $EstadoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -127,6 +129,12 @@
          */
 		protected $txtObservaciones;
 
+        /**
+         * @var QListBox lstEstadoObject;
+         * @access protected
+         */
+		protected $lstEstadoObject;
+
 
 		// Controls that allow the viewing of Cedulas's individual data fields
         /**
@@ -182,6 +190,12 @@
          * @access protected
          */
 		protected $lblObservaciones;
+
+        /**
+         * @var QLabel lblEstado
+         * @access protected
+         */
+		protected $lblEstado;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -565,6 +579,49 @@
 			return $this->lblObservaciones;
 		}
 
+		/**
+		 * Create and setup QListBox lstEstadoObject
+		 * @param string $strControlId optional ControlId to use
+		 * @param QQCondition $objConditions override the default condition of QQ::All() to the query, itself
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause object or array of QQClause objects for the query
+		 * @return QListBox
+		 */
+		public function lstEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
+			$this->lstEstadoObject = new QListBox($this->objParentObject, $strControlId);
+			$this->lstEstadoObject->Name = QApplication::Translate('Estado Object');
+			$this->lstEstadoObject->Required = true;
+			if (!$this->blnEditMode)
+				$this->lstEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+
+			// Setup and perform the Query
+			if (is_null($objCondition)) $objCondition = QQ::All();
+			$objEstadoObjectCursor = Estados::QueryCursor($objCondition, $objOptionalClauses);
+
+			// Iterate through the Cursor
+			while ($objEstadoObject = Estados::InstantiateCursor($objEstadoObjectCursor)) {
+				$objListItem = new QListItem($objEstadoObject->__toString(), $objEstadoObject->IdEstado);
+				if (($this->objCedulas->EstadoObject) && ($this->objCedulas->EstadoObject->IdEstado == $objEstadoObject->IdEstado))
+					$objListItem->Selected = true;
+				$this->lstEstadoObject->AddItem($objListItem);
+			}
+
+			// Return the QListBox
+			return $this->lstEstadoObject;
+		}
+
+		/**
+		 * Create and setup QLabel lblEstado
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblEstado_Create($strControlId = null) {
+			$this->lblEstado = new QLabel($this->objParentObject, $strControlId);
+			$this->lblEstado->Name = QApplication::Translate('Estado Object');
+			$this->lblEstado->Text = ($this->objCedulas->EstadoObject) ? $this->objCedulas->EstadoObject->__toString() : null;
+			$this->lblEstado->Required = true;
+			return $this->lblEstado;
+		}
+
 
 
 		/**
@@ -616,6 +673,20 @@
 			if ($this->txtObservaciones) $this->txtObservaciones->Text = $this->objCedulas->Observaciones;
 			if ($this->lblObservaciones) $this->lblObservaciones->Text = $this->objCedulas->Observaciones;
 
+			if ($this->lstEstadoObject) {
+					$this->lstEstadoObject->RemoveAllItems();
+				if (!$this->blnEditMode)
+					$this->lstEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+				$objEstadoObjectArray = Estados::LoadAll();
+				if ($objEstadoObjectArray) foreach ($objEstadoObjectArray as $objEstadoObject) {
+					$objListItem = new QListItem($objEstadoObject->__toString(), $objEstadoObject->IdEstado);
+					if (($this->objCedulas->EstadoObject) && ($this->objCedulas->EstadoObject->IdEstado == $objEstadoObject->IdEstado))
+						$objListItem->Selected = true;
+					$this->lstEstadoObject->AddItem($objListItem);
+				}
+			}
+			if ($this->lblEstado) $this->lblEstado->Text = ($this->objCedulas->EstadoObject) ? $this->objCedulas->EstadoObject->__toString() : null;
+
 		}
 
 
@@ -648,6 +719,7 @@
 				if ($this->calFechaFin) $this->objCedulas->FechaFin = $this->calFechaFin->DateTime;
 				if ($this->calAudiencia) $this->objCedulas->Audiencia = $this->calAudiencia->DateTime;
 				if ($this->txtObservaciones) $this->objCedulas->Observaciones = $this->txtObservaciones->Text;
+				if ($this->lstEstadoObject) $this->objCedulas->Estado = $this->lstEstadoObject->SelectedValue;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -750,6 +822,12 @@
 				case 'ObservacionesLabel':
 					if (!$this->lblObservaciones) return $this->lblObservaciones_Create();
 					return $this->lblObservaciones;
+				case 'EstadoControl':
+					if (!$this->lstEstadoObject) return $this->lstEstadoObject_Create();
+					return $this->lstEstadoObject;
+				case 'EstadoLabel':
+					if (!$this->lblEstado) return $this->lblEstado_Create();
+					return $this->lblEstado;
 				default:
 					try {
 						return parent::__get($strName);
@@ -792,6 +870,8 @@
 						return ($this->calAudiencia = QType::Cast($mixValue, 'QControl'));
 					case 'ObservacionesControl':
 						return ($this->txtObservaciones = QType::Cast($mixValue, 'QControl'));
+					case 'EstadoControl':
+						return ($this->lstEstadoObject = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

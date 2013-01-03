@@ -101,6 +101,7 @@
 					<ul>
 						<li><a href='/app/cedulas_list.php'><span>Ver</span> </a></li>
 						<li><a href='/app/cedulas_edit.php'><span>Agregar</span> </a>
+						<li><a href='/app/buscar_cedulas.php'><span>Buscar</span> </a>
 						</li>
 					</ul>
 			</li>

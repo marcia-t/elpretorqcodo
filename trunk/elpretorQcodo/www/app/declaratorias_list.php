@@ -55,6 +55,7 @@
 
 			// Create the Other Columns (note that you can use strings for declaratorias's properties, or you
 			// can traverse down QQN::declaratorias() to display fields that are down the hierarchy)
+			//$this->dtgDeclaratoriases->MetaAddColumn('IdDeclaratoria');
 			$this->dtgDeclaratoriases->MetaAddColumn('FechaInicio');
 			$this->dtgDeclaratoriases->AgregarColumna(QQN::Declaratorias()->EstadoObject, 'Estado');
 			$this->dtgDeclaratoriases->MetaAddColumn('Honorarios');
@@ -64,8 +65,11 @@
 			$this->dtgDeclaratoriases->MetaAddColumn('Observaciones');
 			$this->dtgDeclaratoriases->MetaAddColumn('Autos');
 			$this->dtgDeclaratoriases->MetaAddColumn('FechaFin');
-			$this->dtgDeclaratoriases->AgregarColumnaObservada('Observada', 'Observada');
+			$this->dtgDeclaratoriases->MetaAddColumn('Observada');
 		}
+		
+		
+		
 	}
 
 	// Go ahead and run this form object to generate the page and event handlers, implicitly using

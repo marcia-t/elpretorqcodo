@@ -19,5 +19,22 @@
 	 * @subpackage MetaControls
 	 */
 	class AgentesMetaControl extends AgentesMetaControlGen {
+		
+		
+		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objAgentes->Observaciones;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			$this->txtObservaciones->MaxLength = Agentes::ObservacionesMaxLength;
+			return $this->txtObservaciones;
+		}
+		
 	}
 ?>

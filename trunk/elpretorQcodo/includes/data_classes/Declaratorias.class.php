@@ -26,6 +26,120 @@
 		public function __toString() {
 			return sprintf('Declaratorias Object %s',  $this->intIdDeclaratoria);
 		}
+		
+		public function __get($strName) {
+			switch ($strName) {
+				///////////////////
+				// Member Variables
+				///////////////////
+				case 'IdDeclaratoria':
+					// Gets the value for intIdDeclaratoria (Read-Only PK)
+					// @return integer
+					return $this->intIdDeclaratoria;
+		
+				case 'FechaInicio':
+					// Gets the value for dttFechaInicio (Not Null)
+					// @return QDateTime
+					return $this->dttFechaInicio;
+		
+				case 'Estado':
+					// Gets the value for intEstado (Not Null)
+					// @return integer
+					return $this->intEstado;
+		
+				case 'Honorarios':
+					// Gets the value for intHonorarios (Not Null)
+					// @return integer
+					return $this->intHonorarios;
+		
+				case 'Timbrado':
+					// Gets the value for intTimbrado (Not Null)
+					// @return integer
+					return $this->intTimbrado;
+		
+				case 'NroAbogado':
+					// Gets the value for intNroAbogado (Not Null)
+					// @return integer
+					return $this->intNroAbogado;
+		
+				case 'Contacto':
+					// Gets the value for strContacto
+					// @return string
+					return $this->strContacto;
+		
+				case 'Observaciones':
+					// Gets the value for strObservaciones
+					// @return string
+					return $this->strObservaciones;
+		
+				case 'Autos':
+					// Gets the value for strAutos
+					// @return string
+					return $this->strAutos;
+		
+				case 'FechaFin':
+					// Gets the value for dttFechaFin
+					// @return QDateTime
+					return $this->dttFechaFin;
+		
+				case 'Observada':
+					// Gets the value for intObservada (Not Null)
+					// @return integer
+					if ($this->intObservada == 0){
+						return 'No';
+					}else{
+						return 'Sí';
+					}
+					//return $this->intObservada;
+		
+		
+					///////////////////
+					// Member Objects
+					///////////////////
+				case 'EstadoObject':
+					// Gets the value for the EstadoDeclaratoria object referenced by intEstado (Not Null)
+					// @return EstadoDeclaratoria
+					try {
+						if ((!$this->objEstadoObject) && (!is_null($this->intEstado)))
+							$this->objEstadoObject = EstadoDeclaratoria::Load($this->intEstado);
+						return $this->objEstadoObject;
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+		
+				case 'NroAbogadoObject':
+					// Gets the value for the Abogados object referenced by intNroAbogado (Not Null)
+					// @return Abogados
+					try {
+						if ((!$this->objNroAbogadoObject) && (!is_null($this->intNroAbogado)))
+							$this->objNroAbogadoObject = Abogados::Load($this->intNroAbogado);
+						return $this->objNroAbogadoObject;
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+		
+		
+					////////////////////////////
+					// Virtual Object References (Many to Many and Reverse References)
+					// (If restored via a "Many-to" expansion)
+					////////////////////////////
+		
+		
+				case '__Restored':
+					return $this->__blnRestored;
+		
+				default:
+					try {
+						return parent::__get($strName);
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+			}
+		}
+		
 
 
 		// Override or Create New Load/Count methods
