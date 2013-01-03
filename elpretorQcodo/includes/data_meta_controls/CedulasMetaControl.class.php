@@ -50,6 +50,30 @@
 			// Return the QListBox
 			return $this->lstAgenteObject;
 		}
+		
+		
+		public function lstEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
+			$this->lstEstadoObject = new QListBox($this->objParentObject, $strControlId);
+			$this->lstEstadoObject->Name = 'Estado';
+			$this->lstEstadoObject->Required = true;
+			if (!$this->blnEditMode)
+				$this->lstEstadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+		
+			// Setup and perform the Query
+			if (is_null($objCondition)) $objCondition = QQ::All();
+			$objEstadoObjectCursor = Estados::QueryCursor($objCondition, $objOptionalClauses);
+		
+			// Iterate through the Cursor
+			while ($objEstadoObject = Estados::InstantiateCursor($objEstadoObjectCursor)) {
+				$objListItem = new QListItem($objEstadoObject->__toString(), $objEstadoObject->IdEstado);
+				if (($this->objCedulas->EstadoObject) && ($this->objCedulas->EstadoObject->IdEstado == $objEstadoObject->IdEstado))
+					$objListItem->Selected = true;
+				$this->lstEstadoObject->AddItem($objListItem);
+			}
+		
+			// Return the QListBox
+			return $this->lstEstadoObject;
+		}
 	}
 	
 	

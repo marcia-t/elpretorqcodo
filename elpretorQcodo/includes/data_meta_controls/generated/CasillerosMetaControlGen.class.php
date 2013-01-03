@@ -289,7 +289,6 @@
 			$this->txtObservacion = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtObservacion->Name = QApplication::Translate('Observacion');
 			$this->txtObservacion->Text = $this->objCasilleros->Observacion;
-			$this->txtObservacion->Required = false;
 			$this->txtObservacion->MaxLength = Casilleros::ObservacionMaxLength;
 			return $this->txtObservacion;
 		}
@@ -303,7 +302,6 @@
 			$this->lblObservacion = new QLabel($this->objParentObject, $strControlId);
 			$this->lblObservacion->Name = QApplication::Translate('Observacion');
 			$this->lblObservacion->Text = $this->objCasilleros->Observacion;
-			$this->lblObservacion->Required = true;
 			return $this->lblObservacion;
 		}
 

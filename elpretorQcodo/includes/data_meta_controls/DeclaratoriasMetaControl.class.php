@@ -25,10 +25,10 @@
 			$this->txtObservada->Name = 'Observada';
 			
 			if ($this->blnEditMode){
-				if ($this->objDeclaratorias->Observada == 1){
+				if ($this->objDeclaratorias->Observada == 'Sí'){
 					$this->txtObservada->Checked = true;
 				}
-				if ($this->objDeclaratorias->Observada == 0){
+				if ($this->objDeclaratorias->Observada == 'No'){
 					$this->txtObservada->Checked = false;
 				}
 			}

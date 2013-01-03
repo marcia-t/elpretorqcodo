@@ -55,16 +55,16 @@
 
 			// Create the Other Columns (note that you can use strings for cedulas's properties, or you
 			// can traverse down QQN::cedulas() to display fields that are down the hierarchy)
-			$this->dtgCedulases->MetaAddColumn('IdCedulas');
 			$this->dtgCedulases->MetaAddColumn('Localidad');
 			$this->dtgCedulases->MetaAddColumn('Autos');
 			$this->dtgCedulases->MetaAddColumn('Direccion');
-			$this->dtgCedulases->MetaAddColumn(QQN::Cedulas()->AgenteObject);
+			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->AgenteObject, 'Agente');
 			$this->dtgCedulases->MetaAddColumn('FechaIngreso');
 			$this->dtgCedulases->MetaAddColumn('FechaSalida');
 			$this->dtgCedulases->MetaAddColumn('FechaFin');
 			$this->dtgCedulases->MetaAddColumn('Audiencia');
 			$this->dtgCedulases->MetaAddColumn('Observaciones');
+			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->EstadoObject, 'Estado');
 		}
 	}
 
