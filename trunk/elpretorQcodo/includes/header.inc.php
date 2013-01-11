@@ -88,24 +88,35 @@
 
 				</ul>
 				<li class='has-sub'><a href='#'><span>Caja</span> </a>
+					<ul>
+						<li><a href='/app/movimiento_list.php'><span>Movimientos</span> </a>
+						</li>
+						<li><a href='/app/movimiento_edit.php'><span>Agregar movimiento</span>
+						</a></li>
+						<li><a href='/app/caja_diaria_list.php'><span>Caja diaria</span>
+						</a></li>
+					</ul>
 			</li>
 				<li class='has-sub'><a href='#'><span>Declaratorias</span> </a>
 					<ul>
 						<li><a href='/app/declaratorias_list.php'><span>Ver</span> </a></li>
 						<li><a href='/app/declaratorias_edit.php'><span>Agregar</span> </a>
+							<li><a href='/app/buscar_declaratorias.php'><span>Buscar</span> </a>
 						</li>
+					
 					</ul>
 			</li>
 			</li>
-				<li class='has-sub'><a href='#'><span>Cédulas</span> </a>
-					<ul>
-						<li><a href='/app/cedulas_list.php'><span>Ver</span> </a></li>
-						<li><a href='/app/cedulas_edit.php'><span>Agregar</span> </a>
+			<li class='has-sub'><a href='#'><span>Cédulas</span> </a>
+				<ul>
+					<li><a href='/app/cedulas_list.php'><span>Ver</span> </a></li>
+					<li><a href='/app/cedulas_edit.php'><span>Agregar</span> </a>
 						<li><a href='/app/buscar_cedulas.php'><span>Buscar</span> </a>
-						</li>
-					</ul>
+					</li>
+				
+				</ul>
 			</li>
-		
+
 		</ul>
 	</div>
 

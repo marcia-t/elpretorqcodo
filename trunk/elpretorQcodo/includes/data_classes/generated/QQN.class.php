@@ -49,6 +49,18 @@
 			return new QQNodeModalidades('modalidades', null, null);
 		}
 		/**
+		 * @return QQNodeMovimiento
+		 */
+		static public function Movimiento() {
+			return new QQNodeMovimiento('movimiento', null, null);
+		}
+		/**
+		 * @return QQNodeTipoMovimiento
+		 */
+		static public function TipoMovimiento() {
+			return new QQNodeTipoMovimiento('tipo_movimiento', null, null);
+		}
+		/**
 		 * @return QQNodeTipoTramites
 		 */
 		static public function TipoTramites() {
