@@ -32,8 +32,8 @@
 		protected $calFechaFin;
 		protected $calAudiencia;
 		protected $txtObservaciones;
-		protected $pnlList;
-		protected $pnlEdit;
+// 		protected $pnlList;
+// 		protected $pnlEdit;
 		protected $dtgCedulases;
 		protected $lstEstadoObject;
 		protected $datos = array();
@@ -58,12 +58,12 @@
 
 		protected function Form_Create() {
 			
-			$this->pnlList = new QPanel($this, 'pnlList');
-			$this->pnlList->AutoRenderChildren = true;
+// 			$this->pnlList = new QPanel($this, 'pnlList');
+// 			$this->pnlList->AutoRenderChildren = true;
 			
-			$this->pnlEdit = new QPanel($this, 'pnlEdit');
-			$this->pnlEdit->AutoRenderChildren = true;
-			$this->pnlEdit->Visible = false;
+// 			$this->pnlEdit = new QPanel($this, 'pnlEdit');
+// 			$this->pnlEdit->AutoRenderChildren = true;
+// 			$this->pnlEdit->Visible = false;
 			
 			$this->mctCedulas = CedulasMetaControl::CreateFromPathInfo($this);
 
@@ -177,7 +177,7 @@
 			
 			if ($this->datos['observaciones'] != ''){
 				$cond = $this->datos['observaciones'];
-				$sql .= " AND observaciones ILIKE '%$cond%'";
+				$sql .= " AND observaciones LIKE '%$cond%'";
 			}
 			
 			if (isset($this->datos['audiencia'])){
@@ -207,17 +207,17 @@
 			
 			if ($this->datos['direccion'] != ''){
 				$cond = $this->datos['direccion'];
-				$sql .= " AND direccion ILIKE '%$cond%'";
+				$sql .= " AND direccion LIKE '%$cond%'";
 			}
 			
 			if ($this->datos['autos']!= ''){
 				$cond = $this->datos['autos'];
-				$sql .= " AND autos ILIKE '%$cond%'";
+				$sql .= " AND autos LIKE '%$cond%'";
 			}
 			
 			if ($this->datos['localidad'] != ''){
 				$cond = $this->datos['localidad'];
-				$sql .= " AND localidad ILIKE '%$cond%'";
+				$sql .= " AND localidad LIKE '%$cond%'";
 			}
 			
 			

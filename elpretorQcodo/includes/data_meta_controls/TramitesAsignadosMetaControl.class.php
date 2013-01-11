@@ -142,5 +142,44 @@
 		}
 		
 		
+		public function SaveTramitesAsignados() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->lstIdAgenteObject) $this->objTramitesAsignados->IdAgente = $this->lstIdAgenteObject->SelectedValue;
+				if ($this->lstNroAbogadoObject) $this->objTramitesAsignados->NroAbogado = $this->lstNroAbogadoObject->SelectedValue;
+				if ($this->lstIdEstadoObject) $this->objTramitesAsignados->IdEstado = $this->lstIdEstadoObject->SelectedValue;
+				if ($this->calFechaIngreso) $this->objTramitesAsignados->FechaIngreso = $this->calFechaIngreso->DateTime;
+				if ($this->calFechaSalida) $this->objTramitesAsignados->FechaSalida = $this->calFechaSalida->DateTime;
+				if ($this->lstTipoTramiteObject) $this->objTramitesAsignados->TipoTramite = $this->lstTipoTramiteObject->SelectedValue;
+				if ($this->txtAutos) $this->objTramitesAsignados->Autos = $this->txtAutos->Text;
+				if ($this->calFechaVencimiento) $this->objTramitesAsignados->FechaVencimiento = $this->calFechaVencimiento->DateTime;
+				if ($this->txtObservaciones) $this->objTramitesAsignados->Observaciones = $this->txtObservaciones->Text;
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+				$this->crearMovimientos();
+				// Save the TramitesAsignados object
+				$this->objTramitesAsignados->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+		
+		public function crearMovimientos (){
+			$objMovimiento = new Movimiento();
+			$objMovimiento->Fecha = $this->objTramitesAsignados->FechaIngreso;
+			$objMovimiento->TipoMovimiento= 1;
+			$objMovimiento->Monto = $this->objTramitesAsignados->TipoTramiteObject->Timbrado;
+			$objMovimiento->Save();
+			
+			$objMovimiento2 = new Movimiento();
+			$objMovimiento2->Fecha = $this->objTramitesAsignados->FechaIngreso;
+			$objMovimiento2->TipoMovimiento= 2;
+			$objMovimiento2->Monto = $this->objTramitesAsignados->TipoTramiteObject->Honorario;
+			$objMovimiento2->Save();
+		}
+		
 	}
 ?>

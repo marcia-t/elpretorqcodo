@@ -197,7 +197,7 @@
 
 			// Setup the default timezone (if not already specified in php.ini)
 			if (!ini_get('date.timezone'))
-				date_default_timezone_set('America/Los_Angeles');
+				date_default_timezone_set('America/Buenos_Aires');
 
 			// To log ALL errors that have occurred, set flag to TRUE
 			define('ERROR_LOG_FLAG', false);

@@ -62,6 +62,7 @@
 			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1));
 			$this->lstIdEstadoObject = $this->mctTramitesAsignados->lstIdEstadoObject_Create();
 			$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
+			$this->calFechaIngreso->DateTime = QDateTime::Now();
 			$this->calFechaSalida = $this->mctTramitesAsignados->calFechaSalida_Create();
 			$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create(null, QQ::Equal(QQN::TipoTramites()->Activo, 1));
 			$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();

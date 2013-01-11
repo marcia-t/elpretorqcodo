@@ -55,6 +55,20 @@
 		QApplicationBase::$ClassFile['modalidadesmetacontrol'] = __DATA_META_CONTROLS__ . '/ModalidadesMetaControl.class.php';
 		QApplicationBase::$ClassFile['modalidadesdatagrid'] = __DATA_META_CONTROLS__ . '/ModalidadesDataGrid.class.php';
 
+	// ClassPaths for the Movimiento class
+		QApplicationBase::$ClassFile['movimiento'] = __DATA_CLASSES__ . '/Movimiento.class.php';
+		QApplicationBase::$ClassFile['qqnodemovimiento'] = __DATA_CLASSES__ . '/Movimiento.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodemovimiento'] = __DATA_CLASSES__ . '/Movimiento.class.php';
+		QApplicationBase::$ClassFile['movimientometacontrol'] = __DATA_META_CONTROLS__ . '/MovimientoMetaControl.class.php';
+		QApplicationBase::$ClassFile['movimientodatagrid'] = __DATA_META_CONTROLS__ . '/MovimientoDataGrid.class.php';
+
+	// ClassPaths for the TipoMovimiento class
+		QApplicationBase::$ClassFile['tipomovimiento'] = __DATA_CLASSES__ . '/TipoMovimiento.class.php';
+		QApplicationBase::$ClassFile['qqnodetipomovimiento'] = __DATA_CLASSES__ . '/TipoMovimiento.class.php';
+		QApplicationBase::$ClassFile['qqreversereferencenodetipomovimiento'] = __DATA_CLASSES__ . '/TipoMovimiento.class.php';
+		QApplicationBase::$ClassFile['tipomovimientometacontrol'] = __DATA_META_CONTROLS__ . '/TipoMovimientoMetaControl.class.php';
+		QApplicationBase::$ClassFile['tipomovimientodatagrid'] = __DATA_META_CONTROLS__ . '/TipoMovimientoDataGrid.class.php';
+
 	// ClassPaths for the TipoTramites class
 		QApplicationBase::$ClassFile['tipotramites'] = __DATA_CLASSES__ . '/TipoTramites.class.php';
 		QApplicationBase::$ClassFile['qqnodetipotramites'] = __DATA_CLASSES__ . '/TipoTramites.class.php';
