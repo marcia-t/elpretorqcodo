@@ -148,6 +148,7 @@ span.datetimepicker select.second {
 table.datagrid {
 	color: #7F7F7F;
 	font: .8em/1.6em "Trebuchet MS", Verdana, sans-serif;
+	font-size: 12px;
 	border-collapse: collapse
 }
 
@@ -581,11 +582,26 @@ div#dashboard div#left5 {
 	border: 1px solid #000;
 	padding: 5px;
 }
+div#dashboard div#left6 {
+	float: left;
+	width: 365px;
+	height: 150 px;
+	font-size: 14px;
+	background-color: #FEFFEE;
+	border: 1px solid #000;
+	padding: 5px;
+}
 
 div#dashboard div#right {
 	float: left;
 	margin-left: 10px;
 	width: 1100px;
+}
+
+div#dashboard div#right2 {
+	float: left;
+	margin-left: 16px;
+	width: 600px;
 }
 
 div#dashboard div#right div#pnlList {

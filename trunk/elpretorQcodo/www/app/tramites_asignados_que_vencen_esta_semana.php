@@ -74,13 +74,14 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$objDatabase = TramitesAsignados::GetDatabase();
 	
 		$semanaNumero = date("W");
+		$anioNumero = date("Y");
 		
 		
 		$sql = "SELECT *
 		FROM sistema.tramites_asignados
-		WHERE WEEKOFYEAR(fecha_vencimiento) = $semanaNumero";
+		WHERE WEEKOFYEAR(fecha_vencimiento) = $semanaNumero
+		AND YEAR (fecha_vencimiento) = $anioNumero";
 	
-		
 	
 		$objDbResult = $objDatabase->Query($sql);
 		return TramitesAsignados::InstantiateDbResult($objDbResult);

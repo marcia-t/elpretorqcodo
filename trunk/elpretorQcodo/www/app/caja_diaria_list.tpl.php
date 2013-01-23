@@ -14,31 +14,42 @@ require(__INCLUDES__ . '/header.inc.php');
 <div id="titleBar">
 	<h2>Caja</h2>
 </div>
+<div id="dashboard">
+	<div id="left6">
+		<table class="datagrid">
+			<caption>
+				<?php $this->lblCaption->Render(); ?>
+			</caption>
+			<thead>
+				<th>Timbrado</th>
+				<th>Honorarios</th>
+				<th>Gastos</th>
+				<th>Deben</th>
+				<th>Doy</th>
+				<th>Otros</th>
+			</thead>
+			<tr>
+				<td><?php $this->lblTimbrado->Render(); ?></td>
+				<td><?php $this->lblHonorarios->Render(); ?></td>
+				<td><?php $this->lblGastos->Render(); ?></td>
+				<td><?php $this->lblDeben->Render(); ?></td>
+				<td><?php $this->lblDoy->Render(); ?></td>
+				<td><?php $this->lblOtros->Render(); ?></td>
+			</tr>
+		</table>
+	</div>
+	<div id="right2">
+		<?php $this->dtgCajaDiaria->Render(); ?>
 
-<table class="datagrid">
-	<caption><?php $this->lblCaption->Render(); ?></caption>
-	<thead>
-		<th>Timbrado</th>
-		<th>Honorarios</th>
-		<th>Gastos</th>
-		<th>Deben</th>
-		<th>Doy</th>
-		<th>Otros</th>
-	</thead>
-	<tr>
-		<td><?php $this->lblTimbrado->Render(); ?></td>
-		<td><?php $this->lblHonorarios->Render(); ?></td>
-		<td><?php $this->lblGastos->Render(); ?></td>
-		<td><?php $this->lblDeben->Render(); ?></td>
-		<td><?php $this->lblDoy->Render(); ?></td>
-		<td><?php $this->lblOtros->Render(); ?></td>
-	</tr>
-</table>
+		<p class="create">
+			<a
+				href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/movimiento_edit.php"><?php _t('Create a New'); ?>
+				<?php _t('Movimiento');?> </a>
+		</p>
+	</div>
+</div>
 
 
-<p class="create">
-		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/movimiento_edit.php"><?php _t('Create a New'); ?> <?php _t('Movimiento');?></a>
-	</p>
 
 
 

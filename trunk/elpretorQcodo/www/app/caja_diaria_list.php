@@ -53,6 +53,25 @@ class CajaDiariaListForm extends QForm {
 		$this->lblOtros->Text = $this->getTotalMovimientoPorId(6);
 		
 
+		
+		$this->dtgCajaDiaria = new MovimientoDataGrid($this);
+		
+		$this->dtgCajaDiaria->CssClass = 'datagrid';
+		$this->dtgCajaDiaria->AlternateRowStyle->CssClass = 'alternate';
+		
+		// Add Pagination (if desired)
+		$this->dtgCajaDiaria->Paginator = new QPaginator($this->dtgCajaDiaria);
+		$this->dtgCajaDiaria->ItemsPerPage = 20;
+		
+		// Use the MetaDataGrid functionality to add Columns for this datagrid
+		
+		
+		$this->dtgCajaDiaria->MetaAddColumn('Monto');
+		$this->dtgCajaDiaria->AgregarColumna(QQN::Movimiento()->TipoMovimientoObject, 'Tipo de Movimiento');
+		$this->dtgCajaDiaria->MetaAddColumn('Observaciones');
+		$this->dtgCajaDiaria->DataSource = Movimiento::QueryArray(QQ::Equal(QQN::Movimiento()->Fecha, QDateTime::Now(false)));
+		
+		
 	}
 
 	
