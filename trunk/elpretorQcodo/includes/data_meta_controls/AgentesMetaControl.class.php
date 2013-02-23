@@ -36,5 +36,28 @@
 			return $this->txtObservaciones;
 		}
 		
+		/**
+		 * This will save this object's Agentes instance,
+		 * updating only the fields which have had a control created for it.
+		 */
+		public function SaveAgentes() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->txtNombreApellido) $this->objAgentes->NombreApellido = $this->txtNombreApellido->Text;
+				 $this->objAgentes->Activo = 1;
+				if ($this->txtObservaciones) $this->objAgentes->Observaciones = $this->txtObservaciones->Text;
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+		
+				// Save the Agentes object
+				$this->objAgentes->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+		
 	}
 ?>

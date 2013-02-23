@@ -17,9 +17,9 @@
 	 * @subpackage GeneratedDataObjects
 	 * @property integer $IdTipoTramite the value for intIdTipoTramite (Read-Only PK)
 	 * @property string $Nombre the value for strNombre (Not Null)
-	 * @property integer $Timbrado the value for intTimbrado (Not Null)
-	 * @property integer $Honorario the value for intHonorario (Not Null)
-	 * @property integer $OtrosCostos the value for intOtrosCostos 
+	 * @property string $Timbrado the value for strTimbrado (Not Null)
+	 * @property string $Honorario the value for strHonorario (Not Null)
+	 * @property string $OtrosCostos the value for strOtrosCostos 
 	 * @property string $Observaciones the value for strObservaciones 
 	 * @property integer $IdModalidad the value for intIdModalidad (Not Null)
 	 * @property integer $IdZona the value for intIdZona (Not Null)
@@ -55,25 +55,25 @@
 
 		/**
 		 * Protected member variable that maps to the database column tipo_tramites.timbrado
-		 * @var integer intTimbrado
+		 * @var string strTimbrado
 		 */
-		protected $intTimbrado;
+		protected $strTimbrado;
 		const TimbradoDefault = null;
 
 
 		/**
 		 * Protected member variable that maps to the database column tipo_tramites.honorario
-		 * @var integer intHonorario
+		 * @var string strHonorario
 		 */
-		protected $intHonorario;
+		protected $strHonorario;
 		const HonorarioDefault = null;
 
 
 		/**
 		 * Protected member variable that maps to the database column tipo_tramites.otros_costos
-		 * @var integer intOtrosCostos
+		 * @var string strOtrosCostos
 		 */
-		protected $intOtrosCostos;
+		protected $strOtrosCostos;
 		const OtrosCostosDefault = null;
 
 
@@ -555,11 +555,11 @@
 			$strAliasName = array_key_exists($strAliasPrefix . 'nombre', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nombre'] : $strAliasPrefix . 'nombre';
 			$objToReturn->strNombre = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'timbrado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'timbrado'] : $strAliasPrefix . 'timbrado';
-			$objToReturn->intTimbrado = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strTimbrado = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'honorario', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'honorario'] : $strAliasPrefix . 'honorario';
-			$objToReturn->intHonorario = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strHonorario = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'otros_costos', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'otros_costos'] : $strAliasPrefix . 'otros_costos';
-			$objToReturn->intOtrosCostos = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strOtrosCostos = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'observaciones', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'observaciones'] : $strAliasPrefix . 'observaciones';
 			$objToReturn->strObservaciones = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'id_modalidad', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'id_modalidad'] : $strAliasPrefix . 'id_modalidad';
@@ -798,9 +798,9 @@
 							`activo`
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->strNombre) . ',
-							' . $objDatabase->SqlVariable($this->intTimbrado) . ',
-							' . $objDatabase->SqlVariable($this->intHonorario) . ',
-							' . $objDatabase->SqlVariable($this->intOtrosCostos) . ',
+							' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+							' . $objDatabase->SqlVariable($this->strHonorario) . ',
+							' . $objDatabase->SqlVariable($this->strOtrosCostos) . ',
 							' . $objDatabase->SqlVariable($this->strObservaciones) . ',
 							' . $objDatabase->SqlVariable($this->intIdModalidad) . ',
 							' . $objDatabase->SqlVariable($this->intIdZona) . ',
@@ -825,9 +825,9 @@
 							`tipo_tramites`
 						SET
 							`nombre` = ' . $objDatabase->SqlVariable($this->strNombre) . ',
-							`timbrado` = ' . $objDatabase->SqlVariable($this->intTimbrado) . ',
-							`honorario` = ' . $objDatabase->SqlVariable($this->intHonorario) . ',
-							`otros_costos` = ' . $objDatabase->SqlVariable($this->intOtrosCostos) . ',
+							`timbrado` = ' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+							`honorario` = ' . $objDatabase->SqlVariable($this->strHonorario) . ',
+							`otros_costos` = ' . $objDatabase->SqlVariable($this->strOtrosCostos) . ',
 							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . ',
 							`id_modalidad` = ' . $objDatabase->SqlVariable($this->intIdModalidad) . ',
 							`id_zona` = ' . $objDatabase->SqlVariable($this->intIdZona) . ',
@@ -917,9 +917,9 @@
 
 			// Update $this's local variables to match
 			$this->strNombre = $objReloaded->strNombre;
-			$this->intTimbrado = $objReloaded->intTimbrado;
-			$this->intHonorario = $objReloaded->intHonorario;
-			$this->intOtrosCostos = $objReloaded->intOtrosCostos;
+			$this->strTimbrado = $objReloaded->strTimbrado;
+			$this->strHonorario = $objReloaded->strHonorario;
+			$this->strOtrosCostos = $objReloaded->strOtrosCostos;
 			$this->strObservaciones = $objReloaded->strObservaciones;
 			$this->IdModalidad = $objReloaded->IdModalidad;
 			$this->IdZona = $objReloaded->IdZona;
@@ -951,9 +951,9 @@
 				) VALUES (
 					' . $objDatabase->SqlVariable($this->intIdTipoTramite) . ',
 					' . $objDatabase->SqlVariable($this->strNombre) . ',
-					' . $objDatabase->SqlVariable($this->intTimbrado) . ',
-					' . $objDatabase->SqlVariable($this->intHonorario) . ',
-					' . $objDatabase->SqlVariable($this->intOtrosCostos) . ',
+					' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+					' . $objDatabase->SqlVariable($this->strHonorario) . ',
+					' . $objDatabase->SqlVariable($this->strOtrosCostos) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
 					' . $objDatabase->SqlVariable($this->intIdModalidad) . ',
 					' . $objDatabase->SqlVariable($this->intIdZona) . ',
@@ -1019,19 +1019,19 @@
 					return $this->strNombre;
 
 				case 'Timbrado':
-					// Gets the value for intTimbrado (Not Null)
-					// @return integer
-					return $this->intTimbrado;
+					// Gets the value for strTimbrado (Not Null)
+					// @return string
+					return $this->strTimbrado;
 
 				case 'Honorario':
-					// Gets the value for intHonorario (Not Null)
-					// @return integer
-					return $this->intHonorario;
+					// Gets the value for strHonorario (Not Null)
+					// @return string
+					return $this->strHonorario;
 
 				case 'OtrosCostos':
-					// Gets the value for intOtrosCostos 
-					// @return integer
-					return $this->intOtrosCostos;
+					// Gets the value for strOtrosCostos 
+					// @return string
+					return $this->strOtrosCostos;
 
 				case 'Observaciones':
 					// Gets the value for strObservaciones 
@@ -1138,33 +1138,33 @@
 					}
 
 				case 'Timbrado':
-					// Sets the value for intTimbrado (Not Null)
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strTimbrado (Not Null)
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intTimbrado = QType::Cast($mixValue, QType::Integer));
+						return ($this->strTimbrado = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
 					}
 
 				case 'Honorario':
-					// Sets the value for intHonorario (Not Null)
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strHonorario (Not Null)
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intHonorario = QType::Cast($mixValue, QType::Integer));
+						return ($this->strHonorario = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
 					}
 
 				case 'OtrosCostos':
-					// Sets the value for intOtrosCostos 
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strOtrosCostos 
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intOtrosCostos = QType::Cast($mixValue, QType::Integer));
+						return ($this->strOtrosCostos = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1501,9 +1501,9 @@
 			$strToReturn = '<complexType name="TipoTramites"><sequence>';
 			$strToReturn .= '<element name="IdTipoTramite" type="xsd:int"/>';
 			$strToReturn .= '<element name="Nombre" type="xsd:string"/>';
-			$strToReturn .= '<element name="Timbrado" type="xsd:int"/>';
-			$strToReturn .= '<element name="Honorario" type="xsd:int"/>';
-			$strToReturn .= '<element name="OtrosCostos" type="xsd:int"/>';
+			$strToReturn .= '<element name="Timbrado" type="xsd:string"/>';
+			$strToReturn .= '<element name="Honorario" type="xsd:string"/>';
+			$strToReturn .= '<element name="OtrosCostos" type="xsd:string"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
 			$strToReturn .= '<element name="IdModalidadObject" type="xsd1:Modalidades"/>';
 			$strToReturn .= '<element name="IdZonaObject" type="xsd1:Zonas"/>';
@@ -1537,11 +1537,11 @@
 			if (property_exists($objSoapObject, 'Nombre'))
 				$objToReturn->strNombre = $objSoapObject->Nombre;
 			if (property_exists($objSoapObject, 'Timbrado'))
-				$objToReturn->intTimbrado = $objSoapObject->Timbrado;
+				$objToReturn->strTimbrado = $objSoapObject->Timbrado;
 			if (property_exists($objSoapObject, 'Honorario'))
-				$objToReturn->intHonorario = $objSoapObject->Honorario;
+				$objToReturn->strHonorario = $objSoapObject->Honorario;
 			if (property_exists($objSoapObject, 'OtrosCostos'))
-				$objToReturn->intOtrosCostos = $objSoapObject->OtrosCostos;
+				$objToReturn->strOtrosCostos = $objSoapObject->OtrosCostos;
 			if (property_exists($objSoapObject, 'Observaciones'))
 				$objToReturn->strObservaciones = $objSoapObject->Observaciones;
 			if ((property_exists($objSoapObject, 'IdModalidadObject')) &&
@@ -1617,11 +1617,11 @@
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
 				case 'Timbrado':
-					return new QQNode('timbrado', 'Timbrado', 'integer', $this);
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
 				case 'Honorario':
-					return new QQNode('honorario', 'Honorario', 'integer', $this);
+					return new QQNode('honorario', 'Honorario', 'string', $this);
 				case 'OtrosCostos':
-					return new QQNode('otros_costos', 'OtrosCostos', 'integer', $this);
+					return new QQNode('otros_costos', 'OtrosCostos', 'string', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
 				case 'IdModalidad':
@@ -1676,11 +1676,11 @@
 				case 'Nombre':
 					return new QQNode('nombre', 'Nombre', 'string', $this);
 				case 'Timbrado':
-					return new QQNode('timbrado', 'Timbrado', 'integer', $this);
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
 				case 'Honorario':
-					return new QQNode('honorario', 'Honorario', 'integer', $this);
+					return new QQNode('honorario', 'Honorario', 'string', $this);
 				case 'OtrosCostos':
-					return new QQNode('otros_costos', 'OtrosCostos', 'integer', $this);
+					return new QQNode('otros_costos', 'OtrosCostos', 'string', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
 				case 'IdModalidad':

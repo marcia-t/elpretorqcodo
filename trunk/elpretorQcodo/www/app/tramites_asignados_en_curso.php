@@ -31,8 +31,8 @@ protected function Form_Create() {
 			$this->dtgTramitesAsignadoses->AlternateRowStyle->CssClass = 'alternate';
 
 			// Add Pagination (if desired)
-			$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
-			$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+			//$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+			//$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
 			// Use the MetaDataGrid functionality to add Columns for this datagrid
 

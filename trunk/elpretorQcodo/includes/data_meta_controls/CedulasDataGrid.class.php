@@ -67,11 +67,11 @@
 		
 				$objNewColumn = new QDataGridColumn(
 						$nombre,
-						'<?=' . $objNode->GetDataGridHtml() . '?>',
+						'<?=' . $objNode->GetDataGridHtml() . '?>'/*,
 						array(
 								'OrderByClause' => QQ::OrderBy($objNode->GetDataGridOrderByNode()),
 								'ReverseOrderByClause' => QQ::OrderBy($objNode->GetDataGridOrderByNode(), false)
-						)
+						)*/
 				);
 			}
 		

@@ -306,6 +306,10 @@
 				case 'Observaciones': return QQN::Cedulas()->Observaciones;
 				case 'Estado': return QQN::Cedulas()->Estado;
 				case 'EstadoObject': return QQN::Cedulas()->EstadoObject;
+				case 'Honorarios': return QQN::Cedulas()->Honorarios;
+				case 'Timbrado': return QQN::Cedulas()->Timbrado;
+				case 'NroAbogado': return QQN::Cedulas()->NroAbogado;
+				case 'NroAbogadoObject': return QQN::Cedulas()->NroAbogadoObject;
 				default: throw new QCallerException('Simple Property not found in CedulasDataGrid content: ' . $mixContent);
 			} else if ($mixContent instanceof QQAssociationNode)
 				throw new QCallerException('Content QQNode cannot go through any "To Many" association nodes.');

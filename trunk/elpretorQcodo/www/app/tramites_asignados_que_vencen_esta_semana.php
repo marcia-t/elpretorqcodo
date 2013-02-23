@@ -44,8 +44,8 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$this->dtgTramitesAsignadoses->AlternateRowStyle->CssClass = 'alternate';
 
 		// Add Pagination (if desired)
-		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
-		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+		//$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+		//$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
 		
 		

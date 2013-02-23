@@ -20,6 +20,22 @@
 	 */
 	class DeclaratoriasMetaControl extends DeclaratoriasMetaControlGen {
 		
+		
+		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objDeclaratorias->Observaciones;
+			$this->txtObservaciones->MaxLength = Declaratorias::ObservacionesMaxLength;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			return $this->txtObservaciones;
+		}
+		
 		public function txtObservada_Create($strControlId = null) {
 			$this->txtObservada = new QCheckBox($this->objParentObject);
 			$this->txtObservada->Name = 'Observada';
@@ -41,8 +57,10 @@
 				// Update any fields for controls that have been created
 				if ($this->calFechaInicio) $this->objDeclaratorias->FechaInicio = $this->calFechaInicio->DateTime;
 				if ($this->lstEstadoObject) $this->objDeclaratorias->Estado = $this->lstEstadoObject->SelectedValue;
-				if ($this->txtHonorarios) $this->objDeclaratorias->Honorarios = $this->txtHonorarios->Text;
-				if ($this->txtTimbrado) $this->objDeclaratorias->Timbrado = $this->txtTimbrado->Text;
+				if ($this->txtHonorarios->Text != '') $this->objDeclaratorias->Honorarios = $this->txtHonorarios->Text;
+				else $this->objDeclaratorias->Honorarios = '0';
+				if ($this->txtTimbrado->Text != '') $this->objDeclaratorias->Timbrado = $this->txtTimbrado->Text;
+				else $this->objDeclaratorias->Timbrado = '0';
 				if ($this->lstNroAbogadoObject) $this->objDeclaratorias->NroAbogado = $this->lstNroAbogadoObject->SelectedValue;
 				if ($this->txtContacto) $this->objDeclaratorias->Contacto = $this->txtContacto->Text;
 				if ($this->txtObservaciones) $this->objDeclaratorias->Observaciones = $this->txtObservaciones->Text;
@@ -50,9 +68,11 @@
 				if ($this->calFechaFin) $this->objDeclaratorias->FechaFin = $this->calFechaFin->DateTime;
 				if ($this->txtObservada->Checked) $this->objDeclaratorias->Observada = 1;
 				if (!$this->txtObservada->Checked) $this->objDeclaratorias->Observada = 0;
-		
+				//var_dump($this->objDeclaratorias);die;
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 		
+				$this->crearMovimientos();
+				
 				// Save the Declaratorias object
 				$this->objDeclaratorias->Save();
 		
@@ -60,6 +80,25 @@
 			} catch (QCallerException $objExc) {
 				$objExc->IncrementOffset();
 				throw $objExc;
+			}
+		}
+		
+		public function crearMovimientos(){
+			if ($this->objDeclaratorias->Timbrado > 0){
+			$objMovimiento = new Movimiento();
+			$objMovimiento->Fecha = QDateTime::Now(false);
+			$objMovimiento->TipoMovimiento= 1;
+			$objMovimiento->Monto = $this->objDeclaratorias->Timbrado;
+			$objMovimiento->Observaciones = 'Declaratoria '.$this->objDeclaratorias->Observaciones;
+			$objMovimiento->Save();
+			}
+			if ($this->objDeclaratorias->Honorarios > 0){
+			$objMovimiento2 = new Movimiento();
+			$objMovimiento2->Fecha = QDateTime::Now(false);
+			$objMovimiento2->TipoMovimiento= 2;
+			$objMovimiento2->Monto = $this->objDeclaratorias->Honorarios;
+			$objMovimiento2->Observaciones = 'Declaratoria '.$this->objDeclaratorias->Observaciones;
+			$objMovimiento2->Save();
 			}
 		}
 		

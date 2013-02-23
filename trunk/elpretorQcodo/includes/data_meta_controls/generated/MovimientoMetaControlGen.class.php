@@ -18,7 +18,7 @@
 	 * property-read Movimiento $Movimiento the actual Movimiento data class being edited
 	 * property QLabel $IdMovimientoControl
 	 * property-read QLabel $IdMovimientoLabel
-	 * property QIntegerTextBox $MontoControl
+	 * property QTextBox $MontoControl
 	 * property-read QLabel $MontoLabel
 	 * property QListBox $TipoMovimientoControl
 	 * property-read QLabel $TipoMovimientoLabel
@@ -64,7 +64,7 @@
 		protected $lblIdMovimiento;
 
         /**
-         * @var QIntegerTextBox txtMonto;
+         * @var QTextBox txtMonto;
          * @access protected
          */
 		protected $txtMonto;
@@ -227,12 +227,12 @@
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtMonto
+		 * Create and setup QTextBox txtMonto
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtMonto_Create($strControlId = null) {
-			$this->txtMonto = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtMonto = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtMonto->Name = QApplication::Translate('Monto');
 			$this->txtMonto->Text = $this->objMovimiento->Monto;
 			$this->txtMonto->Required = true;
@@ -242,15 +242,13 @@
 		/**
 		 * Create and setup QLabel lblMonto
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblMonto_Create($strControlId = null, $strFormat = null) {
+		public function lblMonto_Create($strControlId = null) {
 			$this->lblMonto = new QLabel($this->objParentObject, $strControlId);
 			$this->lblMonto->Name = QApplication::Translate('Monto');
 			$this->lblMonto->Text = $this->objMovimiento->Monto;
 			$this->lblMonto->Required = true;
-			$this->lblMonto->Format = $strFormat;
 			return $this->lblMonto;
 		}
 

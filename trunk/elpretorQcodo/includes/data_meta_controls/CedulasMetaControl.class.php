@@ -51,6 +51,36 @@
 			return $this->lstAgenteObject;
 		}
 		
+		/**
+		 * Create and setup QListBox lstNroAbogadoObject
+		 * @param string $strControlId optional ControlId to use
+		 * @param QQCondition $objConditions override the default condition of QQ::All() to the query, itself
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause object or array of QQClause objects for the query
+		 * @return QListBox
+		 */
+		public function lstNroAbogadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
+			$this->lstNroAbogadoObject = new QListBox($this->objParentObject, $strControlId);
+			$this->lstNroAbogadoObject->Name = 'Número de abogado';
+			$this->lstNroAbogadoObject->Required = true;
+			if (!$this->blnEditMode)
+				$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+		
+			// Setup and perform the Query
+			if (is_null($objCondition)) $objCondition = QQ::All();
+			$objNroAbogadoObjectCursor = Abogados::QueryCursor($objCondition, $objOptionalClauses);
+		
+			// Iterate through the Cursor
+			while ($objNroAbogadoObject = Abogados::InstantiateCursor($objNroAbogadoObjectCursor)) {
+				$objListItem = new QListItem($objNroAbogadoObject->__toString(), $objNroAbogadoObject->IdAbogado);
+				if (($this->objCedulas->NroAbogadoObject) && ($this->objCedulas->NroAbogadoObject->IdAbogado == $objNroAbogadoObject->IdAbogado))
+					$objListItem->Selected = true;
+				$this->lstNroAbogadoObject->AddItem($objListItem);
+			}
+		
+			// Return the QListBox
+			return $this->lstNroAbogadoObject;
+		}
+		
 		
 		public function lstEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstEstadoObject = new QListBox($this->objParentObject, $strControlId);
@@ -74,7 +104,65 @@
 			// Return the QListBox
 			return $this->lstEstadoObject;
 		}
+		
+		
+		public function SaveCedulas() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->txtLocalidad) $this->objCedulas->Localidad = $this->txtLocalidad->Text;
+				if ($this->txtAutos) $this->objCedulas->Autos = $this->txtAutos->Text;
+				if ($this->txtDireccion) $this->objCedulas->Direccion = $this->txtDireccion->Text;
+				if ($this->lstAgenteObject) $this->objCedulas->Agente = $this->lstAgenteObject->SelectedValue;
+				if ($this->calFechaIngreso) $this->objCedulas->FechaIngreso = $this->calFechaIngreso->DateTime;
+				if ($this->calFechaSalida) $this->objCedulas->FechaSalida = $this->calFechaSalida->DateTime;
+				if ($this->calFechaFin) $this->objCedulas->FechaFin = $this->calFechaFin->DateTime;
+				if ($this->calAudiencia) $this->objCedulas->Audiencia = $this->calAudiencia->DateTime;
+				if ($this->txtObservaciones) $this->objCedulas->Observaciones = $this->txtObservaciones->Text;
+				if ($this->lstEstadoObject) $this->objCedulas->Estado = $this->lstEstadoObject->SelectedValue;
+				if ($this->txtHonorarios->Text != '') $this->objCedulas->Honorarios = $this->txtHonorarios->Text;
+				else $this->objCedulas->Honorarios = '0'; 
+				if ($this->txtTimbrado->Text != '') $this->objCedulas->Timbrado = $this->txtTimbrado->Text;
+				else $this->objCedulas->Timbrado = '0';
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+				$this->crearMovimientos();
+				// Save the Cedulas object
+				$this->objCedulas->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+		
+		
+		
+		
+		public function crearMovimientos (){
+			if ($this->objCedulas->Timbrado > 0){
+			$objMovimiento = new Movimiento();
+			$objMovimiento->Fecha = $this->objCedulas->FechaIngreso;
+			$objMovimiento->TipoMovimiento= 1;
+			$objMovimiento->Monto = $this->objCedulas->Timbrado;
+			$objMovimiento->Observaciones = 'Cédula '.$this->objCedulas->Autos.' '.$this->objCedulas->Observaciones;
+			$objMovimiento->Save();
+			}
+			if($this->objCedulas->Honorarios > 0){	
+			$objMovimiento2 = new Movimiento();
+			$objMovimiento2->Fecha = $this->objCedulas->FechaIngreso;
+			$objMovimiento2->TipoMovimiento= 2;
+			$objMovimiento2->Monto = $this->objCedulas->Honorarios;
+			$objMovimiento2->Observaciones = 'Cédula '.$this->objCedulas->Autos.' '.$this->objCedulas->Observaciones;
+			$objMovimiento2->Save();
+			}
+		}
+		
+		
 	}
+	
+	
+	
 	
 	
 ?>

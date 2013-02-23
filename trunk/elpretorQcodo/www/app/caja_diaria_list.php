@@ -64,16 +64,20 @@ class CajaDiariaListForm extends QForm {
 		$this->dtgCajaDiaria->ItemsPerPage = 20;
 		
 		// Use the MetaDataGrid functionality to add Columns for this datagrid
-		
-		
+		$this->dtgCajaDiaria->SetDataBinder('bindByToday');
+		$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_APP__ . '/movimiento_edit.php';
+		$this->dtgCajaDiaria->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
 		$this->dtgCajaDiaria->MetaAddColumn('Monto');
 		$this->dtgCajaDiaria->AgregarColumna(QQN::Movimiento()->TipoMovimientoObject, 'Tipo de Movimiento');
 		$this->dtgCajaDiaria->MetaAddColumn('Observaciones');
-		$this->dtgCajaDiaria->DataSource = Movimiento::QueryArray(QQ::Equal(QQN::Movimiento()->Fecha, QDateTime::Now(false)));
+		//$this->dtgCajaDiaria->DataSource = Movimiento::QueryArray(QQ::Equal(QQN::Movimiento()->Fecha, QDateTime::Now(false)));
 		
 		
 	}
 
+	public function bindByToday(){
+		$this->dtgCajaDiaria->DataSource = Movimiento::QueryArray(QQ::Equal(QQN::Movimiento()->Fecha, QDateTime::Now(false)));
+	}
 	
 	public function  getTotalMovimientoPorId ($id){
 		$timbrado = Movimiento::QueryArray(QQ::AndCondition(

@@ -50,12 +50,12 @@
 				case 'Honorarios':
 					// Gets the value for intHonorarios (Not Null)
 					// @return integer
-					return $this->intHonorarios;
+					return $this->strHonorarios;
 		
 				case 'Timbrado':
 					// Gets the value for intTimbrado (Not Null)
 					// @return integer
-					return $this->intTimbrado;
+					return $this->strTimbrado;
 		
 				case 'NroAbogado':
 					// Gets the value for intNroAbogado (Not Null)

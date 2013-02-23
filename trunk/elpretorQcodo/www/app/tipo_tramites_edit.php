@@ -63,7 +63,7 @@
 			$this->txtObservaciones = $this->mctTipoTramites->txtObservaciones_Create();
 			$this->lstIdModalidadObject = $this->mctTipoTramites->lstIdModalidadObject_Create(null, QQ::Equal(QQN::Modalidades()->Activo, 1));
 			$this->lstIdZonaObject = $this->mctTipoTramites->lstIdZonaObject_Create(null, QQ::Equal(QQN::Zonas()->Activo, 1));
-
+			
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);
 			$this->btnSave->Text = QApplication::Translate('Save');

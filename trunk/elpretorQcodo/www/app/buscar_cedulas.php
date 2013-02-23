@@ -32,6 +32,7 @@
 		protected $calFechaFin;
 		protected $calAudiencia;
 		protected $txtObservaciones;
+		protected $lstNroAbogado;
 // 		protected $pnlList;
 // 		protected $pnlEdit;
 		protected $dtgCedulases;
@@ -74,7 +75,9 @@
 			$this->txtAutos->Required = false;
 			$this->txtDireccion = $this->mctCedulas->txtDireccion_Create();
 			$this->txtDireccion->Required = false;
-			$this->lstAgenteObject = $this->mctCedulas->lstAgenteObject_Create();
+			$this->lstNroAbogado = $this->mctCedulas->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
+			$this->lstNroAbogado->Required = false;
+			$this->lstAgenteObject = $this->mctCedulas->lstAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
 			$this->lstAgenteObject->Required = false;
 			$this->calFechaIngreso = $this->mctCedulas->calFechaIngreso_Create();
 			$this->calFechaIngreso->Required = false;
@@ -96,8 +99,8 @@
 			$this->dtgCedulases->AlternateRowStyle->CssClass = 'alternate';
 			
 			// Add Pagination (if desired)
-			$this->dtgCedulases->Paginator = new QPaginator($this->dtgCedulases);
-			$this->dtgCedulases->ItemsPerPage = 20;
+			/*$this->dtgCedulases->Paginator = new QPaginator($this->dtgCedulases);
+			$this->dtgCedulases->ItemsPerPage = 20;*/
 			
 			// Use the MetaDataGrid functionality to add Columns for this datagrid
 			
@@ -107,15 +110,16 @@
 			
 			// Create the Other Columns (note that you can use strings for cedulas's properties, or you
 			// can traverse down QQN::cedulas() to display fields that are down the hierarchy)
-			$this->dtgCedulases->MetaAddColumn('Localidad');
-			$this->dtgCedulases->MetaAddColumn('Autos');
-			$this->dtgCedulases->MetaAddColumn('Direccion');
+			$this->dtgCedulases->AgregarColumna('Localidad', 'Localidad');
+			$this->dtgCedulases->AgregarColumna('Autos', 'Autos');
+			$this->dtgCedulases->AgregarColumna('Direccion', 'Dirección');
 			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->AgenteObject, 'Agente');
-			$this->dtgCedulases->MetaAddColumn('FechaIngreso');
-			$this->dtgCedulases->MetaAddColumn('FechaSalida');
-			$this->dtgCedulases->MetaAddColumn('FechaFin');
-			$this->dtgCedulases->MetaAddColumn('Audiencia');
-			$this->dtgCedulases->MetaAddColumn('Observaciones');
+			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->NroAbogadoObject, 'Nro abogado');
+			$this->dtgCedulases->AgregarColumna('FechaIngreso', 'Fecha ingreso');
+			$this->dtgCedulases->AgregarColumna('FechaSalida', 'Fecha salida');
+			$this->dtgCedulases->AgregarColumna('FechaFin', 'Fecha fin');
+			$this->dtgCedulases->AgregarColumna('Audiencia', 'Audiencia');
+			$this->dtgCedulases->AgregarColumna('Observaciones', 'Observaciones');
 			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->EstadoObject, 'Estado');
 			
 			
@@ -147,6 +151,7 @@
 			if ($this->calAudiencia) $this->datos['audiencia'] = $this->calAudiencia->DateTime;
 			if ($this->txtObservaciones) $this->datos['observaciones'] = $this->txtObservaciones->Text;
 			if ($this->lstEstadoObject) $this->datos['estado'] = $this->lstEstadoObject->SelectedValue;
+			if ($this->lstNroAbogado) $this->datos['nroAbogado'] = $this->lstNroAbogado->SelectedValue;
 			$this->dtgCedulases->DataSource = $this->generarSQLYBuscar();
 		}
 		
@@ -161,6 +166,7 @@
 			$this->calAudiencia->DateTime = null;
 			$this->txtObservaciones->Text = null;
 			$this->lstEstadoObject->SelectedValue = null;
+			$this->lstNroAbogado->SelectedValue = null;
 		}
 		
 		public function generarSQLYBuscar(){
@@ -169,6 +175,11 @@
 			$sql = "SELECT *
 			FROM sistema.cedulas
 			WHERE 1 = 1";
+			
+			if (isset($this->datos['nroAbogado'])){
+				$cond = $this->datos['nroAbogado'];
+				$sql .= " AND nro_abogado = $cond";
+			}
 			
 			if (isset($this->datos['estado'])){
 				$cond = $this->datos['estado'];

@@ -59,12 +59,12 @@ class CarpetaTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdAgenteObject, 'Agente');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->NroAbogadoObject, 'Abogado');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdEstadoObject, 'Estado');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaIngreso');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaIngreso', 'Fecha ingreso');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaSalida', 'Fecha salida');
+		$this->dtgTramitesAsignadoses->AgregarColumna('Autos', 'Autos');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaVencimiento', 'Fecha vencimiento');
+		$this->dtgTramitesAsignadoses->AgregarColumna('Observaciones', 'Observaciones');
 		
 
 		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('En curso', '<?= $_FORM->encurso_Render($_ITEM) ?>','HtmlEntities=false'));

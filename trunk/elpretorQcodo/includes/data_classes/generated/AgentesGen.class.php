@@ -61,7 +61,7 @@
 		 * @var string strObservaciones
 		 */
 		protected $strObservaciones;
-		const ObservacionesMaxLength = 50;
+		const ObservacionesMaxLength = 255;
 		const ObservacionesDefault = null;
 
 

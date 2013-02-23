@@ -35,5 +35,29 @@
 		}
 		
 		
+		
+		
+		public function SaveAbogados() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->txtNombre) $this->objAbogados->Nombre = $this->txtNombre->Text;
+				if ($this->txtApellido) $this->objAbogados->Apellido = $this->txtApellido->Text;
+				if ($this->txtTelefono) $this->objAbogados->Telefono = $this->txtTelefono->Text;
+				if ($this->txtNroAbogado) $this->objAbogados->NroAbogado = $this->txtNroAbogado->Text;
+				$this->objAbogados->Activo = 1;
+				if ($this->txtObservaciones) $this->objAbogados->Observaciones = $this->txtObservaciones->Text;
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+		
+				// Save the Abogados object
+				$this->objAbogados->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+		
 	}
 ?>

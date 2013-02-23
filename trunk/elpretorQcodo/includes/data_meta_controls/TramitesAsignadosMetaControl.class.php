@@ -41,6 +41,20 @@
 		}*/
 		
 		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objTramitesAsignados->Observaciones;
+			$this->txtObservaciones->MaxLength = TramitesAsignados::ObservacionesMaxLength;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			return $this->txtObservaciones;
+		}
+		
 		public function lstIdAgenteObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdAgenteObject = new QListBox($this->objParentObject, $strControlId);
 			$this->lstIdAgenteObject->Name = 'Agente';
@@ -172,12 +186,14 @@
 			$objMovimiento->Fecha = $this->objTramitesAsignados->FechaIngreso;
 			$objMovimiento->TipoMovimiento= 1;
 			$objMovimiento->Monto = $this->objTramitesAsignados->TipoTramiteObject->Timbrado;
+			$objMovimiento->Observaciones = 'Trámite '.$this->objTramitesAsignados->TipoTramiteObject->Nombre;
 			$objMovimiento->Save();
 			
 			$objMovimiento2 = new Movimiento();
 			$objMovimiento2->Fecha = $this->objTramitesAsignados->FechaIngreso;
 			$objMovimiento2->TipoMovimiento= 2;
 			$objMovimiento2->Monto = $this->objTramitesAsignados->TipoTramiteObject->Honorario;
+			$objMovimiento2->Observaciones = 'Trámite '.$this->objTramitesAsignados->TipoTramiteObject->Nombre;
 			$objMovimiento2->Save();
 		}
 		

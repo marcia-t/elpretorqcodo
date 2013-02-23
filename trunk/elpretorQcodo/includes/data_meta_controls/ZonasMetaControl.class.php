@@ -19,5 +19,40 @@
 	 * @subpackage MetaControls
 	 */
 	class ZonasMetaControl extends ZonasMetaControlGen {
+		
+		
+		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objZonas->Observaciones;
+			$this->txtObservaciones->MaxLength = Zonas::ObservacionesMaxLength;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			return $this->txtObservaciones;
+		}
+		
+		public function SaveZonas() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->txtNombre) $this->objZonas->Nombre = $this->txtNombre->Text;
+				$this->objZonas->Activo = 1;
+				if ($this->txtObservaciones) $this->objZonas->Observaciones = $this->txtObservaciones->Text;
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+		
+				// Save the Zonas object
+				$this->objZonas->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
 	}
 ?>

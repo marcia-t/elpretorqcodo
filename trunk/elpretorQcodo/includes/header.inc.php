@@ -82,6 +82,7 @@
 						<ul>
 							<li><a href='/app/casilleros_list.php'><span>Ver</span> </a></li>
 							<li><a href='/app/casilleros_edit.php'><span>Agregar</span> </a>
+							<li><a href='/app/buscar_casilleros.php'><span>Buscar</span> </a>
 							</li>
 						</ul>
 					</li>

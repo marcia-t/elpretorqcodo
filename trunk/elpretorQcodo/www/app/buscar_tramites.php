@@ -44,7 +44,7 @@ class BuscarTramitesForm extends QForm {
 		$this->mctTramitesAsignados = TramitesAsignadosMetaControl::CreateFromPathInfo($this);
 		$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
 		$this->lstIdAgenteObject->Required = false;
-		$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create();
+		$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 		$this->lstNroAbogadoObject->Required = false;
 		$this->lstIdEstadoObject = $this->mctTramitesAsignados->lstIdEstadoObject_Create();
 		$this->lstIdEstadoObject->Required = false;
@@ -67,8 +67,8 @@ class BuscarTramitesForm extends QForm {
 
 
 		// Add Pagination (if desired)
-		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
-		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+		//$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+		//$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
 		//$this->dtgTramitesAsignadoses->SetDataBinder('bindBySearch');
 
@@ -82,12 +82,12 @@ class BuscarTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdAgenteObject, 'Agente');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->NroAbogadoObject, 'Abogado');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdEstadoObject, 'Estado');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaIngreso');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaSalida');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaIngreso', 'Fecha ingreso');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaSalida', 'Fecha salida');
+		$this->dtgTramitesAsignadoses->AgregarColumna('Autos', 'Autos');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
-		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
+		$this->dtgTramitesAsignadoses->AgregarColumna('FechaVencimiento', 'Fecha vencimiento');
+		//$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 		/*$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Seleccionar', '<?= $_FORM->chkSelected_Render($_ITEM) ?>','HtmlEntities=false'));*/
 		$this->btnBuscar = new QButton($this);
 		$this->btnBuscar->Text = 'Buscar';
