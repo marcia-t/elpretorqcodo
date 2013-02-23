@@ -22,9 +22,9 @@
 	 * property-read QLabel $FechaInicioLabel
 	 * property QListBox $EstadoControl
 	 * property-read QLabel $EstadoLabel
-	 * property QIntegerTextBox $HonorariosControl
+	 * property QTextBox $HonorariosControl
 	 * property-read QLabel $HonorariosLabel
-	 * property QIntegerTextBox $TimbradoControl
+	 * property QTextBox $TimbradoControl
 	 * property-read QLabel $TimbradoLabel
 	 * property QListBox $NroAbogadoControl
 	 * property-read QLabel $NroAbogadoLabel
@@ -88,13 +88,13 @@
 		protected $lstEstadoObject;
 
         /**
-         * @var QIntegerTextBox txtHonorarios;
+         * @var QTextBox txtHonorarios;
          * @access protected
          */
 		protected $txtHonorarios;
 
         /**
-         * @var QIntegerTextBox txtTimbrado;
+         * @var QTextBox txtTimbrado;
          * @access protected
          */
 		protected $txtTimbrado;
@@ -385,58 +385,50 @@
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtHonorarios
+		 * Create and setup QTextBox txtHonorarios
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtHonorarios_Create($strControlId = null) {
-			$this->txtHonorarios = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtHonorarios = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtHonorarios->Name = QApplication::Translate('Honorarios');
 			$this->txtHonorarios->Text = $this->objDeclaratorias->Honorarios;
-			$this->txtHonorarios->Required = true;
 			return $this->txtHonorarios;
 		}
 
 		/**
 		 * Create and setup QLabel lblHonorarios
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblHonorarios_Create($strControlId = null, $strFormat = null) {
+		public function lblHonorarios_Create($strControlId = null) {
 			$this->lblHonorarios = new QLabel($this->objParentObject, $strControlId);
 			$this->lblHonorarios->Name = QApplication::Translate('Honorarios');
 			$this->lblHonorarios->Text = $this->objDeclaratorias->Honorarios;
-			$this->lblHonorarios->Required = true;
-			$this->lblHonorarios->Format = $strFormat;
 			return $this->lblHonorarios;
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtTimbrado
+		 * Create and setup QTextBox txtTimbrado
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtTimbrado_Create($strControlId = null) {
-			$this->txtTimbrado = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtTimbrado = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtTimbrado->Name = QApplication::Translate('Timbrado');
 			$this->txtTimbrado->Text = $this->objDeclaratorias->Timbrado;
-			$this->txtTimbrado->Required = true;
 			return $this->txtTimbrado;
 		}
 
 		/**
 		 * Create and setup QLabel lblTimbrado
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblTimbrado_Create($strControlId = null, $strFormat = null) {
+		public function lblTimbrado_Create($strControlId = null) {
 			$this->lblTimbrado = new QLabel($this->objParentObject, $strControlId);
 			$this->lblTimbrado->Name = QApplication::Translate('Timbrado');
 			$this->lblTimbrado->Text = $this->objDeclaratorias->Timbrado;
-			$this->lblTimbrado->Required = true;
-			$this->lblTimbrado->Format = $strFormat;
 			return $this->lblTimbrado;
 		}
 

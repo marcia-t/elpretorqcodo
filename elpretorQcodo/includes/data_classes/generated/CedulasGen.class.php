@@ -23,11 +23,15 @@
 	 * @property QDateTime $FechaIngreso the value for dttFechaIngreso (Not Null)
 	 * @property QDateTime $FechaSalida the value for dttFechaSalida 
 	 * @property QDateTime $FechaFin the value for dttFechaFin 
-	 * @property QDateTime $Audiencia the value for dttAudiencia (Not Null)
+	 * @property QDateTime $Audiencia the value for dttAudiencia 
 	 * @property string $Observaciones the value for strObservaciones 
 	 * @property integer $Estado the value for intEstado (Not Null)
+	 * @property string $Honorarios the value for strHonorarios 
+	 * @property string $Timbrado the value for strTimbrado 
+	 * @property integer $NroAbogado the value for intNroAbogado (Not Null)
 	 * @property Agentes $AgenteObject the value for the Agentes object referenced by intAgente (Not Null)
 	 * @property Estados $EstadoObject the value for the Estados object referenced by intEstado (Not Null)
+	 * @property Abogados $NroAbogadoObject the value for the Abogados object referenced by intNroAbogado (Not Null)
 	 * @property boolean $__Restored whether or not this object was restored from the database (as opposed to created new)
 	 */
 	class CedulasGen extends QBaseClass {
@@ -116,7 +120,7 @@
 		 * @var string strObservaciones
 		 */
 		protected $strObservaciones;
-		const ObservacionesMaxLength = 128;
+		const ObservacionesMaxLength = 255;
 		const ObservacionesDefault = null;
 
 
@@ -126,6 +130,30 @@
 		 */
 		protected $intEstado;
 		const EstadoDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column cedulas.honorarios
+		 * @var string strHonorarios
+		 */
+		protected $strHonorarios;
+		const HonorariosDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column cedulas.timbrado
+		 * @var string strTimbrado
+		 */
+		protected $strTimbrado;
+		const TimbradoDefault = null;
+
+
+		/**
+		 * Protected member variable that maps to the database column cedulas.nro_abogado
+		 * @var integer intNroAbogado
+		 */
+		protected $intNroAbogado;
+		const NroAbogadoDefault = null;
 
 
 		/**
@@ -169,6 +197,16 @@
 		 * @var Estados objEstadoObject
 		 */
 		protected $objEstadoObject;
+
+		/**
+		 * Protected member variable that contains the object pointed by the reference
+		 * in the database column cedulas.nro_abogado.
+		 *
+		 * NOTE: Always use the NroAbogadoObject property getter to correctly retrieve this Abogados object.
+		 * (Because this class implements late binding, this variable reference MAY be null.)
+		 * @var Abogados objNroAbogadoObject
+		 */
+		protected $objNroAbogadoObject;
 
 
 
@@ -491,6 +529,9 @@
 			$objBuilder->AddSelectItem($strTableName, 'audiencia', $strAliasPrefix . 'audiencia');
 			$objBuilder->AddSelectItem($strTableName, 'observaciones', $strAliasPrefix . 'observaciones');
 			$objBuilder->AddSelectItem($strTableName, 'estado', $strAliasPrefix . 'estado');
+			$objBuilder->AddSelectItem($strTableName, 'honorarios', $strAliasPrefix . 'honorarios');
+			$objBuilder->AddSelectItem($strTableName, 'timbrado', $strAliasPrefix . 'timbrado');
+			$objBuilder->AddSelectItem($strTableName, 'nro_abogado', $strAliasPrefix . 'nro_abogado');
 		}
 
 
@@ -544,6 +585,12 @@
 			$objToReturn->strObservaciones = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'estado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'estado'] : $strAliasPrefix . 'estado';
 			$objToReturn->intEstado = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$strAliasName = array_key_exists($strAliasPrefix . 'honorarios', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'honorarios'] : $strAliasPrefix . 'honorarios';
+			$objToReturn->strHonorarios = $objDbRow->GetColumn($strAliasName, 'VarChar');
+			$strAliasName = array_key_exists($strAliasPrefix . 'timbrado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'timbrado'] : $strAliasPrefix . 'timbrado';
+			$objToReturn->strTimbrado = $objDbRow->GetColumn($strAliasName, 'VarChar');
+			$strAliasName = array_key_exists($strAliasPrefix . 'nro_abogado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nro_abogado'] : $strAliasPrefix . 'nro_abogado';
+			$objToReturn->intNroAbogado = $objDbRow->GetColumn($strAliasName, 'Integer');
 
 			// Instantiate Virtual Attributes
 			foreach ($objDbRow->GetColumnNameArray() as $strColumnName => $mixValue) {
@@ -568,6 +615,12 @@
 			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 			if (!is_null($objDbRow->GetColumn($strAliasName)))
 				$objToReturn->objEstadoObject = Estados::InstantiateDbRow($objDbRow, $strAliasPrefix . 'estado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+
+			// Check for NroAbogadoObject Early Binding
+			$strAlias = $strAliasPrefix . 'nro_abogado__id_abogado';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName)))
+				$objToReturn->objNroAbogadoObject = Abogados::InstantiateDbRow($objDbRow, $strAliasPrefix . 'nro_abogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
 
 
 
@@ -723,6 +776,40 @@
 			, $objOptionalClauses
 			);
 		}
+			
+		/**
+		 * Load an array of Cedulas objects,
+		 * by NroAbogado Index(es)
+		 * @param integer $intNroAbogado
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Cedulas[]
+		*/
+		public static function LoadArrayByNroAbogado($intNroAbogado, $objOptionalClauses = null) {
+			// Call Cedulas::QueryArray to perform the LoadArrayByNroAbogado query
+			try {
+				return Cedulas::QueryArray(
+					QQ::Equal(QQN::Cedulas()->NroAbogado, $intNroAbogado),
+					$objOptionalClauses
+					);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Count Cedulases
+		 * by NroAbogado Index(es)
+		 * @param integer $intNroAbogado
+		 * @return int
+		*/
+		public static function CountByNroAbogado($intNroAbogado, $objOptionalClauses = null) {
+			// Call Cedulas::QueryCount to perform the CountByNroAbogado query
+			return Cedulas::QueryCount(
+				QQ::Equal(QQN::Cedulas()->NroAbogado, $intNroAbogado)
+			, $objOptionalClauses
+			);
+		}
 
 
 
@@ -763,7 +850,10 @@
 							`fecha_fin`,
 							`audiencia`,
 							`observaciones`,
-							`estado`
+							`estado`,
+							`honorarios`,
+							`timbrado`,
+							`nro_abogado`
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->strLocalidad) . ',
 							' . $objDatabase->SqlVariable($this->strAutos) . ',
@@ -774,7 +864,10 @@
 							' . $objDatabase->SqlVariable($this->dttFechaFin) . ',
 							' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
 							' . $objDatabase->SqlVariable($this->strObservaciones) . ',
-							' . $objDatabase->SqlVariable($this->intEstado) . '
+							' . $objDatabase->SqlVariable($this->intEstado) . ',
+							' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+							' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+							' . $objDatabase->SqlVariable($this->intNroAbogado) . '
 						)
 					');
 
@@ -803,7 +896,10 @@
 							`fecha_fin` = ' . $objDatabase->SqlVariable($this->dttFechaFin) . ',
 							`audiencia` = ' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
 							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . ',
-							`estado` = ' . $objDatabase->SqlVariable($this->intEstado) . '
+							`estado` = ' . $objDatabase->SqlVariable($this->intEstado) . ',
+							`honorarios` = ' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+							`timbrado` = ' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+							`nro_abogado` = ' . $objDatabase->SqlVariable($this->intNroAbogado) . '
 						WHERE
 							`id_cedulas` = ' . $objDatabase->SqlVariable($this->intIdCedulas) . '
 					');
@@ -898,6 +994,9 @@
 			$this->dttAudiencia = $objReloaded->dttAudiencia;
 			$this->strObservaciones = $objReloaded->strObservaciones;
 			$this->Estado = $objReloaded->Estado;
+			$this->strHonorarios = $objReloaded->strHonorarios;
+			$this->strTimbrado = $objReloaded->strTimbrado;
+			$this->NroAbogado = $objReloaded->NroAbogado;
 		}
 
 		/**
@@ -921,6 +1020,9 @@
 					`audiencia`,
 					`observaciones`,
 					`estado`,
+					`honorarios`,
+					`timbrado`,
+					`nro_abogado`,
 					__sys_login_id,
 					__sys_action,
 					__sys_date
@@ -936,6 +1038,9 @@
 					' . $objDatabase->SqlVariable($this->dttAudiencia) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
 					' . $objDatabase->SqlVariable($this->intEstado) . ',
+					' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+					' . $objDatabase->SqlVariable($this->strTimbrado) . ',
+					' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
 					' . (($objDatabase->JournaledById) ? $objDatabase->JournaledById : 'NULL') . ',
 					' . $objDatabase->SqlVariable($strJournalCommand) . ',
 					NOW()
@@ -1027,7 +1132,7 @@
 					return $this->dttFechaFin;
 
 				case 'Audiencia':
-					// Gets the value for dttAudiencia (Not Null)
+					// Gets the value for dttAudiencia 
 					// @return QDateTime
 					return $this->dttAudiencia;
 
@@ -1040,6 +1145,21 @@
 					// Gets the value for intEstado (Not Null)
 					// @return integer
 					return $this->intEstado;
+
+				case 'Honorarios':
+					// Gets the value for strHonorarios 
+					// @return string
+					return $this->strHonorarios;
+
+				case 'Timbrado':
+					// Gets the value for strTimbrado 
+					// @return string
+					return $this->strTimbrado;
+
+				case 'NroAbogado':
+					// Gets the value for intNroAbogado (Not Null)
+					// @return integer
+					return $this->intNroAbogado;
 
 
 				///////////////////
@@ -1064,6 +1184,18 @@
 						if ((!$this->objEstadoObject) && (!is_null($this->intEstado)))
 							$this->objEstadoObject = Estados::Load($this->intEstado);
 						return $this->objEstadoObject;
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'NroAbogadoObject':
+					// Gets the value for the Abogados object referenced by intNroAbogado (Not Null)
+					// @return Abogados
+					try {
+						if ((!$this->objNroAbogadoObject) && (!is_null($this->intNroAbogado)))
+							$this->objNroAbogadoObject = Abogados::Load($this->intNroAbogado);
+						return $this->objNroAbogadoObject;
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1181,7 +1313,7 @@
 					}
 
 				case 'Audiencia':
-					// Sets the value for dttAudiencia (Not Null)
+					// Sets the value for dttAudiencia 
 					// @param QDateTime $mixValue
 					// @return QDateTime
 					try {
@@ -1209,6 +1341,40 @@
 					try {
 						$this->objEstadoObject = null;
 						return ($this->intEstado = QType::Cast($mixValue, QType::Integer));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'Honorarios':
+					// Sets the value for strHonorarios 
+					// @param string $mixValue
+					// @return string
+					try {
+						return ($this->strHonorarios = QType::Cast($mixValue, QType::String));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'Timbrado':
+					// Sets the value for strTimbrado 
+					// @param string $mixValue
+					// @return string
+					try {
+						return ($this->strTimbrado = QType::Cast($mixValue, QType::String));
+					} catch (QCallerException $objExc) {
+						$objExc->IncrementOffset();
+						throw $objExc;
+					}
+
+				case 'NroAbogado':
+					// Sets the value for intNroAbogado (Not Null)
+					// @param integer $mixValue
+					// @return integer
+					try {
+						$this->objNroAbogadoObject = null;
+						return ($this->intNroAbogado = QType::Cast($mixValue, QType::Integer));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1278,6 +1444,36 @@
 					}
 					break;
 
+				case 'NroAbogadoObject':
+					// Sets the value for the Abogados object referenced by intNroAbogado (Not Null)
+					// @param Abogados $mixValue
+					// @return Abogados
+					if (is_null($mixValue)) {
+						$this->intNroAbogado = null;
+						$this->objNroAbogadoObject = null;
+						return null;
+					} else {
+						// Make sure $mixValue actually is a Abogados object
+						try {
+							$mixValue = QType::Cast($mixValue, 'Abogados');
+						} catch (QInvalidCastException $objExc) {
+							$objExc->IncrementOffset();
+							throw $objExc;
+						} 
+
+						// Make sure $mixValue is a SAVED Abogados object
+						if (is_null($mixValue->IdAbogado))
+							throw new QCallerException('Unable to set an unsaved NroAbogadoObject for this Cedulas');
+
+						// Update Local Member Variables
+						$this->objNroAbogadoObject = $mixValue;
+						$this->intNroAbogado = $mixValue->IdAbogado;
+
+						// Return $mixValue
+						return $mixValue;
+					}
+					break;
+
 				default:
 					try {
 						return parent::__set($strName, $mixValue);
@@ -1326,6 +1522,9 @@
 			$strToReturn .= '<element name="Audiencia" type="xsd:dateTime"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
 			$strToReturn .= '<element name="EstadoObject" type="xsd1:Estados"/>';
+			$strToReturn .= '<element name="Honorarios" type="xsd:string"/>';
+			$strToReturn .= '<element name="Timbrado" type="xsd:string"/>';
+			$strToReturn .= '<element name="NroAbogadoObject" type="xsd1:Abogados"/>';
 			$strToReturn .= '<element name="__blnRestored" type="xsd:boolean"/>';
 			$strToReturn .= '</sequence></complexType>';
 			return $strToReturn;
@@ -1336,6 +1535,7 @@
 				$strComplexTypeArray['Cedulas'] = Cedulas::GetSoapComplexTypeXml();
 				Agentes::AlterSoapComplexTypeArray($strComplexTypeArray);
 				Estados::AlterSoapComplexTypeArray($strComplexTypeArray);
+				Abogados::AlterSoapComplexTypeArray($strComplexTypeArray);
 			}
 		}
 
@@ -1374,6 +1574,13 @@
 			if ((property_exists($objSoapObject, 'EstadoObject')) &&
 				($objSoapObject->EstadoObject))
 				$objToReturn->EstadoObject = Estados::GetObjectFromSoapObject($objSoapObject->EstadoObject);
+			if (property_exists($objSoapObject, 'Honorarios'))
+				$objToReturn->strHonorarios = $objSoapObject->Honorarios;
+			if (property_exists($objSoapObject, 'Timbrado'))
+				$objToReturn->strTimbrado = $objSoapObject->Timbrado;
+			if ((property_exists($objSoapObject, 'NroAbogadoObject')) &&
+				($objSoapObject->NroAbogadoObject))
+				$objToReturn->NroAbogadoObject = Abogados::GetObjectFromSoapObject($objSoapObject->NroAbogadoObject);
 			if (property_exists($objSoapObject, '__blnRestored'))
 				$objToReturn->__blnRestored = $objSoapObject->__blnRestored;
 			return $objToReturn;
@@ -1408,6 +1615,10 @@
 				$objObject->objEstadoObject = Estados::GetSoapObjectFromObject($objObject->objEstadoObject, false);
 			else if (!$blnBindRelatedObjects)
 				$objObject->intEstado = null;
+			if ($objObject->objNroAbogadoObject)
+				$objObject->objNroAbogadoObject = Abogados::GetSoapObjectFromObject($objObject->objNroAbogadoObject, false);
+			else if (!$blnBindRelatedObjects)
+				$objObject->intNroAbogado = null;
 			return $objObject;
 		}
 
@@ -1436,6 +1647,10 @@
 	 * @property-read QQNode $Observaciones
 	 * @property-read QQNode $Estado
 	 * @property-read QQNodeEstados $EstadoObject
+	 * @property-read QQNode $Honorarios
+	 * @property-read QQNode $Timbrado
+	 * @property-read QQNode $NroAbogado
+	 * @property-read QQNodeAbogados $NroAbogadoObject
 	 */
 	class QQNodeCedulas extends QQNode {
 		protected $strTableName = 'cedulas';
@@ -1469,6 +1684,14 @@
 					return new QQNode('estado', 'Estado', 'integer', $this);
 				case 'EstadoObject':
 					return new QQNodeEstados('estado', 'EstadoObject', 'integer', $this);
+				case 'Honorarios':
+					return new QQNode('honorarios', 'Honorarios', 'string', $this);
+				case 'Timbrado':
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
+				case 'NroAbogado':
+					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
+				case 'NroAbogadoObject':
+					return new QQNodeAbogados('nro_abogado', 'NroAbogadoObject', 'integer', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_cedulas', 'IdCedulas', 'integer', $this);
@@ -1497,6 +1720,10 @@
 	 * @property-read QQNode $Observaciones
 	 * @property-read QQNode $Estado
 	 * @property-read QQNodeEstados $EstadoObject
+	 * @property-read QQNode $Honorarios
+	 * @property-read QQNode $Timbrado
+	 * @property-read QQNode $NroAbogado
+	 * @property-read QQNodeAbogados $NroAbogadoObject
 	 * @property-read QQNode $_PrimaryKeyNode
 	 */
 	class QQReverseReferenceNodeCedulas extends QQReverseReferenceNode {
@@ -1531,6 +1758,14 @@
 					return new QQNode('estado', 'Estado', 'integer', $this);
 				case 'EstadoObject':
 					return new QQNodeEstados('estado', 'EstadoObject', 'integer', $this);
+				case 'Honorarios':
+					return new QQNode('honorarios', 'Honorarios', 'string', $this);
+				case 'Timbrado':
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
+				case 'NroAbogado':
+					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
+				case 'NroAbogadoObject':
+					return new QQNodeAbogados('nro_abogado', 'NroAbogadoObject', 'integer', $this);
 
 				case '_PrimaryKeyNode':
 					return new QQNode('id_cedulas', 'IdCedulas', 'integer', $this);

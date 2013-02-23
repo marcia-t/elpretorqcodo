@@ -25,6 +25,8 @@ require(__INCLUDES__ . '/header.inc.php');
 
 			<?php $this->txtDireccion->RenderWithName(); ?>
 
+			<?php $this->lstNroAbogado->RenderWithName(); ?>
+			
 			<?php $this->lstAgenteObject->RenderWithName(); ?>
 
 			<?php $this->calFechaIngreso->RenderWithName(); ?>

@@ -22,7 +22,7 @@
 	 * property-read QLabel $NombreLabel
 	 * property QTextBox $ApellidoControl
 	 * property-read QLabel $ApellidoLabel
-	 * property QIntegerTextBox $TelefonoControl
+	 * property QTextBox $TelefonoControl
 	 * property-read QLabel $TelefonoLabel
 	 * property QTextBox $NroAbogadoControl
 	 * property-read QLabel $NroAbogadoLabel
@@ -80,7 +80,7 @@
 		protected $txtApellido;
 
         /**
-         * @var QIntegerTextBox txtTelefono;
+         * @var QTextBox txtTelefono;
          * @access protected
          */
 		protected $txtTelefono;
@@ -309,28 +309,27 @@
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtTelefono
+		 * Create and setup QTextBox txtTelefono
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtTelefono_Create($strControlId = null) {
-			$this->txtTelefono = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtTelefono = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtTelefono->Name = QApplication::Translate('Telefono');
 			$this->txtTelefono->Text = $this->objAbogados->Telefono;
+			$this->txtTelefono->MaxLength = Abogados::TelefonoMaxLength;
 			return $this->txtTelefono;
 		}
 
 		/**
 		 * Create and setup QLabel lblTelefono
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblTelefono_Create($strControlId = null, $strFormat = null) {
+		public function lblTelefono_Create($strControlId = null) {
 			$this->lblTelefono = new QLabel($this->objParentObject, $strControlId);
 			$this->lblTelefono->Name = QApplication::Translate('Telefono');
 			$this->lblTelefono->Text = $this->objAbogados->Telefono;
-			$this->lblTelefono->Format = $strFormat;
 			return $this->lblTelefono;
 		}
 

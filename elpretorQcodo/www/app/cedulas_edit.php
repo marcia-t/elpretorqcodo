@@ -34,6 +34,9 @@
 		protected $calAudiencia;
 		protected $txtObservaciones;
 		protected $lstEstadoObject;
+		protected $txtHonorarios;
+		protected $txtTimbrado;
+		protected $lstNroAbogado;
 
 		// Other ListBoxes (if applicable) via Unique ReverseReferences and ManyToMany References
 
@@ -61,17 +64,22 @@
 
 			// Call MetaControl's methods to create qcontrols based on Cedulas's data fields
 			$this->lblIdCedulas = $this->mctCedulas->lblIdCedulas_Create();
+			
 			$this->txtLocalidad = $this->mctCedulas->txtLocalidad_Create();
 			$this->txtAutos = $this->mctCedulas->txtAutos_Create();
 			$this->txtDireccion = $this->mctCedulas->txtDireccion_Create();
-			$this->lstAgenteObject = $this->mctCedulas->lstAgenteObject_Create();
+			$this->lstAgenteObject = $this->mctCedulas->lstAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
+			$this->lstNroAbogado = $this->mctCedulas->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 			$this->calFechaIngreso = $this->mctCedulas->calFechaIngreso_Create();
 			$this->calFechaIngreso->DateTime = QDateTime::Now();
 			$this->calFechaSalida = $this->mctCedulas->calFechaSalida_Create();
 			$this->calFechaFin = $this->mctCedulas->calFechaFin_Create();
+			$this->txtHonorarios = $this->mctCedulas->txtHonorarios_Create();
+			$this->txtTimbrado = $this->mctCedulas->txtTimbrado_Create();
 			$this->calAudiencia = $this->mctCedulas->calAudiencia_Create();
 			$this->txtObservaciones = $this->mctCedulas->txtObservaciones_Create();
 			$this->lstEstadoObject = $this->mctCedulas->lstEstadoObject_Create();
+			
 			// Create Buttons and Actions on this Form
 			$this->btnSave = new QButton($this);
 			$this->btnSave->Text = QApplication::Translate('Save');

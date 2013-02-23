@@ -59,7 +59,7 @@
 		 * @var string strObservacion
 		 */
 		protected $strObservacion;
-		const ObservacionMaxLength = 45;
+		const ObservacionMaxLength = 255;
 		const ObservacionDefault = null;
 
 

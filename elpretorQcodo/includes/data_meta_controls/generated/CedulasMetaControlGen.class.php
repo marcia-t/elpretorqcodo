@@ -38,6 +38,12 @@
 	 * property-read QLabel $ObservacionesLabel
 	 * property QListBox $EstadoControl
 	 * property-read QLabel $EstadoLabel
+	 * property QTextBox $HonorariosControl
+	 * property-read QLabel $HonorariosLabel
+	 * property QTextBox $TimbradoControl
+	 * property-read QLabel $TimbradoLabel
+	 * property QListBox $NroAbogadoControl
+	 * property-read QLabel $NroAbogadoLabel
 	 * property-read string $TitleVerb a verb indicating whether or not this is being edited or created
 	 * property-read boolean $EditMode a boolean indicating whether or not this is being edited or created
 	 */
@@ -135,6 +141,24 @@
          */
 		protected $lstEstadoObject;
 
+        /**
+         * @var QTextBox txtHonorarios;
+         * @access protected
+         */
+		protected $txtHonorarios;
+
+        /**
+         * @var QTextBox txtTimbrado;
+         * @access protected
+         */
+		protected $txtTimbrado;
+
+        /**
+         * @var QListBox lstNroAbogadoObject;
+         * @access protected
+         */
+		protected $lstNroAbogadoObject;
+
 
 		// Controls that allow the viewing of Cedulas's individual data fields
         /**
@@ -196,6 +220,24 @@
          * @access protected
          */
 		protected $lblEstado;
+
+        /**
+         * @var QLabel lblHonorarios
+         * @access protected
+         */
+		protected $lblHonorarios;
+
+        /**
+         * @var QLabel lblTimbrado
+         * @access protected
+         */
+		protected $lblTimbrado;
+
+        /**
+         * @var QLabel lblNroAbogado
+         * @access protected
+         */
+		protected $lblNroAbogado;
 
 
 		// QListBox Controls (if applicable) to edit Unique ReverseReferences and ManyToMany References
@@ -533,7 +575,6 @@
 			$this->calAudiencia->Name = QApplication::Translate('Audiencia');
 			$this->calAudiencia->DateTime = $this->objCedulas->Audiencia;
 			$this->calAudiencia->DateTimePickerType = QDateTimePickerType::Date;
-			$this->calAudiencia->Required = true;
 			return $this->calAudiencia;
 		}
 
@@ -548,7 +589,6 @@
 			$this->lblAudiencia->Name = QApplication::Translate('Audiencia');
 			$this->strAudienciaDateTimeFormat = $strDateTimeFormat;
 			$this->lblAudiencia->Text = sprintf($this->objCedulas->Audiencia) ? $this->objCedulas->Audiencia->__toString($this->strAudienciaDateTimeFormat) : null;
-			$this->lblAudiencia->Required = true;
 			return $this->lblAudiencia;
 		}
 
@@ -622,6 +662,97 @@
 			return $this->lblEstado;
 		}
 
+		/**
+		 * Create and setup QTextBox txtHonorarios
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtHonorarios_Create($strControlId = null) {
+			$this->txtHonorarios = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtHonorarios->Name = QApplication::Translate('Honorarios');
+			$this->txtHonorarios->Text = $this->objCedulas->Honorarios;
+			return $this->txtHonorarios;
+		}
+
+		/**
+		 * Create and setup QLabel lblHonorarios
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblHonorarios_Create($strControlId = null) {
+			$this->lblHonorarios = new QLabel($this->objParentObject, $strControlId);
+			$this->lblHonorarios->Name = QApplication::Translate('Honorarios');
+			$this->lblHonorarios->Text = $this->objCedulas->Honorarios;
+			return $this->lblHonorarios;
+		}
+
+		/**
+		 * Create and setup QTextBox txtTimbrado
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtTimbrado_Create($strControlId = null) {
+			$this->txtTimbrado = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtTimbrado->Name = QApplication::Translate('Timbrado');
+			$this->txtTimbrado->Text = $this->objCedulas->Timbrado;
+			return $this->txtTimbrado;
+		}
+
+		/**
+		 * Create and setup QLabel lblTimbrado
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblTimbrado_Create($strControlId = null) {
+			$this->lblTimbrado = new QLabel($this->objParentObject, $strControlId);
+			$this->lblTimbrado->Name = QApplication::Translate('Timbrado');
+			$this->lblTimbrado->Text = $this->objCedulas->Timbrado;
+			return $this->lblTimbrado;
+		}
+
+		/**
+		 * Create and setup QListBox lstNroAbogadoObject
+		 * @param string $strControlId optional ControlId to use
+		 * @param QQCondition $objConditions override the default condition of QQ::All() to the query, itself
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause object or array of QQClause objects for the query
+		 * @return QListBox
+		 */
+		public function lstNroAbogadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
+			$this->lstNroAbogadoObject = new QListBox($this->objParentObject, $strControlId);
+			$this->lstNroAbogadoObject->Name = QApplication::Translate('Nro Abogado Object');
+			$this->lstNroAbogadoObject->Required = true;
+			if (!$this->blnEditMode)
+				$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+
+			// Setup and perform the Query
+			if (is_null($objCondition)) $objCondition = QQ::All();
+			$objNroAbogadoObjectCursor = Abogados::QueryCursor($objCondition, $objOptionalClauses);
+
+			// Iterate through the Cursor
+			while ($objNroAbogadoObject = Abogados::InstantiateCursor($objNroAbogadoObjectCursor)) {
+				$objListItem = new QListItem($objNroAbogadoObject->__toString(), $objNroAbogadoObject->IdAbogado);
+				if (($this->objCedulas->NroAbogadoObject) && ($this->objCedulas->NroAbogadoObject->IdAbogado == $objNroAbogadoObject->IdAbogado))
+					$objListItem->Selected = true;
+				$this->lstNroAbogadoObject->AddItem($objListItem);
+			}
+
+			// Return the QListBox
+			return $this->lstNroAbogadoObject;
+		}
+
+		/**
+		 * Create and setup QLabel lblNroAbogado
+		 * @param string $strControlId optional ControlId to use
+		 * @return QLabel
+		 */
+		public function lblNroAbogado_Create($strControlId = null) {
+			$this->lblNroAbogado = new QLabel($this->objParentObject, $strControlId);
+			$this->lblNroAbogado->Name = QApplication::Translate('Nro Abogado Object');
+			$this->lblNroAbogado->Text = ($this->objCedulas->NroAbogadoObject) ? $this->objCedulas->NroAbogadoObject->__toString() : null;
+			$this->lblNroAbogado->Required = true;
+			return $this->lblNroAbogado;
+		}
+
 
 
 		/**
@@ -687,6 +818,26 @@
 			}
 			if ($this->lblEstado) $this->lblEstado->Text = ($this->objCedulas->EstadoObject) ? $this->objCedulas->EstadoObject->__toString() : null;
 
+			if ($this->txtHonorarios) $this->txtHonorarios->Text = $this->objCedulas->Honorarios;
+			if ($this->lblHonorarios) $this->lblHonorarios->Text = $this->objCedulas->Honorarios;
+
+			if ($this->txtTimbrado) $this->txtTimbrado->Text = $this->objCedulas->Timbrado;
+			if ($this->lblTimbrado) $this->lblTimbrado->Text = $this->objCedulas->Timbrado;
+
+			if ($this->lstNroAbogadoObject) {
+					$this->lstNroAbogadoObject->RemoveAllItems();
+				if (!$this->blnEditMode)
+					$this->lstNroAbogadoObject->AddItem(QApplication::Translate('- Select One -'), null);
+				$objNroAbogadoObjectArray = Abogados::LoadAll();
+				if ($objNroAbogadoObjectArray) foreach ($objNroAbogadoObjectArray as $objNroAbogadoObject) {
+					$objListItem = new QListItem($objNroAbogadoObject->__toString(), $objNroAbogadoObject->IdAbogado);
+					if (($this->objCedulas->NroAbogadoObject) && ($this->objCedulas->NroAbogadoObject->IdAbogado == $objNroAbogadoObject->IdAbogado))
+						$objListItem->Selected = true;
+					$this->lstNroAbogadoObject->AddItem($objListItem);
+				}
+			}
+			if ($this->lblNroAbogado) $this->lblNroAbogado->Text = ($this->objCedulas->NroAbogadoObject) ? $this->objCedulas->NroAbogadoObject->__toString() : null;
+
 		}
 
 
@@ -720,6 +871,9 @@
 				if ($this->calAudiencia) $this->objCedulas->Audiencia = $this->calAudiencia->DateTime;
 				if ($this->txtObservaciones) $this->objCedulas->Observaciones = $this->txtObservaciones->Text;
 				if ($this->lstEstadoObject) $this->objCedulas->Estado = $this->lstEstadoObject->SelectedValue;
+				if ($this->txtHonorarios) $this->objCedulas->Honorarios = $this->txtHonorarios->Text;
+				if ($this->txtTimbrado) $this->objCedulas->Timbrado = $this->txtTimbrado->Text;
+				if ($this->lstNroAbogadoObject) $this->objCedulas->NroAbogado = $this->lstNroAbogadoObject->SelectedValue;
 
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 
@@ -828,6 +982,24 @@
 				case 'EstadoLabel':
 					if (!$this->lblEstado) return $this->lblEstado_Create();
 					return $this->lblEstado;
+				case 'HonorariosControl':
+					if (!$this->txtHonorarios) return $this->txtHonorarios_Create();
+					return $this->txtHonorarios;
+				case 'HonorariosLabel':
+					if (!$this->lblHonorarios) return $this->lblHonorarios_Create();
+					return $this->lblHonorarios;
+				case 'TimbradoControl':
+					if (!$this->txtTimbrado) return $this->txtTimbrado_Create();
+					return $this->txtTimbrado;
+				case 'TimbradoLabel':
+					if (!$this->lblTimbrado) return $this->lblTimbrado_Create();
+					return $this->lblTimbrado;
+				case 'NroAbogadoControl':
+					if (!$this->lstNroAbogadoObject) return $this->lstNroAbogadoObject_Create();
+					return $this->lstNroAbogadoObject;
+				case 'NroAbogadoLabel':
+					if (!$this->lblNroAbogado) return $this->lblNroAbogado_Create();
+					return $this->lblNroAbogado;
 				default:
 					try {
 						return parent::__get($strName);
@@ -872,6 +1044,12 @@
 						return ($this->txtObservaciones = QType::Cast($mixValue, 'QControl'));
 					case 'EstadoControl':
 						return ($this->lstEstadoObject = QType::Cast($mixValue, 'QControl'));
+					case 'HonorariosControl':
+						return ($this->txtHonorarios = QType::Cast($mixValue, 'QControl'));
+					case 'TimbradoControl':
+						return ($this->txtTimbrado = QType::Cast($mixValue, 'QControl'));
+					case 'NroAbogadoControl':
+						return ($this->lstNroAbogadoObject = QType::Cast($mixValue, 'QControl'));
 					default:
 						return parent::__set($strName, $mixValue);
 				}

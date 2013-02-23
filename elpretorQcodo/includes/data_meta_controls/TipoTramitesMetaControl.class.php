@@ -83,5 +83,44 @@
 			return $this->lstIdZonaObject;
 		}
 		
+		
+		/**
+		 * Create and setup QTextBox txtObservaciones
+		 * @param string $strControlId optional ControlId to use
+		 * @return QTextBox
+		 */
+		public function txtObservaciones_Create($strControlId = null) {
+			$this->txtObservaciones = new QTextBox($this->objParentObject, $strControlId);
+			$this->txtObservaciones->Name = QApplication::Translate('Observaciones');
+			$this->txtObservaciones->Text = $this->objTipoTramites->Observaciones;
+			$this->txtObservaciones->MaxLength = TipoTramites::ObservacionesMaxLength;
+			$this->txtObservaciones->TextMode = QTextMode::MultiLine;
+			return $this->txtObservaciones;
+		}
+		
+		public function SaveTipoTramites() {
+			try {
+				// Update any fields for controls that have been created
+				if ($this->txtNombre) $this->objTipoTramites->Nombre = $this->txtNombre->Text;
+				if ($this->txtTimbrado) $this->objTipoTramites->Timbrado = $this->txtTimbrado->Text;
+				if ($this->txtHonorario) $this->objTipoTramites->Honorario = $this->txtHonorario->Text;
+				if ($this->txtOtrosCostos) $this->objTipoTramites->OtrosCostos = $this->txtOtrosCostos->Text;
+				if ($this->txtObservaciones) $this->objTipoTramites->Observaciones = $this->txtObservaciones->Text;
+				if ($this->lstIdModalidadObject) $this->objTipoTramites->IdModalidad = $this->lstIdModalidadObject->SelectedValue;
+				if ($this->lstIdZonaObject) $this->objTipoTramites->IdZona = $this->lstIdZonaObject->SelectedValue;
+				$this->objTipoTramites->Activo = 1;
+		
+				// Update any UniqueReverseReferences (if any) for controls that have been created for it
+		
+				// Save the TipoTramites object
+				$this->objTipoTramites->Save();
+		
+				// Finally, update any ManyToManyReferences (if any)
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+		
 	}
 ?>

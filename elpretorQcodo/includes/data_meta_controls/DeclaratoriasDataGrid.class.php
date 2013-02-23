@@ -74,11 +74,11 @@
 		
 				$objNewColumn = new QDataGridColumn(
 						$nombre,
-						'<?=' . $objNode->GetDataGridHtml() . '?>',
+						'<?=' . $objNode->GetDataGridHtml() . '?>'/*,
 						array(
 								'OrderByClause' => QQ::OrderBy($objNode->GetDataGridOrderByNode()),
 								'ReverseOrderByClause' => QQ::OrderBy($objNode->GetDataGridOrderByNode(), false)
-						)
+						)*/
 				);
 			}
 		
@@ -88,6 +88,8 @@
 			return $objNewColumn;
 		}
 
+		
+		
 	
 		/*public function BindAllRows(QPaginatedControl $objPaginatedControl) {
 			$objDatabase = Declaratorias::GetDatabase();

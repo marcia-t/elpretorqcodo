@@ -63,9 +63,10 @@
 			$this->lstEstadoObject = $this->mctDeclaratorias->lstEstadoObject_Create();
 			$this->txtHonorarios = $this->mctDeclaratorias->txtHonorarios_Create();
 			$this->txtTimbrado = $this->mctDeclaratorias->txtTimbrado_Create();
-			$this->lstNroAbogadoObject = $this->mctDeclaratorias->lstNroAbogadoObject_Create();
+			$this->lstNroAbogadoObject = $this->mctDeclaratorias->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 			$this->txtContacto = $this->mctDeclaratorias->txtContacto_Create();
 			$this->txtObservaciones = $this->mctDeclaratorias->txtObservaciones_Create();
+			$this->txtObservaciones->Name = 'Descripción/Observaciones';
 			$this->txtAutos = $this->mctDeclaratorias->txtAutos_Create();
 			$this->calFechaFin = $this->mctDeclaratorias->calFechaFin_Create();
 			$this->txtObservada = $this->mctDeclaratorias->txtObservada_Create();

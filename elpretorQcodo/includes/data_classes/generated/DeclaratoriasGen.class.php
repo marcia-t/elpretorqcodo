@@ -18,8 +18,8 @@
 	 * @property integer $IdDeclaratoria the value for intIdDeclaratoria (Read-Only PK)
 	 * @property QDateTime $FechaInicio the value for dttFechaInicio (Not Null)
 	 * @property integer $Estado the value for intEstado (Not Null)
-	 * @property integer $Honorarios the value for intHonorarios (Not Null)
-	 * @property integer $Timbrado the value for intTimbrado (Not Null)
+	 * @property string $Honorarios the value for strHonorarios 
+	 * @property string $Timbrado the value for strTimbrado 
 	 * @property integer $NroAbogado the value for intNroAbogado (Not Null)
 	 * @property string $Contacto the value for strContacto 
 	 * @property string $Observaciones the value for strObservaciones 
@@ -62,17 +62,17 @@
 
 		/**
 		 * Protected member variable that maps to the database column declaratorias.honorarios
-		 * @var integer intHonorarios
+		 * @var string strHonorarios
 		 */
-		protected $intHonorarios;
+		protected $strHonorarios;
 		const HonorariosDefault = null;
 
 
 		/**
 		 * Protected member variable that maps to the database column declaratorias.timbrado
-		 * @var integer intTimbrado
+		 * @var string strTimbrado
 		 */
-		protected $intTimbrado;
+		protected $strTimbrado;
 		const TimbradoDefault = null;
 
 
@@ -98,7 +98,7 @@
 		 * @var string strObservaciones
 		 */
 		protected $strObservaciones;
-		const ObservacionesMaxLength = 128;
+		const ObservacionesMaxLength = 255;
 		const ObservacionesDefault = null;
 
 
@@ -528,9 +528,9 @@
 			$strAliasName = array_key_exists($strAliasPrefix . 'estado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'estado'] : $strAliasPrefix . 'estado';
 			$objToReturn->intEstado = $objDbRow->GetColumn($strAliasName, 'Integer');
 			$strAliasName = array_key_exists($strAliasPrefix . 'honorarios', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'honorarios'] : $strAliasPrefix . 'honorarios';
-			$objToReturn->intHonorarios = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strHonorarios = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'timbrado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'timbrado'] : $strAliasPrefix . 'timbrado';
-			$objToReturn->intTimbrado = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strTimbrado = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'nro_abogado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nro_abogado'] : $strAliasPrefix . 'nro_abogado';
 			$objToReturn->intNroAbogado = $objDbRow->GetColumn($strAliasName, 'Integer');
 			$strAliasName = array_key_exists($strAliasPrefix . 'contacto', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'contacto'] : $strAliasPrefix . 'contacto';
@@ -766,8 +766,8 @@
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->dttFechaInicio) . ',
 							' . $objDatabase->SqlVariable($this->intEstado) . ',
-							' . $objDatabase->SqlVariable($this->intHonorarios) . ',
-							' . $objDatabase->SqlVariable($this->intTimbrado) . ',
+							' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+							' . $objDatabase->SqlVariable($this->strTimbrado) . ',
 							' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
 							' . $objDatabase->SqlVariable($this->strContacto) . ',
 							' . $objDatabase->SqlVariable($this->strObservaciones) . ',
@@ -795,8 +795,8 @@
 						SET
 							`fecha_inicio` = ' . $objDatabase->SqlVariable($this->dttFechaInicio) . ',
 							`estado` = ' . $objDatabase->SqlVariable($this->intEstado) . ',
-							`honorarios` = ' . $objDatabase->SqlVariable($this->intHonorarios) . ',
-							`timbrado` = ' . $objDatabase->SqlVariable($this->intTimbrado) . ',
+							`honorarios` = ' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+							`timbrado` = ' . $objDatabase->SqlVariable($this->strTimbrado) . ',
 							`nro_abogado` = ' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
 							`contacto` = ' . $objDatabase->SqlVariable($this->strContacto) . ',
 							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . ',
@@ -889,8 +889,8 @@
 			// Update $this's local variables to match
 			$this->dttFechaInicio = $objReloaded->dttFechaInicio;
 			$this->Estado = $objReloaded->Estado;
-			$this->intHonorarios = $objReloaded->intHonorarios;
-			$this->intTimbrado = $objReloaded->intTimbrado;
+			$this->strHonorarios = $objReloaded->strHonorarios;
+			$this->strTimbrado = $objReloaded->strTimbrado;
 			$this->NroAbogado = $objReloaded->NroAbogado;
 			$this->strContacto = $objReloaded->strContacto;
 			$this->strObservaciones = $objReloaded->strObservaciones;
@@ -927,8 +927,8 @@
 					' . $objDatabase->SqlVariable($this->intIdDeclaratoria) . ',
 					' . $objDatabase->SqlVariable($this->dttFechaInicio) . ',
 					' . $objDatabase->SqlVariable($this->intEstado) . ',
-					' . $objDatabase->SqlVariable($this->intHonorarios) . ',
-					' . $objDatabase->SqlVariable($this->intTimbrado) . ',
+					' . $objDatabase->SqlVariable($this->strHonorarios) . ',
+					' . $objDatabase->SqlVariable($this->strTimbrado) . ',
 					' . $objDatabase->SqlVariable($this->intNroAbogado) . ',
 					' . $objDatabase->SqlVariable($this->strContacto) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
@@ -1001,14 +1001,14 @@
 					return $this->intEstado;
 
 				case 'Honorarios':
-					// Gets the value for intHonorarios (Not Null)
-					// @return integer
-					return $this->intHonorarios;
+					// Gets the value for strHonorarios 
+					// @return string
+					return $this->strHonorarios;
 
 				case 'Timbrado':
-					// Gets the value for intTimbrado (Not Null)
-					// @return integer
-					return $this->intTimbrado;
+					// Gets the value for strTimbrado 
+					// @return string
+					return $this->strTimbrado;
 
 				case 'NroAbogado':
 					// Gets the value for intNroAbogado (Not Null)
@@ -1125,22 +1125,22 @@
 					}
 
 				case 'Honorarios':
-					// Sets the value for intHonorarios (Not Null)
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strHonorarios 
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intHonorarios = QType::Cast($mixValue, QType::Integer));
+						return ($this->strHonorarios = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
 					}
 
 				case 'Timbrado':
-					// Sets the value for intTimbrado (Not Null)
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strTimbrado 
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intTimbrado = QType::Cast($mixValue, QType::Integer));
+						return ($this->strTimbrado = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1317,8 +1317,8 @@
 			$strToReturn .= '<element name="IdDeclaratoria" type="xsd:int"/>';
 			$strToReturn .= '<element name="FechaInicio" type="xsd:dateTime"/>';
 			$strToReturn .= '<element name="EstadoObject" type="xsd1:EstadoDeclaratoria"/>';
-			$strToReturn .= '<element name="Honorarios" type="xsd:int"/>';
-			$strToReturn .= '<element name="Timbrado" type="xsd:int"/>';
+			$strToReturn .= '<element name="Honorarios" type="xsd:string"/>';
+			$strToReturn .= '<element name="Timbrado" type="xsd:string"/>';
 			$strToReturn .= '<element name="NroAbogadoObject" type="xsd1:Abogados"/>';
 			$strToReturn .= '<element name="Contacto" type="xsd:string"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
@@ -1357,9 +1357,9 @@
 				($objSoapObject->EstadoObject))
 				$objToReturn->EstadoObject = EstadoDeclaratoria::GetObjectFromSoapObject($objSoapObject->EstadoObject);
 			if (property_exists($objSoapObject, 'Honorarios'))
-				$objToReturn->intHonorarios = $objSoapObject->Honorarios;
+				$objToReturn->strHonorarios = $objSoapObject->Honorarios;
 			if (property_exists($objSoapObject, 'Timbrado'))
-				$objToReturn->intTimbrado = $objSoapObject->Timbrado;
+				$objToReturn->strTimbrado = $objSoapObject->Timbrado;
 			if ((property_exists($objSoapObject, 'NroAbogadoObject')) &&
 				($objSoapObject->NroAbogadoObject))
 				$objToReturn->NroAbogadoObject = Abogados::GetObjectFromSoapObject($objSoapObject->NroAbogadoObject);
@@ -1447,9 +1447,9 @@
 				case 'EstadoObject':
 					return new QQNodeEstadoDeclaratoria('estado', 'EstadoObject', 'integer', $this);
 				case 'Honorarios':
-					return new QQNode('honorarios', 'Honorarios', 'integer', $this);
+					return new QQNode('honorarios', 'Honorarios', 'string', $this);
 				case 'Timbrado':
-					return new QQNode('timbrado', 'Timbrado', 'integer', $this);
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
 				case 'NroAbogado':
 					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
 				case 'NroAbogadoObject':
@@ -1509,9 +1509,9 @@
 				case 'EstadoObject':
 					return new QQNodeEstadoDeclaratoria('estado', 'EstadoObject', 'integer', $this);
 				case 'Honorarios':
-					return new QQNode('honorarios', 'Honorarios', 'integer', $this);
+					return new QQNode('honorarios', 'Honorarios', 'string', $this);
 				case 'Timbrado':
-					return new QQNode('timbrado', 'Timbrado', 'integer', $this);
+					return new QQNode('timbrado', 'Timbrado', 'string', $this);
 				case 'NroAbogado':
 					return new QQNode('nro_abogado', 'NroAbogado', 'integer', $this);
 				case 'NroAbogadoObject':

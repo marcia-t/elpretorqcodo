@@ -62,7 +62,7 @@
 			$this->calFechaInicio->Required = false;
 			$this->lstEstadoObject = $this->mctDeclaratorias->lstEstadoObject_Create();
 			$this->lstEstadoObject->Required = false;
-			$this->lstNroAbogadoObject = $this->mctDeclaratorias->lstNroAbogadoObject_Create();
+			$this->lstNroAbogadoObject = $this->mctDeclaratorias->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 			$this->lstNroAbogadoObject->Required = false;
 			$this->txtContacto = $this->mctDeclaratorias->txtContacto_Create();
 			$this->txtContacto->Required = false;
@@ -81,8 +81,8 @@
 			$this->dtgDeclaratoriases->AlternateRowStyle->CssClass = 'alternate';
 			
 			// Add Pagination (if desired)
-			$this->dtgDeclaratoriases->Paginator = new QPaginator($this->dtgDeclaratoriases);
-			$this->dtgDeclaratoriases->ItemsPerPage = 20;
+			//$this->dtgDeclaratoriases->Paginator = new QPaginator($this->dtgDeclaratoriases);
+			//$this->dtgDeclaratoriases->ItemsPerPage = 20;
 			
 			// Use the MetaDataGrid functionality to add Columns for this datagrid
 			
@@ -93,16 +93,16 @@
 			// Create the Other Columns (note that you can use strings for declaratorias's properties, or you
 			// can traverse down QQN::declaratorias() to display fields that are down the hierarchy)
 			//$this->dtgDeclaratoriases->MetaAddColumn('IdDeclaratoria');
-			$this->dtgDeclaratoriases->MetaAddColumn('FechaInicio');
+			$this->dtgDeclaratoriases->AgregarColumna('FechaInicio', 'Fecha inicio');
 			$this->dtgDeclaratoriases->AgregarColumna(QQN::Declaratorias()->EstadoObject, 'Estado');
-			$this->dtgDeclaratoriases->MetaAddColumn('Honorarios');
-			$this->dtgDeclaratoriases->MetaAddColumn('Timbrado');
+			$this->dtgDeclaratoriases->AgregarColumna('Honorarios', 'Honorarios');
+			$this->dtgDeclaratoriases->AgregarColumna('Timbrado', 'Timbrado');
 			$this->dtgDeclaratoriases->AgregarColumna(QQN::Declaratorias()->NroAbogadoObject, 'Nro de abogado');
-			$this->dtgDeclaratoriases->MetaAddColumn('Contacto');
-			$this->dtgDeclaratoriases->MetaAddColumn('Observaciones');
-			$this->dtgDeclaratoriases->MetaAddColumn('Autos');
-			$this->dtgDeclaratoriases->MetaAddColumn('FechaFin');
-			$this->dtgDeclaratoriases->MetaAddColumn('Observada');
+			$this->dtgDeclaratoriases->AgregarColumna('Contacto', 'Timbrado');
+			$this->dtgDeclaratoriases->AgregarColumna('Observaciones', 'Observaciones');
+			$this->dtgDeclaratoriases->AgregarColumna('Autos', 'Autos');
+			$this->dtgDeclaratoriases->AgregarColumna('FechaFin', 'Autos');
+			$this->dtgDeclaratoriases->AgregarColumna('Observada', 'Observada');
 			
 			
 			$this->btnBuscar = new QButton($this);

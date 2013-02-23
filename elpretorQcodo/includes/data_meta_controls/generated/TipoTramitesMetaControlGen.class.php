@@ -20,11 +20,11 @@
 	 * property-read QLabel $IdTipoTramiteLabel
 	 * property QTextBox $NombreControl
 	 * property-read QLabel $NombreLabel
-	 * property QIntegerTextBox $TimbradoControl
+	 * property QTextBox $TimbradoControl
 	 * property-read QLabel $TimbradoLabel
-	 * property QIntegerTextBox $HonorarioControl
+	 * property QTextBox $HonorarioControl
 	 * property-read QLabel $HonorarioLabel
-	 * property QIntegerTextBox $OtrosCostosControl
+	 * property QTextBox $OtrosCostosControl
 	 * property-read QLabel $OtrosCostosLabel
 	 * property QTextBox $ObservacionesControl
 	 * property-read QLabel $ObservacionesLabel
@@ -78,19 +78,19 @@
 		protected $txtNombre;
 
         /**
-         * @var QIntegerTextBox txtTimbrado;
+         * @var QTextBox txtTimbrado;
          * @access protected
          */
 		protected $txtTimbrado;
 
         /**
-         * @var QIntegerTextBox txtHonorario;
+         * @var QTextBox txtHonorario;
          * @access protected
          */
 		protected $txtHonorario;
 
         /**
-         * @var QIntegerTextBox txtOtrosCostos;
+         * @var QTextBox txtOtrosCostos;
          * @access protected
          */
 		protected $txtOtrosCostos;
@@ -310,12 +310,12 @@
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtTimbrado
+		 * Create and setup QTextBox txtTimbrado
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtTimbrado_Create($strControlId = null) {
-			$this->txtTimbrado = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtTimbrado = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtTimbrado->Name = QApplication::Translate('Timbrado');
 			$this->txtTimbrado->Text = $this->objTipoTramites->Timbrado;
 			$this->txtTimbrado->Required = true;
@@ -325,25 +325,23 @@
 		/**
 		 * Create and setup QLabel lblTimbrado
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblTimbrado_Create($strControlId = null, $strFormat = null) {
+		public function lblTimbrado_Create($strControlId = null) {
 			$this->lblTimbrado = new QLabel($this->objParentObject, $strControlId);
 			$this->lblTimbrado->Name = QApplication::Translate('Timbrado');
 			$this->lblTimbrado->Text = $this->objTipoTramites->Timbrado;
 			$this->lblTimbrado->Required = true;
-			$this->lblTimbrado->Format = $strFormat;
 			return $this->lblTimbrado;
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtHonorario
+		 * Create and setup QTextBox txtHonorario
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtHonorario_Create($strControlId = null) {
-			$this->txtHonorario = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtHonorario = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtHonorario->Name = QApplication::Translate('Honorario');
 			$this->txtHonorario->Text = $this->objTipoTramites->Honorario;
 			$this->txtHonorario->Required = true;
@@ -353,25 +351,23 @@
 		/**
 		 * Create and setup QLabel lblHonorario
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblHonorario_Create($strControlId = null, $strFormat = null) {
+		public function lblHonorario_Create($strControlId = null) {
 			$this->lblHonorario = new QLabel($this->objParentObject, $strControlId);
 			$this->lblHonorario->Name = QApplication::Translate('Honorario');
 			$this->lblHonorario->Text = $this->objTipoTramites->Honorario;
 			$this->lblHonorario->Required = true;
-			$this->lblHonorario->Format = $strFormat;
 			return $this->lblHonorario;
 		}
 
 		/**
-		 * Create and setup QIntegerTextBox txtOtrosCostos
+		 * Create and setup QTextBox txtOtrosCostos
 		 * @param string $strControlId optional ControlId to use
-		 * @return QIntegerTextBox
+		 * @return QTextBox
 		 */
 		public function txtOtrosCostos_Create($strControlId = null) {
-			$this->txtOtrosCostos = new QIntegerTextBox($this->objParentObject, $strControlId);
+			$this->txtOtrosCostos = new QTextBox($this->objParentObject, $strControlId);
 			$this->txtOtrosCostos->Name = QApplication::Translate('Otros Costos');
 			$this->txtOtrosCostos->Text = $this->objTipoTramites->OtrosCostos;
 			return $this->txtOtrosCostos;
@@ -380,14 +376,12 @@
 		/**
 		 * Create and setup QLabel lblOtrosCostos
 		 * @param string $strControlId optional ControlId to use
-		 * @param string $strFormat optional sprintf format to use
 		 * @return QLabel
 		 */
-		public function lblOtrosCostos_Create($strControlId = null, $strFormat = null) {
+		public function lblOtrosCostos_Create($strControlId = null) {
 			$this->lblOtrosCostos = new QLabel($this->objParentObject, $strControlId);
 			$this->lblOtrosCostos->Name = QApplication::Translate('Otros Costos');
 			$this->lblOtrosCostos->Text = $this->objTipoTramites->OtrosCostos;
-			$this->lblOtrosCostos->Format = $strFormat;
 			return $this->lblOtrosCostos;
 		}
 

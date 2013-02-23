@@ -18,10 +18,12 @@
 	 * @property integer $IdAbogado the value for intIdAbogado (Read-Only PK)
 	 * @property string $Nombre the value for strNombre (Not Null)
 	 * @property string $Apellido the value for strApellido (Not Null)
-	 * @property integer $Telefono the value for intTelefono 
+	 * @property string $Telefono the value for strTelefono 
 	 * @property string $NroAbogado the value for strNroAbogado (Not Null)
 	 * @property integer $Activo the value for intActivo (Not Null)
 	 * @property string $Observaciones the value for strObservaciones 
+	 * @property Cedulas $_CedulasAsNroAbogado the value for the private _objCedulasAsNroAbogado (Read-Only) if set due to an expansion on the cedulas.nro_abogado reverse relationship
+	 * @property Cedulas[] $_CedulasAsNroAbogadoArray the value for the private _objCedulasAsNroAbogadoArray (Read-Only) if set due to an ExpandAsArray on the cedulas.nro_abogado reverse relationship
 	 * @property Declaratorias $_DeclaratoriasAsNroAbogado the value for the private _objDeclaratoriasAsNroAbogado (Read-Only) if set due to an expansion on the declaratorias.nro_abogado reverse relationship
 	 * @property Declaratorias[] $_DeclaratoriasAsNroAbogadoArray the value for the private _objDeclaratoriasAsNroAbogadoArray (Read-Only) if set due to an ExpandAsArray on the declaratorias.nro_abogado reverse relationship
 	 * @property TramitesAsignados $_TramitesAsignadosAsNroAbogado the value for the private _objTramitesAsignadosAsNroAbogado (Read-Only) if set due to an expansion on the tramites_asignados.nro_abogado reverse relationship
@@ -62,9 +64,10 @@
 
 		/**
 		 * Protected member variable that maps to the database column abogados.telefono
-		 * @var integer intTelefono
+		 * @var string strTelefono
 		 */
-		protected $intTelefono;
+		protected $strTelefono;
+		const TelefonoMaxLength = 50;
 		const TelefonoDefault = null;
 
 
@@ -90,9 +93,25 @@
 		 * @var string strObservaciones
 		 */
 		protected $strObservaciones;
-		const ObservacionesMaxLength = 50;
+		const ObservacionesMaxLength = 255;
 		const ObservacionesDefault = null;
 
+
+		/**
+		 * Private member variable that stores a reference to a single CedulasAsNroAbogado object
+		 * (of type Cedulas), if this Abogados object was restored with
+		 * an expansion on the cedulas association table.
+		 * @var Cedulas _objCedulasAsNroAbogado;
+		 */
+		private $_objCedulasAsNroAbogado;
+
+		/**
+		 * Private member variable that stores a reference to an array of CedulasAsNroAbogado objects
+		 * (of type Cedulas[]), if this Abogados object was restored with
+		 * an ExpandAsArray on the cedulas association table.
+		 * @var Cedulas[] _objCedulasAsNroAbogadoArray;
+		 */
+		private $_objCedulasAsNroAbogadoArray = array();
 
 		/**
 		 * Private member variable that stores a reference to a single DeclaratoriasAsNroAbogado object
@@ -503,6 +522,20 @@
 					$strAliasPrefix = 'abogados__';
 
 
+				$strAlias = $strAliasPrefix . 'cedulasasnroabogado__id_cedulas';
+				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
+					(!is_null($objDbRow->GetColumn($strAliasName)))) {
+					if ($intPreviousChildItemCount = count($objPreviousItem->_objCedulasAsNroAbogadoArray)) {
+						$objPreviousChildItem = $objPreviousItem->_objCedulasAsNroAbogadoArray[$intPreviousChildItemCount - 1];
+						$objChildItem = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasnroabogado__', $strExpandAsArrayNodes, $objPreviousChildItem, $strColumnAliasArray);
+						if ($objChildItem)
+							$objPreviousItem->_objCedulasAsNroAbogadoArray[] = $objChildItem;
+					} else
+						$objPreviousItem->_objCedulasAsNroAbogadoArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+					$blnExpandedViaArray = true;
+				}
+
 				$strAlias = $strAliasPrefix . 'declaratoriasasnroabogado__id_declaratoria';
 				$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
 				if ((array_key_exists($strAlias, $strExpandAsArrayNodes)) &&
@@ -549,7 +582,7 @@
 			$strAliasName = array_key_exists($strAliasPrefix . 'apellido', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'apellido'] : $strAliasPrefix . 'apellido';
 			$objToReturn->strApellido = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'telefono', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'telefono'] : $strAliasPrefix . 'telefono';
-			$objToReturn->intTelefono = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strTelefono = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'nro_abogado', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'nro_abogado'] : $strAliasPrefix . 'nro_abogado';
 			$objToReturn->strNroAbogado = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'activo', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'activo'] : $strAliasPrefix . 'activo';
@@ -571,6 +604,16 @@
 
 
 
+
+			// Check for CedulasAsNroAbogado Virtual Binding
+			$strAlias = $strAliasPrefix . 'cedulasasnroabogado__id_cedulas';
+			$strAliasName = array_key_exists($strAlias, $strColumnAliasArray) ? $strColumnAliasArray[$strAlias] : $strAlias;
+			if (!is_null($objDbRow->GetColumn($strAliasName))) {
+				if (($strExpandAsArrayNodes) && (array_key_exists($strAlias, $strExpandAsArrayNodes)))
+					$objToReturn->_objCedulasAsNroAbogadoArray[] = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+				else
+					$objToReturn->_objCedulasAsNroAbogado = Cedulas::InstantiateDbRow($objDbRow, $strAliasPrefix . 'cedulasasnroabogado__', $strExpandAsArrayNodes, null, $strColumnAliasArray);
+			}
 
 			// Check for DeclaratoriasAsNroAbogado Virtual Binding
 			$strAlias = $strAliasPrefix . 'declaratoriasasnroabogado__id_declaratoria';
@@ -715,7 +758,7 @@
 						) VALUES (
 							' . $objDatabase->SqlVariable($this->strNombre) . ',
 							' . $objDatabase->SqlVariable($this->strApellido) . ',
-							' . $objDatabase->SqlVariable($this->intTelefono) . ',
+							' . $objDatabase->SqlVariable($this->strTelefono) . ',
 							' . $objDatabase->SqlVariable($this->strNroAbogado) . ',
 							' . $objDatabase->SqlVariable($this->intActivo) . ',
 							' . $objDatabase->SqlVariable($this->strObservaciones) . '
@@ -740,7 +783,7 @@
 						SET
 							`nombre` = ' . $objDatabase->SqlVariable($this->strNombre) . ',
 							`apellido` = ' . $objDatabase->SqlVariable($this->strApellido) . ',
-							`telefono` = ' . $objDatabase->SqlVariable($this->intTelefono) . ',
+							`telefono` = ' . $objDatabase->SqlVariable($this->strTelefono) . ',
 							`nro_abogado` = ' . $objDatabase->SqlVariable($this->strNroAbogado) . ',
 							`activo` = ' . $objDatabase->SqlVariable($this->intActivo) . ',
 							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . '
@@ -830,7 +873,7 @@
 			// Update $this's local variables to match
 			$this->strNombre = $objReloaded->strNombre;
 			$this->strApellido = $objReloaded->strApellido;
-			$this->intTelefono = $objReloaded->intTelefono;
+			$this->strTelefono = $objReloaded->strTelefono;
 			$this->strNroAbogado = $objReloaded->strNroAbogado;
 			$this->intActivo = $objReloaded->intActivo;
 			$this->strObservaciones = $objReloaded->strObservaciones;
@@ -860,7 +903,7 @@
 					' . $objDatabase->SqlVariable($this->intIdAbogado) . ',
 					' . $objDatabase->SqlVariable($this->strNombre) . ',
 					' . $objDatabase->SqlVariable($this->strApellido) . ',
-					' . $objDatabase->SqlVariable($this->intTelefono) . ',
+					' . $objDatabase->SqlVariable($this->strTelefono) . ',
 					' . $objDatabase->SqlVariable($this->strNroAbogado) . ',
 					' . $objDatabase->SqlVariable($this->intActivo) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
@@ -930,9 +973,9 @@
 					return $this->strApellido;
 
 				case 'Telefono':
-					// Gets the value for intTelefono 
-					// @return integer
-					return $this->intTelefono;
+					// Gets the value for strTelefono 
+					// @return string
+					return $this->strTelefono;
 
 				case 'NroAbogado':
 					// Gets the value for strNroAbogado (Not Null)
@@ -958,6 +1001,18 @@
 				// Virtual Object References (Many to Many and Reverse References)
 				// (If restored via a "Many-to" expansion)
 				////////////////////////////
+
+				case '_CedulasAsNroAbogado':
+					// Gets the value for the private _objCedulasAsNroAbogado (Read-Only)
+					// if set due to an expansion on the cedulas.nro_abogado reverse relationship
+					// @return Cedulas
+					return $this->_objCedulasAsNroAbogado;
+
+				case '_CedulasAsNroAbogadoArray':
+					// Gets the value for the private _objCedulasAsNroAbogadoArray (Read-Only)
+					// if set due to an ExpandAsArray on the cedulas.nro_abogado reverse relationship
+					// @return Cedulas[]
+					return (array) $this->_objCedulasAsNroAbogadoArray;
 
 				case '_DeclaratoriasAsNroAbogado':
 					// Gets the value for the private _objDeclaratoriasAsNroAbogado (Read-Only)
@@ -1033,11 +1088,11 @@
 					}
 
 				case 'Telefono':
-					// Sets the value for intTelefono 
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strTelefono 
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intTelefono = QType::Cast($mixValue, QType::Integer));
+						return ($this->strTelefono = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1106,6 +1161,188 @@
 		///////////////////////////////
 		// ASSOCIATED OBJECTS' METHODS
 		///////////////////////////////
+
+			
+		
+		// Related Objects' Methods for CedulasAsNroAbogado
+		//-------------------------------------------------------------------
+
+		/**
+		 * Gets all associated CedulasesAsNroAbogado as an array of Cedulas objects
+		 * @param QQClause[] $objOptionalClauses additional optional QQClause objects for this query
+		 * @return Cedulas[]
+		*/ 
+		public function GetCedulasAsNroAbogadoArray($objOptionalClauses = null) {
+			if ((is_null($this->intIdAbogado)))
+				return array();
+
+			try {
+				return Cedulas::LoadArrayByNroAbogado($this->intIdAbogado, $objOptionalClauses);
+			} catch (QCallerException $objExc) {
+				$objExc->IncrementOffset();
+				throw $objExc;
+			}
+		}
+
+		/**
+		 * Counts all associated CedulasesAsNroAbogado
+		 * @return int
+		*/ 
+		public function CountCedulasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				return 0;
+
+			return Cedulas::CountByNroAbogado($this->intIdAbogado);
+		}
+
+		/**
+		 * Associates a CedulasAsNroAbogado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function AssociateCedulasAsNroAbogado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call AssociateCedulasAsNroAbogado on this Abogados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . '
+			');
+
+			// Journaling (if applicable)
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->NroAbogado = $this->intIdAbogado;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates a CedulasAsNroAbogado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function UnassociateCedulasAsNroAbogado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this Abogados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`nro_abogado` = null
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->NroAbogado = null;
+				$objCedulas->Journal('UPDATE');
+			}
+		}
+
+		/**
+		 * Unassociates all CedulasesAsNroAbogado
+		 * @return void
+		*/ 
+		public function UnassociateAllCedulasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this unsaved Abogados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByNroAbogado($this->intIdAbogado) as $objCedulas) {
+					$objCedulas->NroAbogado = null;
+					$objCedulas->Journal('UPDATE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				UPDATE
+					`cedulas`
+				SET
+					`nro_abogado` = null
+				WHERE
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+		}
+
+		/**
+		 * Deletes an associated CedulasAsNroAbogado
+		 * @param Cedulas $objCedulas
+		 * @return void
+		*/ 
+		public function DeleteAssociatedCedulasAsNroAbogado(Cedulas $objCedulas) {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this unsaved Abogados.');
+			if ((is_null($objCedulas->IdCedulas)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this Abogados with an unsaved Cedulas.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`id_cedulas` = ' . $objDatabase->SqlVariable($objCedulas->IdCedulas) . ' AND
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				$objCedulas->Journal('DELETE');
+			}
+		}
+
+		/**
+		 * Deletes all associated CedulasesAsNroAbogado
+		 * @return void
+		*/ 
+		public function DeleteAllCedulasesAsNroAbogado() {
+			if ((is_null($this->intIdAbogado)))
+				throw new QUndefinedPrimaryKeyException('Unable to call UnassociateCedulasAsNroAbogado on this unsaved Abogados.');
+
+			// Get the Database Object for this Class
+			$objDatabase = Abogados::GetDatabase();
+
+			// Journaling
+			if ($objDatabase->JournalingDatabase) {
+				foreach (Cedulas::LoadArrayByNroAbogado($this->intIdAbogado) as $objCedulas) {
+					$objCedulas->Journal('DELETE');
+				}
+			}
+
+			// Perform the SQL Query
+			$objDatabase->NonQuery('
+				DELETE FROM
+					`cedulas`
+				WHERE
+					`nro_abogado` = ' . $objDatabase->SqlVariable($this->intIdAbogado) . '
+			');
+		}
 
 			
 		
@@ -1484,7 +1721,7 @@
 			$strToReturn .= '<element name="IdAbogado" type="xsd:int"/>';
 			$strToReturn .= '<element name="Nombre" type="xsd:string"/>';
 			$strToReturn .= '<element name="Apellido" type="xsd:string"/>';
-			$strToReturn .= '<element name="Telefono" type="xsd:int"/>';
+			$strToReturn .= '<element name="Telefono" type="xsd:string"/>';
 			$strToReturn .= '<element name="NroAbogado" type="xsd:string"/>';
 			$strToReturn .= '<element name="Activo" type="xsd:int"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
@@ -1517,7 +1754,7 @@
 			if (property_exists($objSoapObject, 'Apellido'))
 				$objToReturn->strApellido = $objSoapObject->Apellido;
 			if (property_exists($objSoapObject, 'Telefono'))
-				$objToReturn->intTelefono = $objSoapObject->Telefono;
+				$objToReturn->strTelefono = $objSoapObject->Telefono;
 			if (property_exists($objSoapObject, 'NroAbogado'))
 				$objToReturn->strNroAbogado = $objSoapObject->NroAbogado;
 			if (property_exists($objSoapObject, 'Activo'))
@@ -1564,6 +1801,7 @@
 	 * @property-read QQNode $NroAbogado
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeDeclaratorias $DeclaratoriasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 */
@@ -1580,13 +1818,15 @@
 				case 'Apellido':
 					return new QQNode('apellido', 'Apellido', 'string', $this);
 				case 'Telefono':
-					return new QQNode('telefono', 'Telefono', 'integer', $this);
+					return new QQNode('telefono', 'Telefono', 'string', $this);
 				case 'NroAbogado':
 					return new QQNode('nro_abogado', 'NroAbogado', 'string', $this);
 				case 'Activo':
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'CedulasAsNroAbogado':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'DeclaratoriasAsNroAbogado':
 					return new QQReverseReferenceNodeDeclaratorias($this, 'declaratoriasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'TramitesAsignadosAsNroAbogado':
@@ -1613,6 +1853,7 @@
 	 * @property-read QQNode $NroAbogado
 	 * @property-read QQNode $Activo
 	 * @property-read QQNode $Observaciones
+	 * @property-read QQReverseReferenceNodeCedulas $CedulasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeDeclaratorias $DeclaratoriasAsNroAbogado
 	 * @property-read QQReverseReferenceNodeTramitesAsignados $TramitesAsignadosAsNroAbogado
 	 * @property-read QQNode $_PrimaryKeyNode
@@ -1630,13 +1871,15 @@
 				case 'Apellido':
 					return new QQNode('apellido', 'Apellido', 'string', $this);
 				case 'Telefono':
-					return new QQNode('telefono', 'Telefono', 'integer', $this);
+					return new QQNode('telefono', 'Telefono', 'string', $this);
 				case 'NroAbogado':
 					return new QQNode('nro_abogado', 'NroAbogado', 'string', $this);
 				case 'Activo':
 					return new QQNode('activo', 'Activo', 'integer', $this);
 				case 'Observaciones':
 					return new QQNode('observaciones', 'Observaciones', 'string', $this);
+				case 'CedulasAsNroAbogado':
+					return new QQReverseReferenceNodeCedulas($this, 'cedulasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'DeclaratoriasAsNroAbogado':
 					return new QQReverseReferenceNodeDeclaratorias($this, 'declaratoriasasnroabogado', 'reverse_reference', 'nro_abogado');
 				case 'TramitesAsignadosAsNroAbogado':

@@ -16,7 +16,7 @@
 	 * @package My Application
 	 * @subpackage GeneratedDataObjects
 	 * @property integer $IdMovimiento the value for intIdMovimiento (Read-Only PK)
-	 * @property integer $Monto the value for intMonto (Not Null)
+	 * @property string $Monto the value for strMonto (Not Null)
 	 * @property integer $TipoMovimiento the value for intTipoMovimiento (Not Null)
 	 * @property QDateTime $Fecha the value for dttFecha (Not Null)
 	 * @property string $Observaciones the value for strObservaciones 
@@ -39,9 +39,9 @@
 
 		/**
 		 * Protected member variable that maps to the database column movimiento.monto
-		 * @var integer intMonto
+		 * @var string strMonto
 		 */
-		protected $intMonto;
+		protected $strMonto;
 		const MontoDefault = null;
 
 
@@ -66,7 +66,7 @@
 		 * @var string strObservaciones
 		 */
 		protected $strObservaciones;
-		const ObservacionesMaxLength = 155;
+		const ObservacionesMaxLength = 255;
 		const ObservacionesDefault = null;
 
 
@@ -451,7 +451,7 @@
 			$strAliasName = array_key_exists($strAliasPrefix . 'id_movimiento', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'id_movimiento'] : $strAliasPrefix . 'id_movimiento';
 			$objToReturn->intIdMovimiento = $objDbRow->GetColumn($strAliasName, 'Integer');
 			$strAliasName = array_key_exists($strAliasPrefix . 'monto', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'monto'] : $strAliasPrefix . 'monto';
-			$objToReturn->intMonto = $objDbRow->GetColumn($strAliasName, 'Integer');
+			$objToReturn->strMonto = $objDbRow->GetColumn($strAliasName, 'VarChar');
 			$strAliasName = array_key_exists($strAliasPrefix . 'tipo_movimiento', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'tipo_movimiento'] : $strAliasPrefix . 'tipo_movimiento';
 			$objToReturn->intTipoMovimiento = $objDbRow->GetColumn($strAliasName, 'Integer');
 			$strAliasName = array_key_exists($strAliasPrefix . 'fecha', $strColumnAliasArray) ? $strColumnAliasArray[$strAliasPrefix . 'fecha'] : $strAliasPrefix . 'fecha';
@@ -633,7 +633,7 @@
 							`fecha`,
 							`observaciones`
 						) VALUES (
-							' . $objDatabase->SqlVariable($this->intMonto) . ',
+							' . $objDatabase->SqlVariable($this->strMonto) . ',
 							' . $objDatabase->SqlVariable($this->intTipoMovimiento) . ',
 							' . $objDatabase->SqlVariable($this->dttFecha) . ',
 							' . $objDatabase->SqlVariable($this->strObservaciones) . '
@@ -656,7 +656,7 @@
 						UPDATE
 							`movimiento`
 						SET
-							`monto` = ' . $objDatabase->SqlVariable($this->intMonto) . ',
+							`monto` = ' . $objDatabase->SqlVariable($this->strMonto) . ',
 							`tipo_movimiento` = ' . $objDatabase->SqlVariable($this->intTipoMovimiento) . ',
 							`fecha` = ' . $objDatabase->SqlVariable($this->dttFecha) . ',
 							`observaciones` = ' . $objDatabase->SqlVariable($this->strObservaciones) . '
@@ -744,7 +744,7 @@
 			$objReloaded = Movimiento::Load($this->intIdMovimiento);
 
 			// Update $this's local variables to match
-			$this->intMonto = $objReloaded->intMonto;
+			$this->strMonto = $objReloaded->strMonto;
 			$this->TipoMovimiento = $objReloaded->TipoMovimiento;
 			$this->dttFecha = $objReloaded->dttFecha;
 			$this->strObservaciones = $objReloaded->strObservaciones;
@@ -770,7 +770,7 @@
 					__sys_date
 				) VALUES (
 					' . $objDatabase->SqlVariable($this->intIdMovimiento) . ',
-					' . $objDatabase->SqlVariable($this->intMonto) . ',
+					' . $objDatabase->SqlVariable($this->strMonto) . ',
 					' . $objDatabase->SqlVariable($this->intTipoMovimiento) . ',
 					' . $objDatabase->SqlVariable($this->dttFecha) . ',
 					' . $objDatabase->SqlVariable($this->strObservaciones) . ',
@@ -830,9 +830,9 @@
 					return $this->intIdMovimiento;
 
 				case 'Monto':
-					// Gets the value for intMonto (Not Null)
-					// @return integer
-					return $this->intMonto;
+					// Gets the value for strMonto (Not Null)
+					// @return string
+					return $this->strMonto;
 
 				case 'TipoMovimiento':
 					// Gets the value for intTipoMovimiento (Not Null)
@@ -899,11 +899,11 @@
 				// Member Variables
 				///////////////////
 				case 'Monto':
-					// Sets the value for intMonto (Not Null)
-					// @param integer $mixValue
-					// @return integer
+					// Sets the value for strMonto (Not Null)
+					// @param string $mixValue
+					// @return string
 					try {
-						return ($this->intMonto = QType::Cast($mixValue, QType::Integer));
+						return ($this->strMonto = QType::Cast($mixValue, QType::String));
 					} catch (QCallerException $objExc) {
 						$objExc->IncrementOffset();
 						throw $objExc;
@@ -1015,7 +1015,7 @@
 		public static function GetSoapComplexTypeXml() {
 			$strToReturn = '<complexType name="Movimiento"><sequence>';
 			$strToReturn .= '<element name="IdMovimiento" type="xsd:int"/>';
-			$strToReturn .= '<element name="Monto" type="xsd:int"/>';
+			$strToReturn .= '<element name="Monto" type="xsd:string"/>';
 			$strToReturn .= '<element name="TipoMovimientoObject" type="xsd1:TipoMovimiento"/>';
 			$strToReturn .= '<element name="Fecha" type="xsd:dateTime"/>';
 			$strToReturn .= '<element name="Observaciones" type="xsd:string"/>';
@@ -1045,7 +1045,7 @@
 			if (property_exists($objSoapObject, 'IdMovimiento'))
 				$objToReturn->intIdMovimiento = $objSoapObject->IdMovimiento;
 			if (property_exists($objSoapObject, 'Monto'))
-				$objToReturn->intMonto = $objSoapObject->Monto;
+				$objToReturn->strMonto = $objSoapObject->Monto;
 			if ((property_exists($objSoapObject, 'TipoMovimientoObject')) &&
 				($objSoapObject->TipoMovimientoObject))
 				$objToReturn->TipoMovimientoObject = TipoMovimiento::GetObjectFromSoapObject($objSoapObject->TipoMovimientoObject);
@@ -1108,7 +1108,7 @@
 				case 'IdMovimiento':
 					return new QQNode('id_movimiento', 'IdMovimiento', 'integer', $this);
 				case 'Monto':
-					return new QQNode('monto', 'Monto', 'integer', $this);
+					return new QQNode('monto', 'Monto', 'string', $this);
 				case 'TipoMovimiento':
 					return new QQNode('tipo_movimiento', 'TipoMovimiento', 'integer', $this);
 				case 'TipoMovimientoObject':
@@ -1149,7 +1149,7 @@
 				case 'IdMovimiento':
 					return new QQNode('id_movimiento', 'IdMovimiento', 'integer', $this);
 				case 'Monto':
-					return new QQNode('monto', 'Monto', 'integer', $this);
+					return new QQNode('monto', 'Monto', 'string', $this);
 				case 'TipoMovimiento':
 					return new QQNode('tipo_movimiento', 'TipoMovimiento', 'integer', $this);
 				case 'TipoMovimientoObject':

@@ -20,10 +20,16 @@
 		<?php $this->txtLocalidad->RenderWithName(); ?>
 
 		<?php $this->txtAutos->RenderWithName(); ?>
+		
+		<?php $this->lstNroAbogado->RenderWithName(); ?>
 
 		<?php $this->txtDireccion->RenderWithName(); ?>
 
 		<?php $this->lstAgenteObject->RenderWithName(); ?>
+		
+		<?php $this->txtTimbrado->RenderWithName(); ?>
+		
+		<?php $this->txtHonorarios->RenderWithName(); ?>
 
 		<?php $this->calFechaIngreso->RenderWithName(); ?>
 

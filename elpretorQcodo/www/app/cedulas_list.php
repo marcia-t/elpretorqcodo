@@ -58,7 +58,10 @@
 			$this->dtgCedulases->MetaAddColumn('Localidad');
 			$this->dtgCedulases->MetaAddColumn('Autos');
 			$this->dtgCedulases->MetaAddColumn('Direccion');
+			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->NroAbogadoObject, 'Nro abogado');
 			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->AgenteObject, 'Agente');
+			$this->dtgCedulases->MetaAddColumn('Honorarios');
+			$this->dtgCedulases->MetaAddColumn('Timbrado');
 			$this->dtgCedulases->MetaAddColumn('FechaIngreso');
 			$this->dtgCedulases->MetaAddColumn('FechaSalida');
 			$this->dtgCedulases->MetaAddColumn('FechaFin');

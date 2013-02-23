@@ -59,7 +59,7 @@
 
 			// Call MetaControl's methods to create qcontrols based on TramitesAsignados's data fields
 			$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
-			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1));
+			$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 			$this->lstIdEstadoObject = $this->mctTramitesAsignados->lstIdEstadoObject_Create();
 			$this->calFechaIngreso = $this->mctTramitesAsignados->calFechaIngreso_Create();
 			$this->calFechaIngreso->DateTime = QDateTime::Now();
