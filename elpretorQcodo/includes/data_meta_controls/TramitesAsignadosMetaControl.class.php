@@ -170,7 +170,8 @@
 				if ($this->txtObservaciones) $this->objTramitesAsignados->Observaciones = $this->txtObservaciones->Text;
 		
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
-				$this->crearMovimientos();
+				if (!$this->blnEditMode)
+					$this->crearMovimientos();
 				// Save the TramitesAsignados object
 				$this->objTramitesAsignados->Save();
 		

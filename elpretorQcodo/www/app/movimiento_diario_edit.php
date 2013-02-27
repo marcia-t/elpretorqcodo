@@ -98,6 +98,16 @@
 				// Blink on ALL invalid controls
 				$objControl->Blink();
 			}
+			
+			
+			if (!is_numeric($this->txtMonto->Text)){
+				$this->txtMonto->Focus();
+				$blnFocused = true;
+				$this->txtMonto->Blink();
+				$this->txtMonto->Warning = 'Número no válido';
+				return false;
+			}
+			
 
 			return $blnToReturn;
 		}
