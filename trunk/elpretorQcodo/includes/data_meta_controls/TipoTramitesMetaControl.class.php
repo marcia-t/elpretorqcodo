@@ -104,7 +104,8 @@
 				if ($this->txtNombre) $this->objTipoTramites->Nombre = $this->txtNombre->Text;
 				if ($this->txtTimbrado) $this->objTipoTramites->Timbrado = $this->txtTimbrado->Text;
 				if ($this->txtHonorario) $this->objTipoTramites->Honorario = $this->txtHonorario->Text;
-				if ($this->txtOtrosCostos) $this->objTipoTramites->OtrosCostos = $this->txtOtrosCostos->Text;
+				if ($this->txtOtrosCostos->Text != '') $this->objTipoTramites->OtrosCostos = $this->txtOtrosCostos->Text;
+				else $this->objTipoTramites->OtrosCostos = '0';
 				if ($this->txtObservaciones) $this->objTipoTramites->Observaciones = $this->txtObservaciones->Text;
 				if ($this->lstIdModalidadObject) $this->objTipoTramites->IdModalidad = $this->lstIdModalidadObject->SelectedValue;
 				if ($this->lstIdZonaObject) $this->objTipoTramites->IdZona = $this->lstIdZonaObject->SelectedValue;

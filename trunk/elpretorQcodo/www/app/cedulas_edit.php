@@ -119,6 +119,22 @@
 				// Blink on ALL invalid controls
 				$objControl->Blink();
 			}
+			
+			if (!is_numeric($this->txtTimbrado->Text)){
+				$this->txtTimbrado->Focus();
+				$blnFocused = true;
+				$this->txtTimbrado->Blink();
+				$this->txtTimbrado->Warning = 'Número no válido';
+				return false;
+			}
+			
+			if (!is_numeric($this->txtHonorarios->Text)){
+				$this->txtHonorarios->Focus();
+				$blnFocused = true;
+				$this->txtHonorarios->Blink();
+				$this->txtHonorarios->Warning = 'Número no válido';
+				return false;
+			}
 
 			return $blnToReturn;
 		}

@@ -103,6 +103,32 @@
 				// Blink on ALL invalid controls
 				$objControl->Blink();
 			}
+			
+			if (!is_numeric($this->txtHonorario->Text)){
+				$this->txtHonorario->Focus();
+				$blnFocused = true;
+				$this->txtHonorario->Blink();
+				$this->txtHonorario->Warning = 'Número no válido';
+				return false;
+			}
+			
+			if (!is_numeric($this->txtTimbrado->Text)){
+				$this->txtTimbrado->Focus();
+				$blnFocused = true;
+				$this->txtTimbrado->Blink();
+				$this->txtTimbrado->Warning = 'Número no válido';
+				return false;
+			}
+			
+			
+			if (!is_numeric($this->txtOtrosCostos->Text)){
+				$this->txtOtrosCostos->Focus();
+				$blnFocused = true;
+				$this->txtOtrosCostos->Blink();
+				$this->txtOtrosCostos->Warning = 'Número no válido';
+				return false;
+			}
+			
 
 			return $blnToReturn;
 		}

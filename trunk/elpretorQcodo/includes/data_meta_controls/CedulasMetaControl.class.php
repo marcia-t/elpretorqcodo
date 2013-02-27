@@ -110,6 +110,7 @@
 			try {
 				// Update any fields for controls that have been created
 				if ($this->txtLocalidad) $this->objCedulas->Localidad = $this->txtLocalidad->Text;
+				if ($this->lstNroAbogadoObject) $this->objCedulas->NroAbogado = $this->lstNroAbogadoObject->SelectedValue;
 				if ($this->txtAutos) $this->objCedulas->Autos = $this->txtAutos->Text;
 				if ($this->txtDireccion) $this->objCedulas->Direccion = $this->txtDireccion->Text;
 				if ($this->lstAgenteObject) $this->objCedulas->Agente = $this->lstAgenteObject->SelectedValue;
@@ -125,7 +126,8 @@
 				else $this->objCedulas->Timbrado = '0';
 		
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
-				$this->crearMovimientos();
+				if (!$this->blnEditMode)
+					$this->crearMovimientos();
 				// Save the Cedulas object
 				$this->objCedulas->Save();
 		

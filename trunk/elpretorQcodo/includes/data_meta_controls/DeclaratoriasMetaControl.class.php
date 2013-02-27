@@ -71,7 +71,8 @@
 				//var_dump($this->objDeclaratorias);die;
 				// Update any UniqueReverseReferences (if any) for controls that have been created for it
 		
-				$this->crearMovimientos();
+				if (!$this->blnEditMode)
+					$this->crearMovimientos();
 				
 				// Save the Declaratorias object
 				$this->objDeclaratorias->Save();
