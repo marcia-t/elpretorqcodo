@@ -14,10 +14,23 @@
 	<div id="titleBar">
 			<h2><?php _t('Listado de trámites que vencen esta semana.'); ?></h2>
 	</div>
-
-	<?php $this->dtgTramitesAsignadoses->Render(); ?>
-
+	<div id="titleBar">
+			<h2><?php _t('Trámites.'); ?></h2>
+			<?php $this->dtgTramitesAsignadoses->Render(); ?>
+	</div>
 	
+	<div id="titleBar">
+			<h2><?php _t('Cédulas.'); ?></h2>
+			<?php $this->dtgCedulases->Render(); ?>
+	</div>
+	
+
+	<p class="create">
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/tramites_asignados_edit.php">Asignar nuevo trámite</a>
+	</p>
+	<p class="create">
+		<a href="<?php _p(__VIRTUAL_DIRECTORY__ . __FORM_APP__) ?>/cedulas_edit.php">Asignar nueva cédula</a>
+	</p>
 
 	<?php $this->RenderEnd() ?>
 	

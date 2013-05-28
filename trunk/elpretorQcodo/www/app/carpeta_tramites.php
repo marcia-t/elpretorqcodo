@@ -56,6 +56,9 @@ class CarpetaTramitesForm extends QForm {
 		//$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_DRAFTS__ . '/tramites_asignados_edit.php';
 		//$this->dtgTramitesAsignadoses->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
 
+		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+		
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdAgenteObject, 'Agente');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->NroAbogadoObject, 'Abogado');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->IdEstadoObject, 'Estado');
@@ -199,7 +202,7 @@ class CarpetaTramitesForm extends QForm {
 			$fecha_salida = $this->fechaSalida->PHPDate('Y-m-d');
 			$sql.= " AND fecha_salida = '$fecha_salida'";
 		}
-
+		$sql.=" order by fecha_ingreso desc limit 100";
 		$objDbResult = $objDatabase->Query($sql);
 		return TramitesAsignados::InstantiateDbResult($objDbResult);
 	}

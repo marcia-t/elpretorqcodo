@@ -63,7 +63,7 @@
 			$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('Autos');
 			$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
-		//	$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
+			$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 		}
 	}
 

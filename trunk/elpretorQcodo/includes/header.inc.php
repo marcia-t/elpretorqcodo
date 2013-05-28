@@ -20,7 +20,7 @@
 	<!-- 		</div> -->
 	<div id='cssmenu'>
 		<ul>
-			<li class='active'><a href='/app/carpeta_tramites.php'><span>Inicio</span>
+			<li class='active'><a href='/app/tramites_asignados_que_vencen_esta_semana.php'><span>Inicio</span>
 			</a></li>
 			<li class='has-sub'><a href='#'><span>Trámites</span> </a>
 				<ul>
@@ -62,6 +62,7 @@
 						<ul>
 							<li><a href='/app/abogados_list.php'><span>Ver</span> </a></li>
 							<li><a href='/app/abogados_edit.php'><span>Agregar</span> </a></li>
+							<li><a href='/app/buscar_abogados.php'><span>Buscar</span> </a></li>
 						</ul>
 					</li>
 					<li class='has-sub'><a href='#'><span>Modalidades</span> </a>
@@ -94,7 +95,7 @@
 						</li>
 						<li><a href='/app/movimiento_edit.php'><span>Agregar movimiento</span>
 						</a></li>
-						<li><a href='/app/caja_diaria_list.php'><span>Caja diaria</span>
+						<li><a href='/app/buscar_caja_diaria_list.php'><span>Ver caja diaria</span>
 						</a></li>
 					</ul>
 			</li>

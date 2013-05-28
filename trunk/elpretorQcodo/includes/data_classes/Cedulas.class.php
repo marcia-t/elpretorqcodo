@@ -26,8 +26,35 @@
 		public function __toString() {
 			return sprintf('Cedulas Object %s',  $this->intIdCedulas);
 		}
+		
+		
+		
+		public static function UpdateEstadoFinalizado($idcedula){
+			$sql = "UPDATE cedulas
+			SET estado = 4
+			WHERE id_cedulas = $idcedula";
+			$objDatabase = Cedulas::GetDatabase();
+			$result = $objDatabase->NonQuery($sql);
+		}
 
-
+		
+		public static function UpdateEstadoEnCurso($idcedula){
+			$sql = "UPDATE cedulas
+			SET estado = 2
+			WHERE id_cedulas = $idcedula";
+			$objDatabase = Cedulas::GetDatabase();
+			$result = $objDatabase->NonQuery($sql);
+		}
+		
+		
+		public static function UpdateEstadoDeRegreso($idcedula){
+			$sql = "UPDATE cedulas
+			SET estado = 3
+			WHERE id_cedulas = $idcedula";
+			$objDatabase = Cedulas::GetDatabase();
+			$result = $objDatabase->NonQuery($sql);
+		}
+		
 		// Override or Create New Load/Count methods
 		// (For obvious reasons, these methods are commented out...
 		// but feel free to use these as a starting point)

@@ -99,8 +99,8 @@
 			$this->dtgCedulases->AlternateRowStyle->CssClass = 'alternate';
 			
 			// Add Pagination (if desired)
-			/*$this->dtgCedulases->Paginator = new QPaginator($this->dtgCedulases);
-			$this->dtgCedulases->ItemsPerPage = 20;*/
+			$this->dtgCedulases->Paginator = new QPaginator($this->dtgCedulases);
+			$this->dtgCedulases->ItemsPerPage = 20;
 			
 			// Use the MetaDataGrid functionality to add Columns for this datagrid
 			
@@ -123,6 +123,11 @@
 			$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->EstadoObject, 'Estado');
 			
 			
+			$this->dtgCedulases->AddColumn(new QDataGridColumn('En curso', '<?= $_FORM->encurso_Render($_ITEM) ?>','HtmlEntities=false'));
+			$this->dtgCedulases->AddColumn(new QDataGridColumn('De regreso', '<?= $_FORM->deregreso_Render($_ITEM) ?>','HtmlEntities=false'));
+			$this->dtgCedulases->AddColumn(new QDataGridColumn('Finalizar', '<?= $_FORM->finalizar_Render($_ITEM) ?>','HtmlEntities=false'));
+			
+			
 			
 			// Create Buttons and Actions on this Form
 			$this->btnBuscar = new QButton($this);
@@ -137,6 +142,82 @@
 		}
 
 		
+		public function encurso_Render(Cedulas $objCedulas) {
+			$strControlId = 'chkSelected' . $objCedulas->IdCedulas;
+		
+			$chkSelected = $this->GetControl($strControlId);
+		
+			if (!$chkSelected) {
+				$chkSelected = new QLinkButton($this->dtgCedulases);
+				$chkSelected->Text = 'En curso';
+		
+				$chkSelected->ActionParameter = $objCedulas->IdCedulas;
+		
+		
+				$chkSelected->AddAction(new QClickEvent(), new QServerAction('encurso_Click'));
+			}
+		
+			return $chkSelected->Render(false);
+		}
+		
+		protected function encurso_Click($strFormId, $strControlId, $strParameter) {
+			$intCedulas = $strParameter;
+			Cedulas::UpdateEstadoEnCurso($intCedulas);
+			$this->dtgCedulases->DataSource  = $this->generarSQLYBuscar();
+		}
+		
+		
+		
+		
+		public function deregreso_Render(Cedulas $objCedula) {
+			$strControlId = 'chkSelected' . $objCedula->IdCedulas;
+		
+			$chkSelected = $this->GetControl($strControlId);
+		
+			if (!$chkSelected) {
+				$chkSelected = new QLinkButton($this->dtgCedulases);
+				$chkSelected->Text = 'De regreso';
+		
+				$chkSelected->ActionParameter = $objCedula->IdCedulas;
+		
+		
+				$chkSelected->AddAction(new QClickEvent(), new QServerAction('deregreso_Click'));
+			}
+		
+			return $chkSelected->Render(false);
+		}
+		
+		protected function deregreso_Click($strFormId, $strControlId, $strParameter) {
+			$intCedula = $strParameter;
+			Cedulas::UpdateEstadoDeRegreso($intCedula);
+			$this->dtgCedulases->DataSource  = $this->generarSQLYBuscar();
+		}
+		
+		public function finalizar_Render(Cedulas $objCedulas) {
+			$strControlId = 'chkSelected' . $objCedulas->IdCedulas;
+		
+			$chkSelected = $this->GetControl($strControlId);
+		
+			if (!$chkSelected) {
+				$chkSelected = new QLinkButton($this->dtgCedulases);
+				$chkSelected->Text = 'Finalizar';
+		
+				$chkSelected->ActionParameter = $objCedulas->IdCedulas;
+		
+		
+				$chkSelected->AddAction(new QClickEvent(), new QServerAction('finalizar_Click'));
+			}
+		
+			return $chkSelected->Render(false);
+		}
+		
+		
+		protected function finalizar_Click($strFormId, $strControlId, $strParameter) {
+			$intCedula = $strParameter;
+			Cedulas::UpdateEstadoFinalizado($intCedula);
+			$this->dtgCedulases->DataSource  = $this->generarSQLYBuscar();
+		
+		}
 
 		// Button Event Handlers
 

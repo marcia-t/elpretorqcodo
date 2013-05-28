@@ -21,6 +21,8 @@ require(dirname(__FILE__) . '/../../includes/prepend.inc.php');
 class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 	// Local instance of the Meta DataGrid to list TramitesAsignadoses
 	protected $dtgTramitesAsignadoses;
+	protected $dtgCedulases;
+	protected $dtgDeclaratoriases;
 
 	// Create QForm Event Handlers as Needed
 
@@ -44,11 +46,11 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$this->dtgTramitesAsignadoses->AlternateRowStyle->CssClass = 'alternate';
 
 		// Add Pagination (if desired)
-		//$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
-		//$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
-		
-		
+
+
 		// Create an Edit Column
 		$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_APP__ . '/tramites_asignados_edit.php';
 		$this->dtgTramitesAsignadoses->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
@@ -64,29 +66,90 @@ class TramitesAsignadosVencenEstaSemanaListForm extends QForm {
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('FechaVencimiento');
 		$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
-		
-		
+
+
 		$this->dtgTramitesAsignadoses->DataSource = $this->generarSQLYBuscar();
+
+
+		//cédulas
+
+		$this->dtgCedulases = new CedulasDataGrid($this);
+
+		// Style the DataGrid (if desired)
+		$this->dtgCedulases->CssClass = 'datagrid';
+		$this->dtgCedulases->AlternateRowStyle->CssClass = 'alternate';
+
+		// Add Pagination (if desired)
+		$this->dtgCedulases->Paginator = new QPaginator($this->dtgCedulases);
+		$this->dtgCedulases->ItemsPerPage = 20;
+
+		// Use the MetaDataGrid functionality to add Columns for this datagrid
+
+		// Create an Edit Column
+		$strEditPageUrl = __VIRTUAL_DIRECTORY__ . __FORM_APP__ . '/cedulas_edit.php';
+		$this->dtgCedulases->MetaAddEditLinkColumn($strEditPageUrl, 'Edit', 'Edit');
+
+		// Create the Other Columns (note that you can use strings for cedulas's properties, or you
+		// can traverse down QQN::cedulas() to display fields that are down the hierarchy)
+		$this->dtgCedulases->MetaAddColumn('Localidad');
+		$this->dtgCedulases->MetaAddColumn('Autos');
+		$this->dtgCedulases->MetaAddColumn('Direccion');
+		$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->NroAbogadoObject, 'Nro abogado');
+		$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->AgenteObject, 'Agente');
+		$this->dtgCedulases->MetaAddColumn('Honorarios');
+		$this->dtgCedulases->MetaAddColumn('Timbrado');
+		$this->dtgCedulases->MetaAddColumn('FechaIngreso');
+		$this->dtgCedulases->MetaAddColumn('FechaSalida');
+		$this->dtgCedulases->MetaAddColumn('FechaFin');
+		$this->dtgCedulases->MetaAddColumn('Audiencia');
+		$this->dtgCedulases->MetaAddColumn('Observaciones');
+		$this->dtgCedulases->AgregarColumna(QQN::Cedulas()->EstadoObject, 'Estado');
+
+		$this->dtgCedulases->DataSource = $this->generarSQLYBuscarCedulas();
+		
+		
 	}
-	
+
 	public function generarSQLYBuscar(){
-	
+
 		$objDatabase = TramitesAsignados::GetDatabase();
-	
+
+		$semanaNumero = date("W");
+		$anioNumero = date("Y");
+
+
+		$sql = "SELECT *
+		FROM sistema.tramites_asignados
+		WHERE WEEKOFYEAR(fecha_vencimiento) = $semanaNumero
+		AND YEAR (fecha_vencimiento) = $anioNumero
+		AND id_estado != 4";
+
+
+		$objDbResult = $objDatabase->Query($sql);
+		return TramitesAsignados::InstantiateDbResult($objDbResult);
+	}
+
+
+	public function generarSQLYBuscarCedulas(){
+		$objDatabase = Cedulas::GetDatabase();
+		
 		$semanaNumero = date("W");
 		$anioNumero = date("Y");
 		
 		
 		$sql = "SELECT *
-		FROM sistema.tramites_asignados
-		WHERE WEEKOFYEAR(fecha_vencimiento) = $semanaNumero
-		AND YEAR (fecha_vencimiento) = $anioNumero";
-	
-	
+		FROM sistema.cedulas
+		WHERE (WEEKOFYEAR(fecha_fin) = $semanaNumero
+		AND YEAR (fecha_fin) = $anioNumero) OR
+		(WEEKOFYEAR(audiencia) = $semanaNumero
+		AND YEAR (audiencia) = $anioNumero)
+		AND estado != 4";
+		
+		
 		$objDbResult = $objDatabase->Query($sql);
-		return TramitesAsignados::InstantiateDbResult($objDbResult);
-		}
-	
+		return Cedulas::InstantiateDbResult($objDbResult);
+	}
+
 }
 
 // Go ahead and run this form object to generate the page and event handlers, implicitly using

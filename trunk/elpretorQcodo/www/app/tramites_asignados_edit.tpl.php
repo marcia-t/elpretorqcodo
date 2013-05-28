@@ -35,7 +35,9 @@
 		<?php $this->calFechaVencimiento->RenderWithName(); ?>
 
 		<?php $this->txtObservaciones->RenderWithName(); ?>
-
+		
+			
+		
 	</div>
 
 	<div id="formActions">
