@@ -42,7 +42,7 @@ class BuscarTramitesForm extends QForm {
 		$this->pnlEdit->Visible = false;
 		
 		$this->mctTramitesAsignados = TramitesAsignadosMetaControl::CreateFromPathInfo($this);
-		$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create();
+		$this->lstIdAgenteObject = $this->mctTramitesAsignados->lstIdAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
 		$this->lstIdAgenteObject->Required = false;
 		$this->lstNroAbogadoObject = $this->mctTramitesAsignados->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 		$this->lstNroAbogadoObject->Required = false;
@@ -52,23 +52,29 @@ class BuscarTramitesForm extends QForm {
 		$this->calFechaIngreso->Required = false;
 		$this->calFechaSalida = $this->mctTramitesAsignados->calFechaSalida_Create();
 		$this->calFechaSalida->Required = false;
-		$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create();
+		$this->lstTipoTramiteObject = $this->mctTramitesAsignados->lstTipoTramiteObject_Create(null, QQ::Equal(QQN::TipoTramites()->Activo, 1),  QQ::OrderBy(QQN::TipoTramites()->Nombre));
 		$this->lstTipoTramiteObject->Required = false;
 		$this->calFechaVencimiento = $this->mctTramitesAsignados->calFechaVencimiento_Create();
 		$this->calFechaVencimiento->Required = false;
 		$this->txtAutos = $this->mctTramitesAsignados->txtAutos_Create();
 		$this->txtAutos->Required = false;
 		$this->dtgTramitesAsignadoses = new TramitesAsignadosDataGrid($this);
+		
+		$fecha = date('Y-m-j');
+		$nuevafecha = strtotime ( '-20 day	' , strtotime ( $fecha ) ) ;
+		//$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+		
+		$this->calFechaIngreso->DateTime = QDateTime::FromTimestamp($nuevafecha);
 
 		// Style the DataGrid (if desired)
 		$this->dtgTramitesAsignadoses->CssClass = 'datagrid';
 		$this->dtgTramitesAsignadoses->AlternateRowStyle->CssClass = 'alternate';
 
-
+		
 
 		// Add Pagination (if desired)
-		//$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
-		//$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
+		$this->dtgTramitesAsignadoses->Paginator = new QPaginator($this->dtgTramitesAsignadoses);
+		$this->dtgTramitesAsignadoses->ItemsPerPage = 20;
 
 		//$this->dtgTramitesAsignadoses->SetDataBinder('bindBySearch');
 
@@ -87,6 +93,7 @@ class BuscarTramitesForm extends QForm {
 		$this->dtgTramitesAsignadoses->AgregarColumna('Autos', 'Autos');
 		$this->dtgTramitesAsignadoses->AgregarColumna(QQN::TramitesAsignados()->TipoTramiteObject, 'Tipo de trámite');
 		$this->dtgTramitesAsignadoses->AgregarColumna('FechaVencimiento', 'Fecha vencimiento');
+		$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('De regreso', '<?= $_FORM->deregreso_Render($_ITEM) ?>','HtmlEntities=false'));
 		//$this->dtgTramitesAsignadoses->MetaAddColumn('Observaciones');
 		/*$this->dtgTramitesAsignadoses->AddColumn(new QDataGridColumn('Seleccionar', '<?= $_FORM->chkSelected_Render($_ITEM) ?>','HtmlEntities=false'));*/
 		$this->btnBuscar = new QButton($this);
@@ -102,6 +109,8 @@ class BuscarTramitesForm extends QForm {
 		$this->lblResponse->HtmlEntities = false;
 		
 		
+		$this->dtgTramitesAsignadoses->DataSource = $this->generaSQLYBuscar();
+		
 		/*$this->btnFinalizar = new QButton($this);
 		$this->btnFinalizar->Text = 'Finalizar';
 		$this->btnFinalizar->AddAction(new QClickEvent(), new QAjaxAction('btnFinalizar_Click'));
@@ -115,7 +124,29 @@ class BuscarTramitesForm extends QForm {
 		$this->btnEnCurso->AddAction(new QClickEvent(), new QAjaxAction('btnEnCurso_Click'));*/
 	}
 
+	public function deregreso_Render(TramitesAsignados $objTramiteAsignado) {
+		$strControlId = 'chkSelected' . $objTramiteAsignado->IdTramiteAsignado;
 	
+		$chkSelected = $this->GetControl($strControlId);
+	
+		if (!$chkSelected) {
+			$chkSelected = new QLinkButton($this->dtgTramitesAsignadoses);
+			$chkSelected->Text = 'De regreso';
+	
+			$chkSelected->ActionParameter = $objTramiteAsignado->IdTramiteAsignado;
+	
+	
+			$chkSelected->AddAction(new QClickEvent(), new QServerAction('deregreso_Click'));
+		}
+	
+		return $chkSelected->Render(false);
+	}
+	
+	protected function deregreso_Click($strFormId, $strControlId, $strParameter) {
+		$intTramiteAsignado = $strParameter;
+		TramitesAsignados::UpdateEstadoDeRegreso($intTramiteAsignado);
+		$this->dtgTramitesAsignadoses->DataSource  = $this->generaSQLYBuscar();
+	}
 	
 	protected function btnBuscar_Click($strFormId, $strControlId, $strParameter) {
 
@@ -223,7 +254,7 @@ class BuscarTramitesForm extends QForm {
 
 		if (isset ($this->datos['fechaIngreso'])) {
 			$id = $this->datos['fechaIngreso']->PHPDate('Y-m-d');
-			$sql.=" AND fecha_ingreso = '$id'";
+			$sql.=" AND fecha_ingreso >= '$id'";
 		}
 
 		if (isset ($this->datos['fechaSalida'])) {
@@ -245,7 +276,15 @@ class BuscarTramitesForm extends QForm {
 			$id = $this->datos['txtAutos'];
 			$sql.=" AND autos LIKE '%$id%'";
 		}
+		
+		if (!isset ($this->datos['fechaSalida']) && !isset ($this->datos['fechaIngreso'])){
+			$fecha = date('Y-m-j');
+			$nuevafecha = strtotime ( '-15 day	' , strtotime ( $fecha ) ) ;
+			$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+			$sql.= " AND fecha_ingreso >= '$nuevafecha'"; 
+		}
 
+		$sql.= " order by fecha_ingreso desc";
 		$objDbResult = $objDatabase->Query($sql);
 		return TramitesAsignados::InstantiateDbResult($objDbResult);
 

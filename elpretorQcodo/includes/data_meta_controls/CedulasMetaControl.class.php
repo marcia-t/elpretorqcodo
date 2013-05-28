@@ -160,7 +160,66 @@
 			}
 		}
 		
+		/**
+		 * Create and setup QDateTimePicker calFechaIngreso
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaIngreso_Create($strControlId = null) {
+			$this->calFechaIngreso = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaIngreso->Name = QApplication::Translate('Fecha Ingreso');
+			$this->calFechaIngreso->DateTime = $this->objCedulas->FechaIngreso;
+// 			$this->calFechaIngreso->DateTimePickerType = QDateTimePickerType::Date;
+			$this->calFechaIngreso->Required = true;
+			$this->calFechaIngreso->CssClass = 'textbox';
+			if (!$this->blnEditMode)
+				$this->calFechaIngreso->DateTime = QDateTime::Now(false);
+			return $this->calFechaIngreso;
+		}
 		
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaSalida
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaSalida_Create($strControlId = null) {
+			$this->calFechaSalida = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaSalida->Name = QApplication::Translate('Fecha Salida');
+			$this->calFechaSalida->DateTime = $this->objCedulas->FechaSalida;
+			$this->calFechaSalida->CssClass = 'textbox';
+// 			$this->calFechaSalida->DateTimePickerType = QDateTimePickerType::Date;
+			return $this->calFechaSalida;
+		}
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaFin
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaFin_Create($strControlId = null) {
+			$this->calFechaFin = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaFin->Name = QApplication::Translate('Fecha Fin');
+			$this->calFechaFin->DateTime = $this->objCedulas->FechaFin;
+			$this->calFechaFin->CssClass = 'textbox';
+// 			$this->calFechaFin->DateTimePickerType = QDateTimePickerType::Date;
+			return $this->calFechaFin;
+		}
+		
+		
+		/**
+		 * Create and setup QDateTimePicker calAudiencia
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calAudiencia_Create($strControlId = null) {
+			$this->calAudiencia = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calAudiencia->Name = QApplication::Translate('Audiencia');
+			$this->calAudiencia->DateTime = $this->objCedulas->Audiencia;
+			$this->calAudiencia->CssClass = 'textbox';
+// 			$this->calAudiencia->DateTimePickerType = QDateTimePickerType::Date;
+			return $this->calAudiencia;
+		}
 	}
 	
 	

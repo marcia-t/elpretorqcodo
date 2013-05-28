@@ -47,10 +47,11 @@ require(__INCLUDES__ . '/header.inc.php');
 			</div>
 		</div>
 	</div>
-	<div id="right"></div>
+	<div id="right"><?php $this->dtgCedulases->Render(); ?></div>
+
 </div>
 
-<?php $this->dtgCedulases->Render(); ?>
+
 
 
 

@@ -109,6 +109,8 @@
 			return $this->lstNroAbogadoObject;
 		}
 		
+		
+		
 		public function lstIdEstadoObject_Create($strControlId = null, QQCondition $objCondition = null, $objOptionalClauses = null) {
 			$this->lstIdEstadoObject = new QListBox($this->objParentObject, $strControlId);
 			$this->lstIdEstadoObject->Name = 'Estado';
@@ -197,6 +199,54 @@
 			$objMovimiento2->Observaciones = 'Trámite '.$this->objTramitesAsignados->TipoTramiteObject->Nombre;
 			$objMovimiento2->Save();
 		}
+		
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaVencimiento
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaVencimiento_Create($strControlId = null) {
+			$this->calFechaVencimiento = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaVencimiento->Name = QApplication::Translate('Fecha Vencimiento');
+			$this->calFechaVencimiento->DateTime = $this->objTramitesAsignados->FechaVencimiento;
+// 			$this->calFechaVencimiento->DateTimePickerType = QDateTimePickerType::Date;
+			$this->calFechaVencimiento->Required = true;
+			$this->calFechaVencimiento->CssClass = 'textbox';
+			return $this->calFechaVencimiento;
+		}
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaIngreso
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaIngreso_Create($strControlId = null) {
+			$this->calFechaIngreso = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaIngreso->Name = QApplication::Translate('Fecha Ingreso');
+			$this->calFechaIngreso->DateTime = $this->objTramitesAsignados->FechaIngreso;
+// 			if (!$this->blnEditMode)
+// 				$this->calFechaIngreso->DateTime = QDateTime::Now();
+			$this->calFechaIngreso->CssClass = 'textbox';
+// 			$this->calFechaIngreso->DateTimePickerType = QDateTimePickerType::Date;
+			$this->calFechaIngreso->Required = true;
+			return $this->calFechaIngreso;
+		}
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaSalida
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaSalida_Create($strControlId = null) {
+			$this->calFechaSalida = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaSalida->Name = QApplication::Translate('Fecha Salida');
+			$this->calFechaSalida->DateTime = $this->objTramitesAsignados->FechaSalida;
+// 			$this->calFechaSalida->DateTimePickerType = QDateTimePickerType::Date;
+			$this->calFechaSalida->CssClass = 'textbox';
+			return $this->calFechaSalida;
+		}
+		
 		
 	}
 ?>

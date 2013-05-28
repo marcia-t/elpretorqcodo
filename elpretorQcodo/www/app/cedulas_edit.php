@@ -71,7 +71,6 @@
 			$this->lstAgenteObject = $this->mctCedulas->lstAgenteObject_Create(null, QQ::Equal(QQN::Agentes()->Activo, 1));
 			$this->lstNroAbogado = $this->mctCedulas->lstNroAbogadoObject_Create(null, QQ::Equal(QQN::Abogados()->Activo, 1), QQ::OrderBy(QQN::Abogados()->NroAbogado));
 			$this->calFechaIngreso = $this->mctCedulas->calFechaIngreso_Create();
-			$this->calFechaIngreso->DateTime = QDateTime::Now();
 			$this->calFechaSalida = $this->mctCedulas->calFechaSalida_Create();
 			$this->calFechaFin = $this->mctCedulas->calFechaFin_Create();
 			$this->txtHonorarios = $this->mctCedulas->txtHonorarios_Create();

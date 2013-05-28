@@ -164,5 +164,37 @@
 			return $this->lstNroAbogadoObject;
 		}
 		
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaInicio
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaInicio_Create($strControlId = null) {
+			$this->calFechaInicio = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaInicio->Name = QApplication::Translate('Fecha Inicio');
+			$this->calFechaInicio->DateTime = $this->objDeclaratorias->FechaInicio;
+			//$this->calFechaInicio->DateTimePickerType = QDateTimePickerType::Date;
+			if (!$this->blnEditMode)
+				$this->calFechaInicio->DateTime = QDateTime::Now(false);
+			$this->calFechaInicio->Required = true;
+			$this->calFechaInicio->CssClass = 'textbox';
+			return $this->calFechaInicio;
+		}
+		
+		/**
+		 * Create and setup QDateTimePicker calFechaFin
+		 * @param string $strControlId optional ControlId to use
+		 * @return QDateTimePicker
+		 */
+		public function calFechaFin_Create($strControlId = null) {
+			$this->calFechaFin = new QCalendarPopup($this->objParentObject, $strControlId);
+			$this->calFechaFin->Name = QApplication::Translate('Fecha Fin');
+			$this->calFechaFin->DateTime = $this->objDeclaratorias->FechaFin;
+			$this->calFechaFin->CssClass = 'textbox';
+// 			$this->calFechaFin->DateTimePickerType = QDateTimePickerType::Date;
+			return $this->calFechaFin;
+		}
+		
 	}
 ?>

@@ -34,9 +34,9 @@ require(__INCLUDES__ . '/headervisita.inc.php'); ?>
 
 		</div>
 	</div>
-	<div id="right"></div>
+	<div id="right4"><?php $this->dtgTramitesAsignadoses->Render(); ?></div>
 </div>
-<?php $this->dtgTramitesAsignadoses->Render(); ?>
+
 
 
 

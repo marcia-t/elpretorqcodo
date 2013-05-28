@@ -39,10 +39,11 @@ require(__INCLUDES__ . '/header.inc.php');
 			</div>
 		</div>
 	</div>
-	<div id="right"></div>
+	<div id="right4">
+	<?php $this->dtgDeclaratoriases->Render(); ?></div>
 </div>
 
-<?php $this->dtgDeclaratoriases->Render(); ?>
+
 
 
 

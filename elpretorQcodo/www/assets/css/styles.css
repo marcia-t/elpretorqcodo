@@ -546,7 +546,7 @@ div#dashboard div#left {
 div#dashboard div#left2 {
 	float: left;
 	width: 250px;
-	height: 425px;
+	height: 450px;
 	font-size: 10px;
 	background-color: #FEFFEE;
 	border: 1px solid #000;
@@ -565,7 +565,7 @@ div#dashboard div#left3 {
 
 div#dashboard div#left4 {
 	float: left;
-	width: 200px;
+	width: 210px;
 	height: 290 px;
 	font-size: 10px;
 	background-color: #FEFFEE;
@@ -593,9 +593,15 @@ div#dashboard div#left6 {
 }
 
 div#dashboard div#right {
+	float: right;
+/* 	margin-left: 10px; */
+	width: 1050px;
+}
+
+div#dashboard div#right4 {
 	float: left;
 	margin-left: 10px;
-	width: 1100px;
+	width: 1000px;
 }
 
 div#dashboard div#right3 {
