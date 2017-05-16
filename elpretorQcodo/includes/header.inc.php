@@ -13,35 +13,35 @@
 @import
 	url("<?php _p(__VIRTUAL_DIRECTORY__ . __CSS_ASSETS__); ?>/styles.css");
 </style>
-<link href="/menu_assets/styles.css" rel="stylesheet" type="text/css">
+<link href="menu_assets/styles.css" rel="stylesheet" type="text/css">
 
 	<!-- 		<div id="header">   -->
-	<!-- 		<h1>Sistema de Gestión</h1> -->
+	<!-- 		<h1>Sistema de Gestiï¿½n</h1> -->
 	<!-- 		</div> -->
 	<div id='cssmenu'>
 		<ul>
-			<li class='active'><a href='/app/tramites_asignados_que_vencen_esta_semana.php'><span>Inicio</span>
+			<li class='active'><a href='tramites_asignados_que_vencen_esta_semana.php'><span>Inicio</span>
 			</a></li>
-			<li class='has-sub'><a href='#'><span>Trámites</span> </a>
+			<li class='has-sub'><a href='#'><span>Trï¿½mites</span> </a>
 				<ul>
 					<li class='has-sub'><a href='#'><span>Listados</span> </a>
 						<ul>
 							<li><a href='/app/tramites_asignados_list.php'><span>Ver todos
-										los trámites</span> </a></li>
-							<li><a href='/app/tramites_asignados_que_vencen_esta_semana.php'><span>Trámites
+										los trï¿½mites</span> </a></li>
+							<li><a href='/app/tramites_asignados_que_vencen_esta_semana.php'><span>Trï¿½mites
 										que vencen esta semana</span> </a></li>
 							<li><a href='/app/tramites_asignados_en_curso.php'><span>Ver
-										trámites en curso</span> </a></li>
+										trï¿½mites en curso</span> </a></li>
 						</ul>
 
-						<li><a href='/app/buscar_tramites.php'><span>Buscar trámite</span>
+						<li><a href='/app/buscar_tramites.php'><span>Buscar trï¿½mite</span>
 						</a></li>
 						<li><a href='/app/tramites_asignados_edit.php'><span>Asignar nuevo
-									trámite</span> </a></li>
+									trï¿½mite</span> </a></li>
 
-						<li><a href='/app/carpeta_tramites.php'><span>Carpeta de trámites</span>
+						<li><a href='/app/carpeta_tramites.php'><span>Carpeta de trï¿½mites</span>
 						</a></li>
-				
+
 				</ul>
 			</li>
 			<li class='has-sub'><a href='#'><span>Sistema</span> </a>
@@ -60,9 +60,9 @@
 					</li>
 					<li class='has-sub'><a href='#'><span>Abogados</span> </a>
 						<ul>
-							<li><a href='/app/abogados_list.php'><span>Ver</span> </a></li>
-							<li><a href='/app/abogados_edit.php'><span>Agregar</span> </a></li>
-							<li><a href='/app/buscar_abogados.php'><span>Buscar</span> </a></li>
+							<li><a href='abogados_list.php'><span>Ver</span> </a></li>
+							<li><a href='abogados_edit.php'><span>Agregar</span> </a></li>
+							<li><a href='buscar_abogados.php'><span>Buscar</span> </a></li>
 						</ul>
 					</li>
 					<li class='has-sub'><a href='#'><span>Modalidades</span> </a>
@@ -72,7 +72,7 @@
 							</li>
 						</ul>
 					</li>
-					<li class='has-sub'><a href='#'><span>Tipo de trámites</span> </a>
+					<li class='has-sub'><a href='#'><span>Tipo de trï¿½mites</span> </a>
 						<ul>
 							<li><a href='/app/tipo_tramites_list.php'><span>Ver</span> </a></li>
 							<li><a href='/app/tipo_tramites_edit.php'><span>Agregar</span> </a>
@@ -105,17 +105,17 @@
 						<li><a href='/app/declaratorias_edit.php'><span>Agregar</span> </a>
 							<li><a href='/app/buscar_declaratorias.php'><span>Buscar</span> </a>
 						</li>
-					
+
 					</ul>
 			</li>
 			</li>
-			<li class='has-sub'><a href='#'><span>Cédulas</span> </a>
+			<li class='has-sub'><a href='#'><span>Cï¿½dulas</span> </a>
 				<ul>
 					<li><a href='/app/cedulas_list.php'><span>Ver</span> </a></li>
 					<li><a href='/app/cedulas_edit.php'><span>Agregar</span> </a>
 						<li><a href='/app/buscar_cedulas.php'><span>Buscar</span> </a>
 					</li>
-				
+
 				</ul>
 			</li>
 

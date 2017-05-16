@@ -31,11 +31,11 @@
 
 
 			/* Constants for Document Root (and Virtual Directories / Subfoldering)
-			 * 
+			 *
 			 * IMPORTANT NOTE FOR WINDOWS USERS
 			 * Please note that all paths should use standard "forward" slashes instead of "backslashes".
 			 * So windows paths would look like "c:/wwwroot" instead of "c:\wwwroot".
-			 * 
+			 *
 			 * Please specify the "Document Root" here.  This is the top level filepath for your web application.
 			 * If you are on a installation that uses virtual directories, then you must specify that here, as well.
 			 *
@@ -64,7 +64,7 @@
 			 *		__VIRTUAL_DIRECTORY__ is defined as '/~my_user'
 			 *		__SUBDIRECTORY__ is defined as '/qcodo'
 			 */
-			define ('__DOCROOT__', 'C:\Users\Lola\workspace\elpretorQcodo\www');
+			define ('__DOCROOT__', '/var/www/html/elpretorQcodo/www');
 			define ('__VIRTUAL_DIRECTORY__', '');
 			define ('__SUBDIRECTORY__', '');
 
@@ -124,12 +124,12 @@
 			 * Please specify the file path RELATIVE FROM THE DOCROOT for all the following web-accessible directories
 			 * in your Qcodo-based web application.
 			 *
-			 * For some directories (e.g. the Examples site), if you are no longer using it, you STILL need to 
+			 * For some directories (e.g. the Examples site), if you are no longer using it, you STILL need to
 			 * have the constant defined.  But feel free to define the directory constant as blank (e.g. '') or null.
 			 *
 			 * Note that constants must have a leading slash and no ending slash, and they MUST reside within
 			 * the Document Root.
-			 * 
+			 *
 			 * (We take advantage of the __SUBDIRECTORY__ constant defined above to help simplify this section.
 			 * Note that this is NOT required.  Feel free to use or ignore.)
 			 */
@@ -147,10 +147,12 @@
 			define ('__DEVTOOLS__', null);
 
 			// Location of Qcodo-specific Web Assets (JavaScripts, CSS, Images, and PHP Pages/Popups)
-			define ('__JS_ASSETS__', __SUBDIRECTORY__ . '/assets/js');
-			define ('__CSS_ASSETS__', __SUBDIRECTORY__ . '/assets/css');
-			define ('__IMAGE_ASSETS__', __SUBDIRECTORY__ . '/assets/images');
-			define ('__PHP_ASSETS__', __SUBDIRECTORY__ . '/assets/php');
+			define ('__JS_ASSETS__', __SUBDIRECTORY__ . 'assets/js');
+			define ('__CSS_ASSETS__', __SUBDIRECTORY__ . 'assets/css');
+
+			define ('__IMAGE_ASSETS__', __SUBDIRECTORY__ . 'assets/images');
+			define ('__PHP_ASSETS__', __SUBDIRECTORY__ . 'assets/php');
+			define ('__APP__', 'elpretorQcodo/app');
 
 
 
